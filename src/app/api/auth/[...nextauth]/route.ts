@@ -11,7 +11,7 @@ const nextAuthOptions: NextAuthOptions = {
 			},
 
 			async authorize(credentials, req) {
-				const response = await fetch('http://localhost:4000/user/sign-in', {
+				const response = await fetch('https://gestao-beta.vercel.app/user/sign-in', {
 					method: 'POST',
 					headers: {
 						'Content-type': 'application/json'
