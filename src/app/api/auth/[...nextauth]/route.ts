@@ -26,7 +26,6 @@ const nextAuthOptions: NextAuthOptions = {
 
 				if (response.ok) {
 					const user = await response.json();
-					console.log('API Response JSON Data:', user);
 					if (user) {
 						return user;
 					}
