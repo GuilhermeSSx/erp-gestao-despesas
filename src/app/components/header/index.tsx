@@ -6,12 +6,12 @@ import Logo from "../../assets/Energia-JPNR-BRANCO.png";
 import { Menu, Transition } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
 import { signOut } from "next-auth/react";
-import { useRouter } from "next/navigation";
-import { useSession } from "next-auth/react"; // Importe useSession
+import { useRouter } from "next/router"; // Change "next/navigation" to "next/router"
+import { useSession } from "next-auth/react";
 
 export default function Header() {
     const router = useRouter();
-    const { data: session } = useSession(); // Obtenha a sessão do usuário
+    const { data: session } = useSession();
 
     async function logout() {
         await signOut({
@@ -19,7 +19,7 @@ export default function Header() {
         });
 
         router.replace("/");
-        window.location.reload(); // Recarrega a página após o redirecionamento
+        window.location.reload();
     }
 
     return (
@@ -31,7 +31,6 @@ export default function Header() {
                             <Image priority={true} alt="" src={Logo} width={65} />
                         </Link>
                     </div>
-                    {/* Verifique se há uma sessão de usuário antes de exibir o menu */}
                     {session ? (
                         <ul className="hidden sm:flex">
                             <div>
@@ -45,7 +44,7 @@ export default function Header() {
                                             id="MenuButton"
                                             className="z-24 inline-flex w-full justify-center rounded-md bg-white bg-opacity-20 px-4 py-2 text-sm font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75"
                                         >
-                                            {session.user?.email}
+                                            {session.user?.nome} {/* Display user's name */}
                                             <ChevronDownIcon
                                                 className="ml-2 -mr-1 h-5 w-5 text-violet-200 hover:text-[#CE466F]"
                                                 aria-hidden="true"
@@ -92,7 +91,6 @@ export default function Header() {
                                 <Link href={"/modulos/lancamentos"}>Lançamentos</Link>
                             </li>
                         </ul>
-
                     ) : null}
                 </nav>
             </header>
