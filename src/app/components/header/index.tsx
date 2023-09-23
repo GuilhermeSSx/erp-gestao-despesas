@@ -6,7 +6,7 @@ import Logo from "../../assets/Energia-JPNR-BRANCO.png";
 import { Menu, Transition } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
 import { signOut } from "next-auth/react";
-import { useRouter } from "next/router"; // Change "next/navigation" to "next/router"
+import { useRouter } from "next/navigation"; // Change "next/navigation" to "next/router"
 import { useSession } from "next-auth/react";
 
 export default function Header() {
