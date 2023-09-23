@@ -11,7 +11,7 @@ const nextAuthOptions: NextAuthOptions = {
 			},
 
 			async authorize(credentials, req) {
-				const response = await fetch('https://gestao-beta.vercel.app/user/sign-in', {
+				const response = await fetch('https://jpnr-gestao-api.vercel.app/user/sign-in', {
 					method: 'POST',
 					headers: {
 						'Content-type': 'application/json'
