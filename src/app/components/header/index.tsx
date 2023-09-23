@@ -7,8 +7,7 @@ import { Menu, Transition } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
 import { signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import { useSession } from "next-auth/react"; // Importe useSession
-import { useEffect } from "react";
+import { useSession } from "next-auth/react"
 
 export default function Header() {
     const router = useRouter();
@@ -23,7 +22,8 @@ export default function Header() {
         window.location.reload(); // Recarrega a página após o redirecionamento
     }
 
-    console.log(session);
+    // @ts-ignore
+    const user = session?.nome;
 
     return (
         <div className="">
@@ -48,7 +48,7 @@ export default function Header() {
                                             id="MenuButton"
                                             className="z-24 inline-flex w-full justify-center rounded-md bg-white bg-opacity-20 px-4 py-2 text-sm font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75"
                                         >
-                                            Gui                                           
+                                            {user}
                                             <ChevronDownIcon
                                                 className="ml-2 -mr-1 h-5 w-5 text-violet-200 hover:text-[#CE466F]"
                                                 aria-hidden="true"
