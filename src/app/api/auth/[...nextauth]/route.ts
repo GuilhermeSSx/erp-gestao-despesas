@@ -22,8 +22,6 @@ const nextAuthOptions: NextAuthOptions = {
 					})
 				})
 
-				console.log('API Response Status Code:', response.status);
-
 				if (response.ok) {
 					const user = await response.json();
 					if (user) {
