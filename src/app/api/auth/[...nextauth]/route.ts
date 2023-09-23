@@ -22,13 +22,17 @@ const nextAuthOptions: NextAuthOptions = {
 					})
 				})
 
-				const user = await response.json()
+				console.log('API Response Status Code:', response.status);
 
-				if (user && response.ok) {
-					return user
+				if (response.ok) {
+					const user = await response.json();
+					console.log('API Response JSON Data:', user);
+					if (user) {
+						return user;
+					}
 				}
 
-				return null
+				return null;
 			},
 		})
 	],
