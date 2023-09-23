@@ -36,7 +36,7 @@ export default function Login() {
   return (
     <main className=' fixed h-[calc(100vh-100px)] w-screen bg-slate-400 flex justify-center items-center px-4'>
 
-      <div className=' px-24 sm:px-28 max-w-[100%] h-[32rem] bg-[#ffffff] rounded-xl flex flex-col items-center'>
+      <div className=' px-24 sm:px-28 max-w-[100%] h-[28rem] bg-[#ffffff] rounded-xl flex flex-col items-center'>
         <h2 className='text-[1.3rem] font-extrabold mt-10 text-center bg-black bg-clip-text text-transparent'>Entrar na sua conta</h2>
         <p className=' text-[0.9rem] mt-[0.13rem] text-center'>Ou
           <Link className='ml-1 text-blue-500 hover:text-black underline' href={'/cadastro'}>
