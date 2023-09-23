@@ -13,6 +13,8 @@ export default function Header() {
     const router = useRouter();
     const { data: session } = useSession();
 
+    console.log(session);
+
     async function logout() {
         await signOut({
             redirect: false,
@@ -21,6 +23,8 @@ export default function Header() {
         router.replace("/");
         window.location.reload();
     }
+
+
 
     return (
         <div className="">
@@ -37,14 +41,17 @@ export default function Header() {
                                 <Menu
                                     as="div"
                                     id="MenuDiv"
-                                    className="absolute justify-center w-[160px] right-4 top-3"
+                                    className="absolute justify-center w-fit right-4 top-3"
                                 >
                                     <div>
                                         <Menu.Button
                                             id="MenuButton"
                                             className="z-24 inline-flex w-full justify-center rounded-md bg-white bg-opacity-20 px-4 py-2 text-sm font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75"
                                         >
-                                            {session.user?.nome} {/* Display user's name */}
+                                            <span className="text-white">{session.user?.nome}</span>
+
+
+                                            
                                             <ChevronDownIcon
                                                 className="ml-2 -mr-1 h-5 w-5 text-violet-200 hover:text-[#CE466F]"
                                                 aria-hidden="true"
