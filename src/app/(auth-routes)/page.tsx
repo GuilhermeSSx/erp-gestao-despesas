@@ -6,36 +6,39 @@ import { useRouter } from "next/navigation";
 import { SyntheticEvent, useState } from "react";
 
 export default function Login() {
-  const [email, setEmail] = useState<string>('');
-  const [password, setPassword] = useState<string>('');
-  const [error, setError] = useState<string | null>(null);
 
-  const router = useRouter();
+  const [email, setEmail] = useState<string>('')
+  const [password, setPassword] = useState<string>('')
+
+  const router = useRouter()
 
   async function handleSubmit(event: SyntheticEvent) {
-    event.preventDefault();
+    event.preventDefault()
 
     const result = await signIn('credentials', {
       email,
       password,
       redirect: false
-    });
+    })
 
     if (result?.error) {
-      setError("Login falhou. Verifique suas credenciais.");
-      return;
+      console.log(result)
+      return
     }
 
-    router.replace('/modulos');
+    router.replace('/modulos')
     window.location.reload(); // Recarrega a página após o redirecionamento
   }
 
+
+
+
   return (
-    <main className='fixed h-[calc(100vh-100px)] w-screen bg-slate-400 flex justify-center items-center px-4'>
-      <div className='px-24 sm:px-28 max-w-[100%] h-[32rem] bg-[#ffffff] rounded-xl flex flex-col items-center'>
+    <main className=' fixed h-[calc(100vh-100px)] w-screen bg-slate-400 flex justify-center items-center px-4'>
+
+      <div className=' px-24 sm:px-28 max-w-[100%] h-[32rem] bg-[#ffffff] rounded-xl flex flex-col items-center'>
         <h2 className='text-[1.3rem] font-extrabold mt-10 text-center bg-black bg-clip-text text-transparent'>Entrar na sua conta</h2>
-        <p className='text-[0.9rem] mt-[0.13rem] text-center'>
-          Ou
+        <p className=' text-[0.9rem] mt-[0.13rem] text-center'>Ou
           <Link className='ml-1 text-blue-500 hover:text-black underline' href={'/cadastro'}>
             Cadastrar Nova Conta
           </Link>
@@ -52,7 +55,7 @@ export default function Login() {
               block border w-full px-2 py-2 mt-12 rounded-t-md' 
               placeholder='Email'
               onChange={(event) => setEmail(event.target.value)}
-            />
+              />
           </div>
           <div>
             <input 
@@ -78,17 +81,11 @@ export default function Login() {
             </div>
           </div>
 
-          {error && (
-            <div className="text-red-500 text-sm mt-8 flex justify-center">
-              {error}
-            </div>
-          )}
-
           <div className='mt-10'>
             <button
               type='submit'
               className='group relative w-full flex justify-center py-2 px-4 border border-transparent
-              text-sm font-medium rounded-md bg-lime-400 hover:bg-lime-500 hover:scale-[1.02] transition duration-300'>Entrar</button>
+            text-sm font-medium rounded-md bg-lime-400 hover:bg-lime-500 hover:scale-[1.02] transition duration-300'>Entrar</button>
           </div>
         </form>
 
@@ -97,7 +94,9 @@ export default function Login() {
           <img className="w-6 h-6" src="https://www.svgrepo.com/show/475656/google-color.svg" loading="lazy" alt="google logo" />
           <span>Login com o Google</span>
         </button>
+
+
       </div>
     </main>
-  );
+  )
 }
