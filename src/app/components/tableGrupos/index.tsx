@@ -44,7 +44,7 @@ const TableGrupos: React.FC<TableGruposProps> = ({ grupos }) => {
     };
 
     return (
-        <div className='rounded-lg pl-2 h-[26rem] w-[98%] overflow-y-scroll'>
+        <div className='rounded-lg pl-2 h-full w-[98%] overflow-y-scroll'>
             <table className="w-full h-fit">
                 {/* ... (thead) */}
                 <tbody className="divide-y divide-gray-100">

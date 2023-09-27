@@ -23,7 +23,7 @@ export default function Header() {
     }
 
     // @ts-ignore
-    const user = session?.nome;
+    const user = session?.user?.name;
 
     return (
         <div className="">
@@ -41,7 +41,7 @@ export default function Header() {
                                 <Menu
                                     as="div"
                                     id="MenuDiv"
-                                    className="absolute justify-center w-[160px] right-4 top-3"
+                                    className="absolute justify-center w-fit right-4 top-3"
                                 >
                                     <div>
                                         <Menu.Button
@@ -55,7 +55,7 @@ export default function Header() {
                                             />
                                         </Menu.Button>
                                     </div>
-                                    <Menu.Items className="right-0 mt-2 w-[160px] origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                                    <Menu.Items className="right-0 mt-2 w-full origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                                         <div className="px-1 py-1">
                                             <Menu.Item>
                                                 {({ active }) => (

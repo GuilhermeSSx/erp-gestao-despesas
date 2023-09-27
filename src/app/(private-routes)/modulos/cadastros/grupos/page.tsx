@@ -12,11 +12,13 @@ const grupos: Grupo[] = [
     // Mais objetos de categoria aqui...
 ];
 
+
+
 export default function Grupos() {
     return (
         <div className="fixed w-screen h-[calc(100vh-100px)] flex flex-col">
-            <div className='mt-6 px-2 sm:px-36'>
-                <form className='flex justify-center px-2 mt-[0.4rem]'>
+            <div className='mt-4 flex flex-col px-4 sm:pr-[170px] sm:pl-[148px] h-fit'>
+                <form className='flex justify-center mt-[0.4rem]'>
                     <input id='cadastrar' className='appearance-none rounded-none relative
                         block border w-full px-4 py-2 rounded-t-md' type='text' placeholder='Cadastrar Grupo Empresarial' />
                     <button title="Adicionar Categoria" className=' ml-1 group relative w-22 flex justify-center py-2 px-4 border border-transparent
@@ -29,7 +31,7 @@ export default function Grupos() {
                     </button>
                 </form>
             </div>
-            <div className='mt-4 w-full px-2 sm:px-36 '>
+            <div className='mt-1 flex w-full h-full sm:pb-28 sm:px-[140px]'>
                 <TableGrupos grupos={grupos} />
             </div>
         </div>
