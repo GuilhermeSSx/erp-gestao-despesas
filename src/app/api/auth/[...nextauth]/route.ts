@@ -1,6 +1,5 @@
 import NextAuth, { NextAuthOptions } from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials"
-import GoogleProvider from "next-auth/providers/google"
 
 const nextAuthOptions: NextAuthOptions = {
 	providers: [
@@ -32,11 +31,7 @@ const nextAuthOptions: NextAuthOptions = {
 
 				return null;
 			},
-		}),
-		GoogleProvider({
-			clientId: process.env.GOOGLE_CLIENT_ID??"",
-			clientSecret: process.env.GOOGLE_CLIENT_SECRET??"",
-		}),
+		})
 	],
 	pages: {
 		signIn: '/'
@@ -52,7 +47,6 @@ const nextAuthOptions: NextAuthOptions = {
 					id_usuario: string;
 					email: string;
 					name: string;
-					google_id: string;
 				};
 			}
 			return session;
