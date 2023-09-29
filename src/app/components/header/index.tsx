@@ -22,10 +22,6 @@ export default function Header() {
         window.location.reload(); // Recarrega a página após o redirecionamento
     }
 
-    const goCadastroUsuarios = () => {
-        router.push('/cadastroUsuarios');
-    };
-
     // @ts-ignore
     const user = session?.user?.name;
 
@@ -42,7 +38,7 @@ export default function Header() {
                     <div className="flex items-center mr-4">
                         <button
                             className="text-white text-sm text-center"
-                            onClick={goCadastroUsuarios}
+                            onClick={() => router.push('/cadastroUsuarios')}
                         >
                             Cadastro Usuarios
                         </button>

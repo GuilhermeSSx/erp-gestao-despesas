@@ -41,18 +41,14 @@ const nextAuthOptions: NextAuthOptions = {
 			user && (token.user = user)
 			return token
 		},
-		async session({ session, token }){
-			if (token && typeof token.user === 'object') {
-				session.user = token.user as {
-					id_usuario: string;
-					name: string;
-					email: string;
-				};
-			}
+		async session({ session, token }) {
 			return session;
 		},
-		
-	}
+	},
+	session: {
+		// Defina a duração da sessão em segundos (por exemplo, 1 hora)
+		maxAge: 28800,
+	},
 }
 
 const handler = NextAuth(nextAuthOptions)

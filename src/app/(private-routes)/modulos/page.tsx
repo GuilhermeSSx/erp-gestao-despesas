@@ -65,7 +65,7 @@ const Modulos: React.FC = () => {
           exit={{ opacity: 0, x: 40}}
           className="fixed w-screen h-[calc(100vh-60px)] flex flex-col justify-center items-center text-white px-6">
           <div className='p-8 sm:w-[60%] w-full h-[80%] bg-[#4b4b4b2d] rounded-xl flex flex-col items-center shadow-2xl'>
-            <h1 className='text-[1.5rem] font-extrabold text-black'>Lista de Módulos</h1>
+            <h1 className='text-[1.5rem] font-extrabold text-black select-none'>Lista de Módulos</h1>
             <form className='flex justify-center mt-[0.7rem] text-black w-full'>
               <input
                 id='pesquisar'
