@@ -149,7 +149,7 @@ export default function Favorecidos() {
     );
 
     return (
-        <div className="fixed w-screen h-[calc(100vh-100px)] flex bg-slate-200">
+        <div className="fixed w-screen h-[calc(100vh-60px)] flex bg-slate-200">
 
             {/* Cadastro Tipo */}
             <div className='w-[18%] h-full flex flex-col bg-gradient-to-r from-[#8ed15aec] via-[#ffffff80] to-[#80797802] px-2'>

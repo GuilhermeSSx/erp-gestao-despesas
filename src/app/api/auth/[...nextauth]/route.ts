@@ -45,8 +45,8 @@ const nextAuthOptions: NextAuthOptions = {
 			if (token && typeof token.user === 'object') {
 				session.user = token.user as {
 					id_usuario: string;
-					email: string;
 					name: string;
+					email: string;
 				};
 			}
 			return session;

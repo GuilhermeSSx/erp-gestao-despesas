@@ -13,7 +13,7 @@ const centroCustos: CentroCusto[] = [
 
 export default function CentroDeCusto() {
     return (
-        <div className="fixed w-screen h-[calc(100vh-100px)] flex flex-col">
+        <div className="fixed w-screen h-[calc(100vh-60px)] flex flex-col">
             <div className='mt-6 px-2 sm:px-36'>
                 <form className='flex justify-center px-2 mt-[0.4rem]'>
                     <input id='cadastrar' className='appearance-none rounded-none relative

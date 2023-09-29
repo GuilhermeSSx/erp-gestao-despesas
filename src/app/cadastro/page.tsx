@@ -63,7 +63,7 @@ export default function Cadastro() {
     };
 
     return (
-        <main className='fixed h-[calc(100vh-100px)] w-screen bg-slate-400 flex justify-center items-center px-4'>
+        <main className='fixed h-[calc(100vh-60px)] w-screen bg-slate-400 flex justify-center items-center px-4'>
             {showDiv ? ( // Mostrar a div apenas quando showDiv for true
                 <div className='px-24 sm:px-28 max-w-[100%] h-[30rem] bg-[#ffffff] rounded-xl flex flex-col items-center'>
                     <h2 className='text-[1.3rem] font-extrabold mt-12 text-center'>Criar sua Conta</h2>

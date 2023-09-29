@@ -15,6 +15,8 @@ module.exports = {
       },
       screens: {
         'md-custom': '768px',
+        'md-web': '470px',
+        'sm-mobile': '360px'
       },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',

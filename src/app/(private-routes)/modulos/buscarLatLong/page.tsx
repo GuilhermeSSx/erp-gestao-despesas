@@ -8,7 +8,7 @@ export default function BuscarLatLong() {
     const [resultado, setResultado] = useState('');
 
     return (
-        <main className=' fixed h-[calc(100vh-100px)] w-screen bg-slate-400 flex justify-center items-center px-4'>
+        <main className=' fixed h-[calc(100vh-60px)] w-screen bg-slate-400 flex justify-center items-center px-4'>
 
             <div className=' px-24 sm:px-28 max-w-[100%] h-[26rem] bg-[#ffffff] rounded-xl flex flex-col items-center'>
                 <h2 className=' text-xl font-extrabold mt-10 text-center'>Buscar</h2>

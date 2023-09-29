@@ -3,7 +3,7 @@ import Link from 'next/link'
 
 export default function EsqueceuSenha() {
   return (
-    <main className=' fixed h-[calc(100vh-100px)] w-screen bg-slate-400 flex flex-col justify-center items-center px-4'>
+    <main className=' fixed h-[calc(100vh-60px)] w-screen bg-slate-400 flex flex-col justify-center items-center px-4'>
       
       <div className='border-s-indigo-500 sm:w-[26.5rem] sm:p-3 p-3 w-[100%] h-[7rem] bg-white rounded-xl flex flex-col items-center '>
         <p className='flex '>

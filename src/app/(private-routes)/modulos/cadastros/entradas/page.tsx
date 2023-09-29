@@ -84,7 +84,7 @@ export default function Entradas() {
     );
 
     return (
-        <div className="fixed w-screen h-[calc(100vh-100px)] flex">
+        <div className="fixed w-screen h-[calc(100vh-60px)] flex">
             <div className='sm:w-[60%] w-full h-full flex py-1 px-1'>
                 <TableEntrada entradas={entradas} />
             </div>

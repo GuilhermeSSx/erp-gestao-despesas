@@ -16,7 +16,7 @@ const grupos: Grupo[] = [
 
 export default function Grupos() {
     return (
-        <div className="fixed w-screen h-[calc(100vh-100px)] flex flex-col">
+        <div className="fixed w-screen h-[calc(100vh-60px)] flex flex-col">
             <div className='mt-4 flex flex-col px-4 sm:pr-[170px] sm:pl-[148px] h-fit'>
                 <form className='flex justify-center mt-[0.4rem]'>
                     <input id='cadastrar' className='appearance-none rounded-none relative
