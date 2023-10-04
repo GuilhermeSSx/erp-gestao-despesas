@@ -3,6 +3,8 @@ import Link from 'next/link'
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation"; // Corrigido de next/navigation
 import { SyntheticEvent, useState } from "react";
+import LoginLogo from "../assets/jpnr-login.png";
+import Image from "next/image";
 
 
 export default function Login() {
@@ -38,16 +40,20 @@ export default function Login() {
   }
 
   return (
-    <main className='fixed h-[calc(100vh-60px)] w-screen bg-slate-400 flex justify-center items-center px-4'>
-      <div className='px-24 sm:px-28 max-w-[100%] h-[30rem] bg-[#ffffff] rounded-xl flex flex-col items-center'>
-        <h2 className='text-[1.3rem] font-extrabold mt-10 text-center bg-black bg-clip-text text-transparent'>Entrar na sua conta</h2>
-        <p className='text-[0.9rem] mt-[0.13rem] text-center'>Ou
-          <Link className='ml-1 text-blue-500 hover:text-black underline' href={'/cadastro'}>
-            Cadastrar Nova Conta
-          </Link>
-        </p>
+    <main className='h-[calc(100vh-60px)] w-full bg-slate-400 flex justify-center items-center overflow-auto sm:p-10 p-4'>
 
-        <form className='w-[150%] flex flex-col justify-center' onSubmit={handleSubmit}>
+      <div className='w-full lg-1920:w-[30%] md-1190:w-[40%] md:w-[60%] md-web:w-[90%] h-fit bg-[#ffffff] rounded-xl flex flex-col items-center justify-center p-4'>
+
+        <Image
+          className='flex relative justify-center items-center my-2'
+          priority={true}
+          alt=""
+          src={LoginLogo}
+          width={240}
+        />
+        <h2 className='text-[1.3rem] font-extrabold my-2 text-center bg-black bg-clip-text text-transparent'>Entrar na sua conta</h2>
+
+        <form className='w-[100%] flex flex-col justify-center sm:px-14 px-8' onSubmit={handleSubmit}>
           <div>
             <input
               id='email'
@@ -55,7 +61,7 @@ export default function Login() {
               autoComplete='none'
               required
               className='appearance-none rounded-none relative
-              block border w-full px-2 py-2 mt-12 rounded-t-md'
+              block border w-full px-2 py-2 mt-6 rounded-t-md'
               placeholder='Email'
               onChange={(event) => setEmail(event.target.value)}
             />
@@ -84,7 +90,7 @@ export default function Login() {
             </div>
           </div>
 
-          <div className='mt-8'>
+          <div className='my-8'>
             <button
               type='submit'
               className='group relative w-full flex justify-center py-2 px-4 border border-transparent

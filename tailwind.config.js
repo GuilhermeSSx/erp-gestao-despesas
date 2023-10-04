@@ -14,7 +14,8 @@ module.exports = {
         jpnrAzul: '#24C5E8',
       },
       screens: {
-        'md-custom': '768px',
+        'lg-1920': '1920px',
+        'md-1190': '1190px',
         'md-web': '470px',
         'sm-mobile': '360px'
       },

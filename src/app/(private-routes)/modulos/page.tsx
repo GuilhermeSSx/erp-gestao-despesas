@@ -17,7 +17,6 @@ const modulos: Option[] = [
 ];
 
 const Modulos: React.FC = () => {
-  // const [isVisible, setIsVisible] = useState(true); // Detectar quando é fechado.
 
   const searchInputRef = useRef<HTMLInputElement | null>(null);
   const [searchInput, setSearchInput] = useState<string>('');
@@ -41,32 +40,17 @@ const Modulos: React.FC = () => {
     }
   }, []);
 
-  // useEffect(() => {
-  //   const handleBeforeUnload = (e: BeforeUnloadEvent) => {
-  //     setIsVisible(false)
-
-  //   };
-
-  //   // Add the event listener when the component mounts
-  //   window.addEventListener('beforeunload', handleBeforeUnload);
-
-  //   // Remove the event listener when the component unmounts
-  //   return () => {
-  //     window.removeEventListener('beforeunload', handleBeforeUnload);
-  //   };
-  // }, []);
-
   return (
     <AnimatePresence>
       {(
         <motion.div
           initial={{ opacity: 0, x: -80 }}
           animate={{ opacity: 1, x: 0 }}
-          exit={{ opacity: 0, x: 40}}
-          className="fixed w-screen h-[calc(100vh-60px)] flex flex-col justify-center items-center text-white px-6">
-          <div className='p-8 sm:w-[60%] w-full h-[80%] bg-[#4b4b4b2d] rounded-xl flex flex-col items-center shadow-2xl'>
+          exit={{ opacity: 0, x: 40 }}
+          className=" w-screen h-[calc(100vh-60px)] flex flex-col justify-center items-center text-white px-6">
+          <div className='p-8 md:w-[60%] w-full h-[80%] bg-[#4b4b4b2d] rounded-xl flex flex-col items-center shadow-2xl'>
             <h1 className='text-[1.5rem] font-extrabold text-black select-none'>Lista de Módulos</h1>
-            <form className='flex justify-center mt-[0.7rem] text-black w-full'>
+            <div className='flex justify-center mt-[0.7rem] text-black w-full'>
               <input
                 id='pesquisar'
                 ref={searchInputRef}
@@ -76,7 +60,7 @@ const Modulos: React.FC = () => {
                 value={searchInput}
                 onChange={handleSearchChange}
               />
-            </form>
+            </div>
             <div className="border mt-2 w-full " />
             <div className='mt-4 w-full h-full overflow-y-scroll flex justify-center my-2 divide-y bg-[#69646410] rounded-lg'>
               <ul className=' w-full px-2 '>
