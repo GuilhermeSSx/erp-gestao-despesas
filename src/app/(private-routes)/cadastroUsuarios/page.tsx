@@ -100,6 +100,7 @@ export default function CadastroUsuarios() {
                 getUsers();
                 setCadastroSuccess(true);
                 setCadastroError(false);
+                
             } else {
                 setCadastroError(true);
                 setCadastroSuccess(false);
@@ -109,6 +110,9 @@ export default function CadastroUsuarios() {
             setCadastroSuccess(false);
         } finally {
             setLoading(false);
+            if (cadastroSuccess || cadastroError) {
+                setAlertVisible(true);
+            }
         }
     };
 
@@ -138,10 +142,6 @@ export default function CadastroUsuarios() {
         setCadastroSuccess(false);
         setCadastroError(false);
     };
-
-    if (cadastroSuccess || cadastroError) {
-        setAlertVisible(true);
-    }
 
     return (
         <main className='md-web:w-screen md-web:h-[calc(100vh-60px)] flex justify-center items-center p-2 md-web:flex-row flex-col overflow-auto bg-black'>
