@@ -23,11 +23,9 @@ const PopupExcluirUsuario: React.FC<PopupProps> = ({ open, onClose, userName, us
             });
 
             if (response.ok) {
-                console.log('User deleted successfully');
-                // Reload the users when the deletion is successful
                 reloadUsers();
             } else {
-                console.error('Failed to delete user');
+                console.error('Erro ao deletar ao usuario');
                 // Handle error if necessary
             }
 

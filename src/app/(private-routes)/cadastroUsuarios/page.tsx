@@ -209,27 +209,34 @@ export default function CadastroUsuarios() {
 
 
 
-            {/* {alertVisible && (
+            {alertVisible && (
                 <Alert
                     className={`absolute bottom-6 left-6 bg-${cadastroSuccess ? 'jpnrVerde' : 'red-500'} w-fit h-fit text-center items-center z-50`}
                     open={alertVisible}
-                    icon={<Icon />}
-                    action={
-                        <Button
-                            variant="text"
-                            color="white"
-                            size="sm"
-                            onClick={handleAlertClose}
-                        >
-                            Fechar
-                        </Button>
-                    }
                 >
-                    <span className='text-center p-4'>
-                        {cadastroSuccess ? 'Cadastro realizado com sucesso!' : 'Erro no cadastro!'}
-                    </span>
+                    teste
+
                 </Alert>
-            )} */}
+                // <Alert
+                //     className={`absolute bottom-6 left-6 bg-${cadastroSuccess ? 'jpnrVerde' : 'red-500'} w-fit h-fit text-center items-center z-50`}
+                //     open={alertVisible}
+                //     icon={<Icon />}
+                //     action={
+                //         <Button
+                //             variant="text"
+                //             color="white"
+                //             size="sm"
+                //             onClick={handleAlertClose}
+                //         >
+                //             Fechar
+                //         </Button>
+                //     }
+                // >
+                //     <span className='text-center p-4'>
+                //         {cadastroSuccess ? 'Cadastro realizado com sucesso!' : 'Erro no cadastro!'}
+                //     </span>
+                // </Alert>
+            )}
 
             {/* Selecionar Usuario, remover, Permissoes */}
             <div className='flex flex-col items-center w-full md-web:w-[50%] md-web:mt-0 mt-4 h-full bg-orange-400 rounded-lg md-web:ml-1 px-4'>
