@@ -1,27 +1,63 @@
 "use client"
 import TableUsuarios from '@/app/components/tableUsuarios';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useRouter } from 'next/navigation';
 import { Alert, Button } from "@material-tailwind/react";
 
 interface Usuario {
     id: number;
-    nome_usuario: string;
+    name: string;
 }
 
-const usuarioData: Usuario[] = [
-    { id: 1, nome_usuario: 'Guilherme' },
-    { id: 2, nome_usuario: 'Alcélio' },
-    { id: 3, nome_usuario: 'Taina' },
-    { id: 4, nome_usuario: 'Paulo' },
-    { id: 5, nome_usuario: 'Gabriel' },
-    { id: 6, nome_usuario: 'Luca' },
-    { id: 7, nome_usuario: 'Kodama' },
-    { id: 8, nome_usuario: 'usuario teste' },
-    // Mais objetos de usuario aqui...
-];
 
 export default function CadastroUsuarios() {
+
+    const [usuariosData, setUsuariosData] = useState<Usuario[]>([]); // Initialize usuariosData state
+
+    useEffect(() => {
+        getUsers();
+    }, []);
+
+    const getUsers = async () => {
+        try {
+            const response = await fetch('http://localhost:4000/user/get-users', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                console.log(data);
+
+                // Assuming 'usuarios' is the array in your JSON data
+                setUsuariosData(data.usuarios);
+            } else {
+                throw new Error('Erro ao buscar os usuários');
+            }
+        } catch (error) {
+            console.error('Erro:', error);
+            // Handle error if necessary
+        }
+    };
+
+    const deleteUser = async () => {
+        try {
+            const response = await fetch('http://localhost:4000/user/get-users', {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+
+        } catch (error) {
+            console.error('Erro:', error);
+            // Handle error if necessary
+        }
+    };
+
+    
 
     const [loading, setLoading] = useState(false);
     const [cadastroSuccess, setCadastroSuccess] = useState(false);
@@ -63,6 +99,7 @@ export default function CadastroUsuarios() {
             console.log(response)
 
             if (response.ok) {
+                getUsers();
                 setCadastroSuccess(true);
                 setCadastroError(false);
             } else {
@@ -222,7 +259,11 @@ export default function CadastroUsuarios() {
                     />
                 </form>
 
-                <TableUsuarios usuarios={usuarioData} onUsuarioSelected={handleUsuarioSelected} />
+                <Suspense fallback={<span className='absolute z-50'>Carregando....</span>}>
+                    <TableUsuarios usuarios={usuariosData} onUsuarioSelected={handleUsuarioSelected} />
+                </Suspense>
+
+                
 
 
                 <div className='flex justify-center items-center rounded w-full h-fit'>

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 interface Usuario {
     id: number;
-    nome_usuario: string;
+    name: string;
 }
 
 interface TableUsuariosProps {
@@ -28,15 +28,15 @@ const TableUsuarios: React.FC<TableUsuariosProps> = ({ usuarios, onUsuarioSelect
                     </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-100">
+
                     {usuarios.map((usuario) => (
-                        <tr 
+                        <tr
                             key={usuario.id}
-                            className={`hover:bg-slate-300 cursor-pointer ${
-                            selectedItem === usuario ? 'bg-selecaoLinha' : 'bg-white' }`}
+                            className={`hover:bg-slate-300 cursor-pointer ${selectedItem === usuario ? 'bg-selecaoLinha' : 'bg-white'}`}
                             onClick={() => handleRowClick(usuario)}
                         >
                             <td className="p-3 text-xs font-semibold text-gray-700 whitespace-nowrap">
-                                {usuario.nome_usuario}
+                                {usuario.name}
                             </td>
                         </tr>
                     ))}
