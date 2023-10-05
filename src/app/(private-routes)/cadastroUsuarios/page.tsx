@@ -4,6 +4,7 @@ import { useState, useEffect, Suspense } from 'react';
 import { useRouter } from 'next/navigation';
 import { Alert, Button } from "@material-tailwind/react";
 import PopupExcluirUsuario from '@/app/components/popupExcluirUsuario';
+import AlertLogin from '@/app/components/alertLogin';
 
 interface Usuario {
     id: number;
@@ -100,23 +101,31 @@ export default function CadastroUsuarios() {
                 getUsers();
                 setCadastroSuccess(true);
                 setCadastroError(false);
-                
+
             } else {
                 setCadastroError(true);
                 setCadastroSuccess(false);
+
             }
         } catch (error) {
             setCadastroError(true);
             setCadastroSuccess(false);
+
         } finally {
             setLoading(false);
-            if (cadastroSuccess || cadastroError) {
-                setAlertVisible(true);
-            }
+
         }
     };
 
     // ---------------------------------------------------------------------------
+
+    // const [alertVisible, setAlertVisible] = useState(false); // Nova variável de estado
+
+    // const handleAlertClose = () => {
+    //     setAlertVisible(false);
+    //     setCadastroSuccess(false);
+    //     setCadastroError(false);
+    // };
 
     function Icon() {
         return (
@@ -135,13 +144,7 @@ export default function CadastroUsuarios() {
         );
     }
 
-    const [alertVisible, setAlertVisible] = useState(false); // Nova variável de estado
-
-    const handleAlertClose = () => {
-        setAlertVisible(false);
-        setCadastroSuccess(false);
-        setCadastroError(false);
-    };
+    const [open, setOpen] = useState(true);
 
     return (
         <main className='md-web:w-screen md-web:h-[calc(100vh-60px)] flex justify-center items-center p-2 md-web:flex-row flex-col overflow-auto bg-black'>
@@ -206,27 +209,57 @@ export default function CadastroUsuarios() {
 
 
 
-            {alertVisible && (
+
+
+
+            {cadastroSuccess ? (
                 <Alert
-                    className={`absolute bottom-6 left-6 bg-${cadastroSuccess ? 'jpnrVerde' : 'red-500'} w-fit h-fit text-center items-center z-50`}
-                    open={alertVisible}
+                    className='absolute bottom-6 left-6 bg-jpnrVerde w-fit h-fit text-center items-center z-50'
+                    open={cadastroSuccess}
                     icon={<Icon />}
                     action={
                         <Button
                             variant="text"
                             color="white"
                             size="sm"
-                            onClick={handleAlertClose}
+                            onClick={() => {
+                                setCadastroSuccess(false);
+                                setOpen(false);
+                            }}
+                        >
+                            Fechar
+                        </Button>
+                    }
+
+                >
+                    <span className='text-center p-4'>
+                        Cadastro realizado com sucesso!
+                    </span>
+                </Alert>
+            ) : cadastroError ? (
+                <Alert
+                    className='absolute bottom-6 left-6 bg-red-500 w-fit h-fit text-center items-center z-50'
+                    open={!!cadastroError}
+                    icon={<Icon />}
+                    action={
+                        <Button
+                            variant="text"
+                            color="white"
+                            size="sm"
+                            onClick={() => {
+                                setCadastroError(false);
+                                setOpen(false);
+                            }}
                         >
                             Fechar
                         </Button>
                     }
                 >
                     <span className='text-center p-4'>
-                        {cadastroSuccess ? 'Cadastro realizado com sucesso!' : 'Erro no cadastro!'}
+                        Erro no cadastro!
                     </span>
                 </Alert>
-            )}
+            ) : null}
 
             {/* Selecionar Usuario, remover, Permissoes */}
             <div className='flex flex-col items-center w-full md-web:w-[50%] md-web:mt-0 mt-4 h-full bg-orange-400 rounded-lg md-web:ml-1 px-4'>
