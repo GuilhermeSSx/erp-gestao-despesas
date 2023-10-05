@@ -16,7 +16,7 @@ export default function CadastroUsuarios() {
     const [usuariosData, setUsuariosData] = useState<Usuario[]>([]); // Initialize usuariosData state
 
     useEffect(() => {
-        getUsers();
+        //getUsers();
     }, []);
 
     const getUsers = async () => {
@@ -196,7 +196,7 @@ export default function CadastroUsuarios() {
 
 
 
-            {cadastroSuccess ? (
+            {/* {cadastroSuccess ? (
                 <Alert
                     className='absolute bottom-6 left-6 bg-jpnrVerde w-fit h-fit text-center items-center z-50'
                     open={cadastroSuccess}
@@ -243,7 +243,7 @@ export default function CadastroUsuarios() {
                         Erro no cadastro!
                     </span>
                 </Alert>
-            ) : null}
+            ) : null} */}
 
             {/* Selecionar Usuario, remover, Permissoes */}
             <div className='flex flex-col items-center w-full md-web:w-[50%] md-web:mt-0 mt-4 h-full bg-orange-400 rounded-lg md-web:ml-1 px-4'>
