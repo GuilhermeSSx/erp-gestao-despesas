@@ -211,6 +211,8 @@ export default function CadastroUsuarios() {
                 />
             ) : null}
 
+
+
             {/* Selecionar Usuario, remover, Permissoes */}
             <div className='flex flex-col items-center w-full md-web:w-[50%] md-web:mt-0 mt-4 h-full bg-orange-400 rounded-lg md-web:ml-1 px-4'>
                 <h1 className='font-extrabold text-white text-center mt-4 select-none'>Selecionar Usuarios Permissões / Remover </h1>
