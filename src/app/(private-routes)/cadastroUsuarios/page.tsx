@@ -133,13 +133,6 @@ export default function CadastroUsuarios() {
 
     const [alertVisible, setAlertVisible] = useState(false); // Nova variável de estado
 
-    useEffect(() => {
-        // Se cadastroSuccess ou cadastroError forem true, mostra o Alert
-        if (cadastroSuccess || cadastroError) {
-            setAlertVisible(true);
-        }
-    }, [cadastroSuccess, cadastroError]);
-
     const handleAlertClose = () => {
         setAlertVisible(false);
         setCadastroSuccess(false);
@@ -213,29 +206,22 @@ export default function CadastroUsuarios() {
                 <Alert
                     className={`absolute bottom-6 left-6 bg-${cadastroSuccess ? 'jpnrVerde' : 'red-500'} w-fit h-fit text-center items-center z-50`}
                     open={alertVisible}
+                    icon={<Icon />}
+                    action={
+                        <Button
+                            variant="text"
+                            color="white"
+                            size="sm"
+                            onClick={handleAlertClose}
+                        >
+                            Fechar
+                        </Button>
+                    }
                 >
-                    teste
-
+                    <span className='text-center p-4'>
+                        {cadastroSuccess ? 'Cadastro realizado com sucesso!' : 'Erro no cadastro!'}
+                    </span>
                 </Alert>
-                // <Alert
-                //     className={`absolute bottom-6 left-6 bg-${cadastroSuccess ? 'jpnrVerde' : 'red-500'} w-fit h-fit text-center items-center z-50`}
-                //     open={alertVisible}
-                //     icon={<Icon />}
-                //     action={
-                //         <Button
-                //             variant="text"
-                //             color="white"
-                //             size="sm"
-                //             onClick={handleAlertClose}
-                //         >
-                //             Fechar
-                //         </Button>
-                //     }
-                // >
-                //     <span className='text-center p-4'>
-                //         {cadastroSuccess ? 'Cadastro realizado com sucesso!' : 'Erro no cadastro!'}
-                //     </span>
-                // </Alert>
             )}
 
             {/* Selecionar Usuario, remover, Permissoes */}
