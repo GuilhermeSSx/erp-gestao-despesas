@@ -16,7 +16,7 @@ export default function CadastroUsuarios() {
     const [usuariosData, setUsuariosData] = useState<Usuario[]>([]); // Initialize usuariosData state
 
     useEffect(() => {
-        //getUsers();
+        getUsers();
     }, []);
 
     const getUsers = async () => {
@@ -131,7 +131,20 @@ export default function CadastroUsuarios() {
         );
     }
 
-    const [open, setOpen] = useState(true);
+    const [alertVisible, setAlertVisible] = useState(false); // Nova variável de estado
+
+    useEffect(() => {
+        // Se cadastroSuccess ou cadastroError forem true, mostra o Alert
+        if (cadastroSuccess || cadastroError) {
+            setAlertVisible(true);
+        }
+    }, [cadastroSuccess, cadastroError]);
+
+    const handleAlertClose = () => {
+        setAlertVisible(false);
+        setCadastroSuccess(false);
+        setCadastroError(false);
+    };
 
     return (
         <main className='md-web:w-screen md-web:h-[calc(100vh-60px)] flex justify-center items-center p-2 md-web:flex-row flex-col overflow-auto bg-black'>
@@ -196,54 +209,27 @@ export default function CadastroUsuarios() {
 
 
 
-            {/* {cadastroSuccess ? (
+            {alertVisible && (
                 <Alert
-                    className='absolute bottom-6 left-6 bg-jpnrVerde w-fit h-fit text-center items-center z-50'
-                    open={cadastroSuccess}
+                    className={`absolute bottom-6 left-6 bg-${cadastroSuccess ? 'jpnrVerde' : 'red-500'} w-fit h-fit text-center items-center z-50`}
+                    open={alertVisible}
                     icon={<Icon />}
                     action={
                         <Button
                             variant="text"
                             color="white"
                             size="sm"
-                            onClick={() => {
-                                setCadastroSuccess(false);
-                                setOpen(false);
-                            }}
-                        >
-                            Fechar
-                        </Button>
-                    }
-
-                >
-                    <span className='text-center p-4'>
-                        Cadastro realizado com sucesso!
-                    </span>
-                </Alert>
-            ) : cadastroError ? (
-                <Alert
-                    className='absolute bottom-6 left-6 bg-red-500 w-fit h-fit text-center items-center z-50'
-                    open={!!cadastroError}
-                    icon={<Icon />}
-                    action={
-                        <Button
-                            variant="text"
-                            color="white"
-                            size="sm"
-                            onClick={() => {
-                                setCadastroError(false);
-                                setOpen(false);
-                            }}
+                            onClick={handleAlertClose}
                         >
                             Fechar
                         </Button>
                     }
                 >
                     <span className='text-center p-4'>
-                        Erro no cadastro!
+                        {cadastroSuccess ? 'Cadastro realizado com sucesso!' : 'Erro no cadastro!'}
                     </span>
                 </Alert>
-            ) : null} */}
+            )}
 
             {/* Selecionar Usuario, remover, Permissoes */}
             <div className='flex flex-col items-center w-full md-web:w-[50%] md-web:mt-0 mt-4 h-full bg-orange-400 rounded-lg md-web:ml-1 px-4'>
@@ -287,6 +273,7 @@ export default function CadastroUsuarios() {
                                 onClose={fecharPopupExcluirUsuario}
                                 userId={selectedUsuario.id}
                                 userName={selectedUsuario.name}
+                                reloadUsers={getUsers}
                             />
                         )}
 

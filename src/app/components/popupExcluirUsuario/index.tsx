@@ -8,9 +8,10 @@ interface PopupProps {
     onClose: () => void;
     userName: string;
     userId: number;
+    reloadUsers: () => void;
 }
 
-const PopupExcluirUsuario: React.FC<PopupProps> = ({ open, onClose, userName, userId }) => {
+const PopupExcluirUsuario: React.FC<PopupProps> = ({ open, onClose, userName, userId, reloadUsers }) => {
 
     const deleteUser = async (id: number) => {
         try {
@@ -21,7 +22,14 @@ const PopupExcluirUsuario: React.FC<PopupProps> = ({ open, onClose, userName, us
                 },
             });
 
-            console.log(response)
+            if (response.ok) {
+                console.log('User deleted successfully');
+                // Reload the users when the deletion is successful
+                reloadUsers();
+            } else {
+                console.error('Failed to delete user');
+                // Handle error if necessary
+            }
 
         } catch (error) {
             console.error('Erro:', error);
