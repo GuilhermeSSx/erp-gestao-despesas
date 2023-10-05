@@ -3,6 +3,7 @@ import TableUsuarios from '@/app/components/tableUsuarios';
 import { useState, useEffect, Suspense } from 'react';
 import { useRouter } from 'next/navigation';
 import { Alert, Button } from "@material-tailwind/react";
+import PopupExcluirUsuario from '@/app/components/popupExcluirUsuario';
 
 interface Usuario {
     id: number;
@@ -20,7 +21,7 @@ export default function CadastroUsuarios() {
 
     const getUsers = async () => {
         try {
-            const response = await fetch('http://localhost:4000/user/get-users', {
+            const response = await fetch('https://jpnr-gestao-api.vercel.app/user/get-users', {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -42,22 +43,9 @@ export default function CadastroUsuarios() {
         }
     };
 
-    const deleteUser = async () => {
-        try {
-            const response = await fetch('http://localhost:4000/user/get-users', {
-                method: 'DELETE',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            });
 
-        } catch (error) {
-            console.error('Erro:', error);
-            // Handle error if necessary
-        }
-    };
 
-    
+
 
     const [loading, setLoading] = useState(false);
     const [cadastroSuccess, setCadastroSuccess] = useState(false);
@@ -67,8 +55,22 @@ export default function CadastroUsuarios() {
 
     const [selectedUsuario, setSelectedUsuario] = useState<Usuario | null>(null);
 
+    const [popupAbertoExcluirUsuario, setPopupExcluirUsuarioAberto] = useState(false);
+    const [selectedUserId, setSelectedUserId] = useState<number | null>(null);
+
     const handleUsuarioSelected = (usuario: Usuario) => {
         setSelectedUsuario(usuario);
+    };
+
+    // ---------------------------------------------------------------------------
+
+    const abrirPopupExcluirUsuario = (userId: number) => {
+        setSelectedUserId(userId);
+        setPopupExcluirUsuarioAberto(true);
+    };
+
+    const fecharPopupExcluirUsuario = () => {
+        setPopupExcluirUsuarioAberto(false);
     };
 
     // ---------------------------------------------------------------------------
@@ -263,7 +265,7 @@ export default function CadastroUsuarios() {
                     <TableUsuarios usuarios={usuariosData} onUsuarioSelected={handleUsuarioSelected} />
                 </Suspense>
 
-                
+
 
 
                 <div className='flex justify-center items-center rounded w-full h-fit'>
@@ -275,11 +277,28 @@ export default function CadastroUsuarios() {
                             Permissões
                         </button>
                         <button
+                            onClick={() => {
+                                if (selectedUsuario) {
+                                    abrirPopupExcluirUsuario(selectedUsuario.id);
+                                } else {
+                                    alert("Selecione um usuario na tabela!")
+                                }
+                            }
+                            }
 
                             className='group relative items-center w-[50%] flex justify-center py-2 px-2 border border-transparent text-sm font-medium rounded-md bg-red-700 hover:bg-red-400 text-white hover:scale-[1.02] duration-200 ml-1'
                         >
                             Excluir
                         </button>
+                        {selectedUsuario && (
+                            <PopupExcluirUsuario
+                                open={popupAbertoExcluirUsuario}
+                                onClose={fecharPopupExcluirUsuario}
+                                userId={selectedUsuario.id}
+                                userName={selectedUsuario.name}
+                            />
+                        )}
+
                     </div>
                 </div>
 
