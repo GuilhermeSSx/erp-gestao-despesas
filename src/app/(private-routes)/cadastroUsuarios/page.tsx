@@ -30,7 +30,7 @@ export default function CadastroUsuarios() {
 
             if (response.ok) {
                 const data = await response.json();
-                console.log(data);
+                // console.log(data);
 
                 // Assuming 'usuarios' is the array in your JSON data
                 setUsuariosData(data.usuarios);
@@ -42,10 +42,6 @@ export default function CadastroUsuarios() {
             // Handle error if necessary
         }
     };
-
-
-
-
 
     const [loading, setLoading] = useState(false);
     const [cadastroSuccess, setCadastroSuccess] = useState(false);
@@ -261,12 +257,7 @@ export default function CadastroUsuarios() {
                     />
                 </form>
 
-                <Suspense fallback={<span className='absolute z-50'>Carregando....</span>}>
-                    <TableUsuarios usuarios={usuariosData} onUsuarioSelected={handleUsuarioSelected} />
-                </Suspense>
-
-
-
+                <TableUsuarios usuarios={usuariosData} onUsuarioSelected={handleUsuarioSelected} />
 
                 <div className='flex justify-center items-center rounded w-full h-fit'>
                     <div className='flex justify-between rounded-lg my-2 w-full'>

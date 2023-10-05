@@ -2,6 +2,7 @@ import React from 'react';
 import { Dialog } from '@headlessui/react';
 import { ArrowUturnLeftIcon, XMarkIcon } from '@heroicons/react/20/solid';
 
+
 interface PopupProps {
     open: boolean;
     onClose: () => void;
