@@ -1,4 +1,3 @@
-import AlertLogin from "@/app/components/alertLogin";
 
 export default function PermissoesUsuarios() {
 

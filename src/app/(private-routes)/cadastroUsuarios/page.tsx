@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { Alert, Button } from "@material-tailwind/react";
 import PopupExcluirUsuario from '@/app/components/popupExcluirUsuario';
 import AlertLogin from '@/app/components/alertLogin';
+import Link from 'next/link';
 
 interface Usuario {
     id: number;
@@ -249,7 +250,7 @@ export default function CadastroUsuarios() {
                 <div className='flex justify-center items-center rounded w-full h-fit'>
                     <div className='flex justify-between rounded-lg my-2 w-full'>
                         <button
-                            onClick={() => router.push('/cadastroUsuarios/permissoes')}
+                            onClick={() => router.push(`/cadastroUsuarios/permissoes?id=${selectedUsuario?.id}`)}
                             className='group relative items-center w-[50%] flex justify-center py-2 px-2 border border-transparent text-sm font-medium rounded-md bg-orange-600 hover:bg-orange-500 text-white hover:scale-[1.02] duration-200 mr-1'
                         >
                             Permissões

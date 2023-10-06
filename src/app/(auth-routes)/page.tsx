@@ -1,5 +1,4 @@
 "use client"
-import Link from 'next/link'
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation"; // Corrigido de next/navigation
 import { SyntheticEvent, useState } from "react";
