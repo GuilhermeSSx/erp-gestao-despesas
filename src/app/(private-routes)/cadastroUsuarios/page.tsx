@@ -77,6 +77,8 @@ export default function CadastroUsuarios() {
 
     const fecharAlertCadastro = () => {
         setAlertCadastroAberto(false);
+
+        
     };
 
     // ---------------------------------------------------------------------------
@@ -122,19 +124,8 @@ export default function CadastroUsuarios() {
 
         } finally {
             setLoading(false);
-
         }
     };
-
-    // ---------------------------------------------------------------------------
-
-    // const [alertVisible, setAlertVisible] = useState(false); // Nova variável de estado
-
-    // const handleAlertClose = () => {
-    //     setAlertVisible(false);
-    //     setCadastroSuccess(false);
-    //     setCadastroError(false);
-    // };
 
 
     return (
@@ -148,20 +139,20 @@ export default function CadastroUsuarios() {
                         <input
                             name='name'
                             type='text'
-                            autoComplete='none'
+                            autoComplete='new-name'
                             required
                             className='appearance-none rounded-none relative block border w-full px-3 py-2 mt-6 rounded-t-md'
                             placeholder='Nome'
                             onChange={handleChange}
                             maxLength={40}
-                            minLength={5}
+                            minLength={4}
                         />
                     </div>
                     <div className=''>
                         <input
                             name="email"
                             type='email'
-                            autoComplete='none'
+                            autoComplete='new-email'
                             required
                             className='appearance-none rounded-none relative block border w-full px-3 py-2 mt-4 rounded-t-md'
                             placeholder='Email...'
@@ -173,7 +164,7 @@ export default function CadastroUsuarios() {
                         <input
                             name='password'
                             type='password'
-                            autoComplete='none'
+                            autoComplete='new-password'
                             required
                             className='appearance-none rounded-none relative block border w-full px-3 py-2 mt-4 rounded-t-md'
                             placeholder='Senha'
@@ -203,13 +194,32 @@ export default function CadastroUsuarios() {
                 <AlertLogin
                     open={AlertCadastroAberto}
                     onClose={fecharAlertCadastro}
+                    onAnimationComplete={() => {
+                        setCadastroSuccess(false);
+                        setCadastroError(false);
+                        console.log(cadastroSuccess)
+                        console.log(cadastroError)
+                    }}
+                    success={cadastroSuccess}
+                    failed={false}
                 />
             ) : cadastroError ? (
                 <AlertLogin
                     open={AlertCadastroAberto}
                     onClose={fecharAlertCadastro}
+                    onAnimationComplete={() => {
+                        setCadastroSuccess(false);
+                        setCadastroError(false);
+                        console.log(cadastroSuccess)
+                        console.log(cadastroError)
+                    }}
+                    failed={cadastroError}
+                    success={false}
                 />
             ) : null}
+
+
+
 
 
 

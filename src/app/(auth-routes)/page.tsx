@@ -58,7 +58,7 @@ export default function Login() {
             <input
               id='email'
               type='email'
-              autoComplete='none'
+              autoComplete='login-email'
               required
               className='appearance-none rounded-none relative
               block border w-full px-2 py-2 mt-6 rounded-t-md'
@@ -70,7 +70,7 @@ export default function Login() {
             <input
               id='password'
               type='password'
-              autoComplete='none'
+              autoComplete='login-password'
               required
               className='appearance-none rounded-none relative
               block border w-full px-2 py-2 mt-4 rounded-t-md'

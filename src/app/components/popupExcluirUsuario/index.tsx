@@ -1,7 +1,6 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Dialog } from '@headlessui/react';
 import { ArrowUturnLeftIcon, XMarkIcon } from '@heroicons/react/20/solid';
-
 
 interface PopupProps {
     open: boolean;
@@ -12,6 +11,8 @@ interface PopupProps {
 }
 
 const PopupExcluirUsuario: React.FC<PopupProps> = ({ open, onClose, userName, userId, reloadUsers }) => {
+    const cancelButtonRef = useRef<HTMLButtonElement | null>(null);
+    const deleteButtonRef = useRef<HTMLButtonElement | null>(null);
 
     const deleteUser = async (id: number) => {
         try {
@@ -25,7 +26,7 @@ const PopupExcluirUsuario: React.FC<PopupProps> = ({ open, onClose, userName, us
             if (response.ok) {
                 reloadUsers();
             } else {
-                console.error('Erro ao deletar ao usuario');
+                console.error('Erro ao deletar o usuário');
                 // Handle error if necessary
             }
 
@@ -35,9 +36,27 @@ const PopupExcluirUsuario: React.FC<PopupProps> = ({ open, onClose, userName, us
         }
     };
 
+    useEffect(() => {
+        if (open) {
+            cancelButtonRef.current?.focus();
+        }
+    }, [open]);
+
+    const handleKeyDown = (event: React.KeyboardEvent) => {
+        if (event.key === 'ArrowLeft') {
+            cancelButtonRef.current?.focus();
+        } else if (event.key === 'ArrowRight') {
+            deleteButtonRef.current?.focus();
+        }
+    };
 
     return (
-        <Dialog open={open} onClose={onClose} className="fixed inset-0 z-10 overflow-y-auto ">
+        <Dialog
+            open={open}
+            onClose={onClose}
+            className="fixed inset-0 z-10 overflow-y-auto "
+            onKeyDown={handleKeyDown}
+        >
             <div className="flex flex-col items-center justify-center min-h-screen p-4">
                 <Dialog.Overlay className="fixed inset-0 bg-black opacity-30 " />
 
@@ -53,7 +72,9 @@ const PopupExcluirUsuario: React.FC<PopupProps> = ({ open, onClose, userName, us
                             onClick={onClose}
                             title="Cancelar"
                             className='mt-2 group relative w-[48%] flex justify-center items-center py-1 px-4 border border-transparent
-                                    text-base rounded-md bg-slate-100 hover:bg-slate-200 text-black'>
+                                    text-base rounded-md bg-slate-100 hover:bg-slate-200 text-black'
+                            ref={cancelButtonRef}
+                        >
                             Cancelar
                             <ArrowUturnLeftIcon
                                 className="ml-2 h-8 w-5 text-center"
@@ -69,11 +90,13 @@ const PopupExcluirUsuario: React.FC<PopupProps> = ({ open, onClose, userName, us
                                 } catch (error) {
                                     console.log(error);
                                 }
-                                
+
                             }}
                             title="Excluir"
                             className='mt-2 group relative w-[50%] flex justify-center items-center py-1 px-4 border border-transparent
-                                    text-base rounded-md bg-red-400 hover:bg-red-600 '>
+                                    text-base rounded-md bg-red-400 hover:bg-red-600 '
+                            ref={deleteButtonRef}
+                        >
                             Excluir
                             <XMarkIcon
                                 className="ml-2 h-8 w-5 text-center"
