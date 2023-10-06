@@ -1,6 +1,6 @@
 "use client"
 import TableUsuarios from '@/app/components/tableUsuarios';
-import { useState, useEffect, Suspense } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { Alert, Button } from "@material-tailwind/react";
 import PopupExcluirUsuario from '@/app/components/popupExcluirUsuario';
@@ -15,6 +15,8 @@ interface Usuario {
 export default function CadastroUsuarios() {
 
     const [usuariosData, setUsuariosData] = useState<Usuario[]>([]); // Initialize usuariosData state
+    const [searchTerm, setSearchTerm] = useState('');
+    const searchInputRef = useRef<HTMLInputElement | null>(null);
 
     useEffect(() => {
         getUsers();
@@ -127,6 +129,11 @@ export default function CadastroUsuarios() {
         }
     };
 
+    // -----------------------------------------------------------
+
+    const filteredUsuariosData = usuariosData.filter(userData =>
+        userData.name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
 
     return (
         <main className='md-web:w-screen md-web:h-[calc(100vh-60px)] flex justify-center items-center p-2 md-web:flex-row flex-col overflow-auto bg-black'>
@@ -226,16 +233,18 @@ export default function CadastroUsuarios() {
             {/* Selecionar Usuario, remover, Permissoes */}
             <div className='flex flex-col items-center w-full md-web:w-[50%] md-web:mt-0 mt-4 h-full bg-orange-400 rounded-lg md-web:ml-1 px-4'>
                 <h1 className='font-extrabold text-white text-center mt-4 select-none'>Selecionar Usuarios Permissões / Remover </h1>
-                <form className='flex justify-center mt-4 text-black w-full'>
+                <div className='flex justify-center mt-4 text-black w-full'>
                     <input
+                        ref={searchInputRef}
                         id='pesquisar'
                         className='appearance-none rounded-none relative block border w-full px-4 py-1 rounded-t-md'
                         type='text'
                         placeholder='Pesquisar Usuarios'
+                        onChange={(e) => setSearchTerm(e.target.value)}
                     />
-                </form>
+                </div>
 
-                <TableUsuarios usuarios={usuariosData} onUsuarioSelected={handleUsuarioSelected} />
+                <TableUsuarios usuarios={filteredUsuariosData} onUsuarioSelected={handleUsuarioSelected} />
 
                 <div className='flex justify-center items-center rounded w-full h-fit'>
                     <div className='flex justify-between rounded-lg my-2 w-full'>
