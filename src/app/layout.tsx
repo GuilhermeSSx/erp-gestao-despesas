@@ -4,6 +4,7 @@ import { Inter } from 'next/font/google'
 import Header from './components/header'
 import NextAuthSessionProvider from '@/providers/sessionProvider'
 import { CrudStore } from './contexts/crudContext'
+import { Analytics } from '@vercel/analytics/react';
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -27,7 +28,7 @@ export default function RootLayout({
             {children}
           </CrudStore>
         </NextAuthSessionProvider>
-
+        <Analytics />
       </body>
     </html>
   )
