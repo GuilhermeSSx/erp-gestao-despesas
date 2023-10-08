@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Dialog } from '@headlessui/react';
 import { ArrowUturnLeftIcon, XMarkIcon } from '@heroicons/react/20/solid';
 
@@ -24,6 +24,7 @@ const PopupExcluirUsuario: React.FC<PopupProps> = ({ open, onClose, userName, us
             });
 
             if (response.ok) {
+                console.info('Usuário deletado com sucesso');
                 reloadUsers();
             } else {
                 console.error('Erro ao deletar o usuário');

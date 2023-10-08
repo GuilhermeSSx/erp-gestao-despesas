@@ -12,8 +12,7 @@ interface Usuario {
     name: string;
 }
 
-
-export default function CadastroUsuarios() {
+export default function Usuarios() {
 
     const [usuariosData, setUsuariosData] = useState<Usuario[]>([]); // Initialize usuariosData state
     const [searchTerm, setSearchTerm] = useState('');
@@ -35,15 +34,12 @@ export default function CadastroUsuarios() {
             if (response.ok) {
                 const data = await response.json();
                 // console.log(data);
-
-                // Assuming 'usuarios' is the array in your JSON data
                 setUsuariosData(data.usuarios);
             } else {
                 throw new Error('Erro ao buscar os usuários');
             }
         } catch (error) {
             console.error('Erro:', error);
-            // Handle error if necessary
         }
     };
 
@@ -78,8 +74,6 @@ export default function CadastroUsuarios() {
 
     const fecharAlertCadastro = () => {
         setAlertCadastroAberto(false);
-
-        
     };
 
     // ---------------------------------------------------------------------------
