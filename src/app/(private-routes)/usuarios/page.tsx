@@ -51,8 +51,6 @@ export default function CadastroUsuarios() {
     const [cadastroSuccess, setCadastroSuccess] = useState(false);
     const [cadastroError, setCadastroError] = useState(false);
 
-    const router = useRouter();
-
     const [selectedUsuario, setSelectedUsuario] = useState<Usuario | null>(null);
 
     const [popupAbertoExcluirUsuario, setPopupExcluirUsuarioAberto] = useState(false);
@@ -227,10 +225,6 @@ export default function CadastroUsuarios() {
             ) : null}
 
 
-
-
-
-
             {/* Selecionar Usuario, remover, Permissoes */}
             <div className='flex flex-col items-center w-full md-web:w-[50%] md-web:mt-0 mt-4 h-full bg-orange-400 rounded-lg md-web:ml-1 px-4'>
                 <h1 className='font-extrabold text-white text-center mt-4 select-none'>Selecionar Usuarios Permissões / Remover </h1>
@@ -249,12 +243,12 @@ export default function CadastroUsuarios() {
 
                 <div className='flex justify-center items-center rounded w-full h-fit'>
                     <div className='flex justify-between rounded-lg my-2 w-full'>
-                        <button
-                            onClick={() => router.push(`/cadastroUsuarios/permissoes?id=${selectedUsuario?.id}`)}
+                        <Link
+                            href={{ pathname: "/usuarios/permissoes", query: {id:selectedUsuario?.id}}}
                             className='group relative items-center w-[50%] flex justify-center py-2 px-2 border border-transparent text-sm font-medium rounded-md bg-orange-600 hover:bg-orange-500 text-white hover:scale-[1.02] duration-200 mr-1'
                         >
                             Permissões
-                        </button>
+                        </Link>
                         <button
                             onClick={() => {
                                 if (selectedUsuario) {

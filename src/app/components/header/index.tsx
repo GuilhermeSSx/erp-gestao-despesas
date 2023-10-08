@@ -36,12 +36,12 @@ export default function Header() {
 
                 {session ? (
                     <div className="flex items-center mr-4">
-                        <button
+                        <Link
                             className="text-white text-sm text-center"
-                            onClick={() => router.push('/cadastroUsuarios')}
+                            href={"/usuarios"}
                         >
                             Cadastro Usuarios
-                        </button>
+                        </Link>
                     </div>
                 ) : null}
 
