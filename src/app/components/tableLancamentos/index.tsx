@@ -43,7 +43,7 @@ const TableLancamentos: React.FC<TableLancamentosProps> = ({ lancamentos, onLanc
                         <th className='w-[2%] p-[6px] text-sm font-semibold tracking-wide text-left'>Vencimento</th>
                     </tr>
                 </thead>
-                <tbody className='divide-y divide-gray-400'>
+                <tbody className='divide-y divide-gray-500'>
                     {lancamentos.map((lancamento, index) => {
                         return (
                             <tr

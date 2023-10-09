@@ -8,6 +8,8 @@ import Link from 'next/link';
 interface Usuario {
     id: number;
     name: string;
+    email: string;
+    role: string;
 }
 
 export default function Usuarios() {

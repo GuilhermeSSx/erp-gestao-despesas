@@ -38,10 +38,18 @@ const nextAuthOptions: NextAuthOptions = {
 	},
 	callbacks: {
 		async jwt({ token, user }) {
-			user && (token.user = user)
-			return token
+			if (user) {
+				token.user = user;
+			}
+			return token;
 		},
+		
 		async session({ session, token }) {
+			// Aqui você pode personalizar o que é armazenado na sessão.
+
+			// @ts-ignore
+			session.user = token.user;
+			
 			return session;
 		},
 	},

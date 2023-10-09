@@ -8,7 +8,7 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        selecaoLinha: 'rgba(0, 150, 255, 0.7)', 
+        selecaoLinha: 'rgba(0, 150, 255, 0.4)', 
         jpnrPink: '#F94B85',
         jpnrVerde: '#8ED155',
         jpnrAzul: '#24C5E8',

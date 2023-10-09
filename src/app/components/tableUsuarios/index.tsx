@@ -3,6 +3,8 @@ import React, { useState, useEffect, useRef } from 'react';
 interface Usuario {
     id: number;
     name: string;
+    email: string;
+    role: string;
 }
 
 interface TableUsuariosProps {
@@ -70,27 +72,26 @@ const TableUsuarios: React.FC<TableUsuariosProps> = ({ usuarios, onUsuarioSelect
                         <th className="p-3 text-sm font-bold tracking-wide text-left">Role</th>
                     </tr>
                 </thead>
-                <tbody className="divide-y divide-gray-100">
+                <tbody className="divide-y-2 divide-blue-100">
                     {usuarios.map((usuario, index) => (
                         <tr
                             key={usuario.id}
                             className={`overflow-y-auto hover:bg-slate-300 cursor-pointer ${selectedItemIndex === index ? 'bg-selecaoLinha' : 'bg-white'}`}
                             onClick={() => handleRowClick(usuario, index)}
                         >
-                            <td className="w-full p-2 text-xs font-semibold text-gray-700 whitespace-nowrap">
+                            <td className="w-full p-2 px-4 text-xs font-semibold text-gray-700 whitespace-nowrap">
                                 <div>
                                     <h1 className='font-bold text-sm'>{usuario.name}</h1>
                                 </div>
                                 <div>
-                                    <h2 className='font-semibold text-gray-500'>guilhermedosantos45@gmail.com</h2>
+                                    <h2 className='font-semibold text-gray-500'>{usuario.email}</h2>
                                 </div>
 
                             </td>
                             <td className='flex items-center justify-center text-gray-700 md-web:w-48 w-32'>
                                 <div className="w-full p-1 bg-white border-x-2 border-blue-500">
                                     <select className='flex self-center z-50 w-full h-full p-2 text-sm' >
-                                        <option className=' hover:bg-slate-200 bg-slate-100 w-full'>admin</option>
-                                        <option className=' hover:bg-slate-200 bg-slate-100 w-full'>convidado</option>
+                                        <option className=' hover:bg-slate-200 bg-slate-100 w-full'>{usuario.role}</option>
                                     </select>
                                 </div>
                             </td>
