@@ -1,8 +1,6 @@
 "use client"
 import TableUsuarios from '@/app/components/tableUsuarios';
 import { useState, useEffect, useRef } from 'react';
-import { useRouter } from 'next/navigation';
-import { Alert, Button } from "@material-tailwind/react";
 import PopupExcluirUsuario from '@/app/components/popupExcluirUsuario';
 import AlertLogin from '@/app/components/alertLogin';
 import Link from 'next/link';
@@ -35,6 +33,7 @@ export default function Usuarios() {
                 const data = await response.json();
                 // console.log(data);
                 setUsuariosData(data.usuarios);
+
             } else {
                 throw new Error('Erro ao buscar os usuários');
             }
@@ -107,7 +106,7 @@ export default function Usuarios() {
                 getUsers();
                 setCadastroSuccess(true);
                 setCadastroError(false);
-
+                setSelectedUsuario(null);
             } else {
                 setCadastroError(true);
                 setCadastroSuccess(false);

@@ -15,6 +15,18 @@ const TableUsuarios: React.FC<TableUsuariosProps> = ({ usuarios, onUsuarioSelect
     const tableRef = useRef<HTMLTableElement | null>(null);
 
     useEffect(() => {
+
+        // Se um usuario foi adicionado ou removido, selecionar o primeiro
+        if(selectedItemIndex === null) {
+            setSelectedItemIndex(0);
+            onUsuarioSelected(usuarios[0]);
+        } else {
+            if(usuarios[selectedItemIndex] === undefined) {
+                setSelectedItemIndex(0);
+                onUsuarioSelected(usuarios[0]);
+            }
+            onUsuarioSelected(usuarios[selectedItemIndex]);
+        }
         const handleKeyDown = (event: KeyboardEvent) => {
             if (!tableRef.current) return;
 
@@ -41,6 +53,8 @@ const TableUsuarios: React.FC<TableUsuariosProps> = ({ usuarios, onUsuarioSelect
             window.removeEventListener('keydown', handleKeyDown);
         };
     }, [selectedItemIndex, onUsuarioSelected, usuarios]);
+
+
 
     const handleRowClick = (usuario: Usuario, index: number) => {
         setSelectedItemIndex(index);
