@@ -1,7 +1,4 @@
-import { Combobox } from '@headlessui/react';
-import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { Select, Option } from "@material-tailwind/react";
-
+import React, { useState, useEffect, useRef } from 'react';
 
 interface Usuario {
     id: number;
@@ -89,12 +86,12 @@ const TableUsuarios: React.FC<TableUsuariosProps> = ({ usuarios, onUsuarioSelect
                                 </div>
 
                             </td>
-                            <td className='flex items-center justify-center text-gray-700 p-2 md-web:w-48 w-32'>
-                                <div className="w-full bg-white border-x-2 border-blue-500">
-                                    <Select className='flex self-center z-50' >
-                                        <Option className='flex hover:bg-slate-200 bg-slate-100 w-full py-3 mb-1'>admin</Option>
-                                        <Option className='flex hover:bg-slate-200 bg-slate-100 w-full py-3'>convidado</Option>
-                                    </Select>
+                            <td className='flex items-center justify-center text-gray-700 md-web:w-48 w-32'>
+                                <div className="w-full p-1 bg-white border-x-2 border-blue-500">
+                                    <select className='flex self-center z-50 w-full h-full p-2 text-sm' >
+                                        <option className=' hover:bg-slate-200 bg-slate-100 w-full'>admin</option>
+                                        <option className=' hover:bg-slate-200 bg-slate-100 w-full'>convidado</option>
+                                    </select>
                                 </div>
                             </td>
                         </tr>
