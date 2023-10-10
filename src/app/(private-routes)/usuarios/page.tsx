@@ -2,8 +2,8 @@
 import TableUsuarios from '@/app/components/tableUsuarios';
 import { useState, useEffect, useRef } from 'react';
 import PopupExcluirUsuario from '@/app/components/popupExcluirUsuario';
-import AlertLogin from '@/app/components/alertLogin';
 import Link from 'next/link';
+import AlertCadastro from '@/app/components/alertCadastro';
 
 interface Usuario {
     id: number;
@@ -133,7 +133,7 @@ export default function Usuarios() {
         <main className='md-web:w-screen md-web:h-[calc(100vh-60px)] flex justify-center items-center p-2 md-web:flex-row flex-col overflow-auto bg-black'>
 
             {/* Cadastro de novo usuario */}
-            <div className='px-4 md-web:mr-1 md-web:px-4 w-full md-web:w-[50%] h-full bg-slate-500 rounded-xl flex flex-col items-center'>
+            <div className='px-4 md-web:mr-1 md-web:px-4 w-full md-web:w-[47%] md:w-[43%] h-full bg-slate-500 rounded-xl flex flex-col items-center'>
                 <h1 className='font-extrabold text-white mt-4 select-none'>Cadastrar Novo Usuario</h1>
                 <form className='w-full h-full flex flex-col md:justify-center' onSubmit={handleSubmit}>
                     <div className=''>
@@ -192,27 +192,27 @@ export default function Usuarios() {
             </div>
 
             {cadastroSuccess ? (
-                <AlertLogin
+                <AlertCadastro
                     open={AlertCadastroAberto}
                     onClose={fecharAlertCadastro}
                     onAnimationComplete={() => {
                         setCadastroSuccess(false);
                         setCadastroError(false);
-                        console.log(cadastroSuccess)
-                        console.log(cadastroError)
+                        // console.log(cadastroSuccess)
+                        // console.log(cadastroError)
                     }}
                     success={cadastroSuccess}
                     failed={false}
                 />
             ) : cadastroError ? (
-                <AlertLogin
+                <AlertCadastro
                     open={AlertCadastroAberto}
                     onClose={fecharAlertCadastro}
                     onAnimationComplete={() => {
                         setCadastroSuccess(false);
                         setCadastroError(false);
-                        console.log(cadastroSuccess)
-                        console.log(cadastroError)
+                        // console.log(cadastroSuccess)
+                        // console.log(cadastroError)
                     }}
                     failed={cadastroError}
                     success={false}
@@ -221,7 +221,7 @@ export default function Usuarios() {
 
 
             {/* Selecionar Usuario, remover, Permissoes */}
-            <div className='flex flex-col items-center w-full md-web:w-[50%] md-web:mt-0 mt-4 h-screen md-web:h-full bg-orange-400 rounded-lg md-web:ml-1 px-4'>
+            <div className='flex flex-col items-center w-full md-web:w-[53%] md:w-[57%] md-web:mt-0 mt-4 h-screen md-web:h-full bg-orange-400 rounded-lg md-web:ml-1 px-4'>
                 <h1 className='font-extrabold text-white text-center mt-4 select-none'>Selecionar Usuarios Permissões / Remover </h1>
                 <div className='flex justify-center mt-4 text-black w-full'>
                     <input

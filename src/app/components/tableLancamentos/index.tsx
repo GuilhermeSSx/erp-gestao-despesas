@@ -48,8 +48,8 @@ const TableLancamentos: React.FC<TableLancamentosProps> = ({ lancamentos, onLanc
                         return (
                             <tr
                                 key={lancamento.lancId}
-                                className={`hover:bg-blue-300 cursor-pointer h-8 divide-x-2 
-                                    ${selectedItem === lancamento ? 'bg-selecaoLinha'
+                                className={`hover:bg-slate-300 cursor-pointer h-8 divide-x-2 
+                                    ${selectedItem === lancamento ? 'bg-cyan-500'
                                         :
                                         (index % 2 === 0 ? 'bg-white' : 'bg-slate-200')
                                     }`}

@@ -68,15 +68,15 @@ const TableUsuarios: React.FC<TableUsuariosProps> = ({ usuarios, onUsuarioSelect
             <table className="w-full h-fit select-none" ref={tableRef}>
                 <thead className="bg-gray-50 border-b-2 border-gray-200 sticky top-0">
                     <tr className='divide-x divide-gray-300'>
-                        <th className="p-3 text-sm font-bold tracking-wide text-left">Usuarios</th>
-                        <th className="p-3 text-sm font-bold tracking-wide text-left">Role</th>
+                        <th className="p-3 text-sm font-bold tracking-wide text-left">Usuário</th>
+                        <th className="p-3 text-sm font-bold tracking-wide text-left">Permissão</th>
                     </tr>
                 </thead>
                 <tbody className="divide-y-2 divide-blue-100">
                     {usuarios.map((usuario, index) => (
                         <tr
                             key={usuario.id}
-                            className={`overflow-y-auto hover:bg-slate-300 cursor-pointer ${selectedItemIndex === index ? 'bg-selecaoLinha' : 'bg-white'}`}
+                            className={` hover:bg-slate-300 cursor-pointer ${selectedItemIndex === index ? 'bg-selecaoLinha' : 'bg-white'}`}
                             onClick={() => handleRowClick(usuario, index)}
                         >
                             <td className="w-full p-2 px-4 text-xs font-semibold text-gray-700 whitespace-nowrap">
@@ -89,8 +89,8 @@ const TableUsuarios: React.FC<TableUsuariosProps> = ({ usuarios, onUsuarioSelect
 
                             </td>
                             <td className='flex items-center justify-center text-gray-700 md-web:w-48 w-32'>
-                                <div className="w-full p-1 bg-white border-x-2 border-blue-500">
-                                    <select className='flex self-center z-50 w-full h-full p-2 text-sm' >
+                                <div className="flex justify-center items-center w-full p-2 border-l border-blue-500">
+                                    <select className='w-full h-full p-2 text-sm flex items-center' >
                                         <option className=' hover:bg-slate-200 bg-slate-100 w-full'>{usuario.role}</option>
                                     </select>
                                 </div>
