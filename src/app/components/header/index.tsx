@@ -18,6 +18,7 @@ export default function Header() {
             redirect: false,
         });
 
+        // Redirecionar para a página de login
         router.replace("/");
         window.location.reload(); // Recarrega a página após o redirecionamento
     }
@@ -27,24 +28,12 @@ export default function Header() {
 
     return (
         <header className="flex bg-black w-full h-[60px] p-[10px] sticky top-0 z-50 justify-between select-none">
-            <div className="flex items-center ml-2">
+            <div className="flex items-center mx-3">
                 <Link href={"/"}>
                     <Image priority={true} alt="" src={Logo} width={60} />
                 </Link>
             </div>
-            <div className="flex w-fit justify-end">
-
-                {session ? (
-                    <div className="flex items-center mr-4">
-                        <Link
-                            className="text-white text-sm text-center"
-                            href={"/usuarios"}
-                        >
-                            Cadastro Usuarios
-                        </Link>
-                    </div>
-                ) : null}
-
+            <div className="flex w-fit justify-end mx-3">
                 {session ? (
                     <Menu
                         as="div"
@@ -58,7 +47,7 @@ export default function Header() {
                         >
                             <span className=" md-web:flex hidden">{user}</span>
                             <span className=" md-web:hidden">{user?.substring(0, 3)}...</span>
-                            
+
                             <ChevronDownIcon
                                 className="ml-2 -mr-1 h-5 w-5 text-violet-200 hover:text-[#CE466F]"
                                 aria-hidden="true"
@@ -69,14 +58,23 @@ export default function Header() {
                             <div className="px-1 py-1">
                                 <Menu.Item>
                                     {({ active }) => (
-                                        <button
-                                            onClick={logout}
-                                            className={`${active ? "bg-[#CE466F] text-white" : "text-gray-900"
-                                                } group flex w-full justify-center items-center rounded-md px-2 py-2 text-sm`}
-                                        >
-                                            Sair
-                                        </button>
+                                        <>
+                                            <Link
+                                                className={"font-semibold group flex w-full justify-center items-center rounded-md p-4 text-sm hover:bg-selecaoLinha"}
+                                                href={"/usuarios"}
+                                            >
+                                                Configurações
+                                            </Link>
+                                            <button
+                                                onClick={logout}
+                                                className={"font-semibold group flex w-full justify-center items-center rounded-md p-4 text-sm hover:bg-selecaoLinha"}
+                                            >
+                                                Sair
+                                            </button>
+
+                                        </>
                                     )}
+
                                 </Menu.Item>
                             </div>
                         </Menu.Items>
@@ -86,25 +84,6 @@ export default function Header() {
             </div>
 
         </header>
-
-        // {/* <header className="sticky z-10 select-none">
-        //     <nav className="p-3 bg-gray-500 flex items-center justify-center h-[40px]">
-        //         {session ? (
-        //             <ul className="flex">
-        //                 <li className="mr-4 text-white hover:text-cyan-500 duration-500">
-        //                     <Link href={"/modulos"}>Módulos</Link>
-        //                 </li>
-        //                 <li className="mr-4 text-white hover:text-cyan-500 duration-500">
-        //                     <Link href={"/modulos/cadastros"}>Cadastros</Link>
-        //                 </li>
-        //                 <li className="mr-4 text-white hover:text-cyan-500 duration-500">
-        //                     <Link href={"/modulos/lancamentos"}>Lançamentos</Link>
-        //                 </li>
-        //             </ul>
-
-        //         ) : null}
-        //     </nav>
-        // </header> */}
 
     );
 }

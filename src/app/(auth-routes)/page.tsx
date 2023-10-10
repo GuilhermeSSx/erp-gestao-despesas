@@ -45,7 +45,7 @@ export default function Login() {
     } else {
       setErrorMessage(null); // Reseta a mensagem de erro se não houver erro
       router.push('/modulos');
-      // window.location.reload();
+      window.location.reload();
       toast.success('Login efetuado com sucesso !', {
         position: "top-center",
         autoClose: 5000,

@@ -6,6 +6,7 @@ import Link from 'next/link';
 
 import { toast } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
+import ComboBox from '@/app/components/comboBox';
 
 interface Usuario {
     id: number;
@@ -190,6 +191,11 @@ export default function Usuarios() {
                             minLength={6}
                         />
                     </div>
+
+                    <select className='appearance-none rounded-none relative block border w-full px-3 py-2 mt-4 rounded-t-md'>
+                        <option value="Administrador">convidado</option>
+                        <option value="Colaborador">admin</option>
+                    </select>
                     <div className='flex justify-between rounded-lg my-6 w-full'>
                         <div className='group relative flex-1'>
                             <div className='absolute -inset-1 rounded-lg bg-gradient-to-r from-lime-500 via-gray-200 to-gray-400 opacity-30 blur transition duration-500 group-hover:opacity-100'></div>
@@ -202,16 +208,18 @@ export default function Usuarios() {
                         </div>
                     </div>
 
-
                 </form>
+
+                <div className='flex justify-between rounded-lg my-8 w-full'>
+                    <Link
+                        href={'/usuarios/perfil-acesso'}
+                        className='group relative items-center w-full flex justify-center py-2 px-2 border border-transparent text-sm font-medium rounded-md bg-orange-600 hover:bg-orange-500 text-white hover:scale-[1.02] duration-200 mr-1'
+                    >
+                        Perfil de Acesso
+                    </Link>
+                </div>
+
             </div>
-
-            <div>
-
-            </div>
-
-
-
 
             {/* Selecionar Usuario, remover, Permissoes */}
             <div className='flex flex-col items-center w-full md-web:w-[53%] md:w-[57%] md-web:mt-0 mt-4 h-screen md-web:h-full bg-orange-400 rounded-lg md-web:ml-1 px-4'>
