@@ -1,6 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Dialog } from '@headlessui/react';
 import { ArrowUturnLeftIcon, XMarkIcon } from '@heroicons/react/20/solid';
+import { toast } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
 
 interface PopupProps {
     open: boolean;
@@ -25,14 +27,43 @@ const PopupExcluirUsuario: React.FC<PopupProps> = ({ open, onClose, userName, us
 
             if (response.ok) {
                 console.info('Usuário deletado com sucesso');
+                toast.success('Usuário deletado com sucesso!', {
+                    position: "bottom-left",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                });
                 reloadUsers();
             } else {
-                console.error('Erro ao deletar o usuário');
+                toast.error('Erro ao deletar o usuário!', {
+                    position: "bottom-left",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                });
                 // Handle error if necessary
             }
 
         } catch (error) {
             console.error('Erro:', error);
+            toast.error('Erro ao deletar o usuário! admin', {
+                position: "bottom-left",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            });
             // Handle error if necessary
         }
     };

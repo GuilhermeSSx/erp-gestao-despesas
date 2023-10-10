@@ -11,6 +11,34 @@ interface PopupProps {
 
 const AlertCadastro: React.FC<PopupProps> = ({ open, onClose, success, failed, onAnimationComplete }) => {
 
+    {/* {cadastroSuccess ? (
+                <AlertCadastro
+                    open={AlertCadastroAberto}
+                    onClose={fecharAlertCadastro}
+                    onAnimationComplete={() => {
+                        setCadastroSuccess(false);
+                        setCadastroError(false);
+                        // console.log(cadastroSuccess)
+                        // console.log(cadastroError)
+                    }}
+                    success={cadastroSuccess}
+                    failed={false}
+                />
+            ) : cadastroError ? (
+                <AlertCadastro
+                    open={AlertCadastroAberto}
+                    onClose={fecharAlertCadastro}
+                    onAnimationComplete={() => {
+                        setCadastroSuccess(false);
+                        setCadastroError(false);
+                        // console.log(cadastroSuccess)
+                        // console.log(cadastroError)
+                    }}
+                    failed={cadastroError}
+                    success={false}
+                />
+            ) : null} */}
+
     const [animationComplete, setAnimationComplete] = useState(false);
 
     useEffect(() => {
@@ -19,11 +47,11 @@ const AlertCadastro: React.FC<PopupProps> = ({ open, onClose, success, failed, o
 
         if (open) {
             const timeout = setTimeout(() => {
-                if(animationComplete) {
+                if (animationComplete) {
                     onAnimationComplete
                     onClose();
                 }
-                
+
             }, 2900);
 
             return () => {
@@ -67,13 +95,13 @@ const AlertCadastro: React.FC<PopupProps> = ({ open, onClose, success, failed, o
 
                     <div className="px-4 py-2 bg-white rounded-r-lg flex justify-evenly items-center w-full border border-l-transparent border-gray-200 select-none">
                         <span className='flex px-14'>
-                        {
-                            success ? (
-                                'Cadastrado realizado com sucesso !'
-                            ) : failed ? (
-                                'Erro em realizar o cadastro !'
-                            ) : ''
-                        }
+                            {
+                                success ? (
+                                    'Cadastrado realizado com sucesso !'
+                                ) : failed ? (
+                                    'Erro em realizar o cadastro !'
+                                ) : ''
+                            }
                         </span>
 
                         <button

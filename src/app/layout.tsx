@@ -5,6 +5,7 @@ import Header from './components/header'
 import NextAuthSessionProvider from '@/providers/sessionProvider'
 import { CrudStore } from './contexts/crudContext'
 import { Analytics } from '@vercel/analytics/react';
+import { ToastContainer } from 'react-toastify';
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -26,6 +27,7 @@ export default function RootLayout({
           <CrudStore>
             <Header />
             {children}
+            <ToastContainer />
           </CrudStore>
         </NextAuthSessionProvider>
         <Analytics />

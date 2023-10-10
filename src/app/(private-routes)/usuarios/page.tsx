@@ -3,7 +3,9 @@ import TableUsuarios from '@/app/components/tableUsuarios';
 import { useState, useEffect, useRef } from 'react';
 import PopupExcluirUsuario from '@/app/components/popupExcluirUsuario';
 import Link from 'next/link';
-import AlertCadastro from '@/app/components/alertCadastro';
+
+import { toast } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
 
 interface Usuario {
     id: number;
@@ -45,13 +47,10 @@ export default function Usuarios() {
     };
 
     const [loading, setLoading] = useState(false);
-    const [cadastroSuccess, setCadastroSuccess] = useState(false);
-    const [cadastroError, setCadastroError] = useState(false);
 
     const [selectedUsuario, setSelectedUsuario] = useState<Usuario | null>(null);
 
     const [popupAbertoExcluirUsuario, setPopupExcluirUsuarioAberto] = useState(false);
-    const [AlertCadastroAberto, setAlertCadastroAberto] = useState(false);
     const [selectedUserId, setSelectedUserId] = useState<number | null>(null);
 
     const handleUsuarioSelected = (usuario: Usuario) => {
@@ -67,14 +66,6 @@ export default function Usuarios() {
 
     const fecharPopupExcluirUsuario = () => {
         setPopupExcluirUsuarioAberto(false);
-    };
-
-    const abrirAlertCadastro = () => {
-        setAlertCadastroAberto(true);
-    };
-
-    const fecharAlertCadastro = () => {
-        setAlertCadastroAberto(false);
     };
 
     // ---------------------------------------------------------------------------
@@ -106,17 +97,42 @@ export default function Usuarios() {
 
             if (response.ok) {
                 getUsers();
-                setCadastroSuccess(true);
-                setCadastroError(false);
-                setSelectedUsuario(null);
+
+                toast.success('Cadastro Realizado com sucesso', {
+                    position: "bottom-left",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+
+                });
             } else {
-                setCadastroError(true);
-                setCadastroSuccess(false);
+                toast.error('Erro em cadastrar o usuário', {
+                    position: "bottom-left",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                });
 
             }
         } catch (error) {
-            setCadastroError(true);
-            setCadastroSuccess(false);
+            toast.error('Erro contate o adminstrador!', {
+                position: "bottom-left",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            });
 
         } finally {
             setLoading(false);
@@ -178,7 +194,6 @@ export default function Usuarios() {
                         <div className='group relative flex-1'>
                             <div className='absolute -inset-1 rounded-lg bg-gradient-to-r from-lime-500 via-gray-200 to-gray-400 opacity-30 blur transition duration-500 group-hover:opacity-100'></div>
                             <button
-                                onClick={() => abrirAlertCadastro()}
                                 className='shadow-lg w-full relative bg-lime-300 rounded-lg  px-7 py-4 text-black'
                                 disabled={loading}
                             >
@@ -191,33 +206,11 @@ export default function Usuarios() {
                 </form>
             </div>
 
-            {cadastroSuccess ? (
-                <AlertCadastro
-                    open={AlertCadastroAberto}
-                    onClose={fecharAlertCadastro}
-                    onAnimationComplete={() => {
-                        setCadastroSuccess(false);
-                        setCadastroError(false);
-                        // console.log(cadastroSuccess)
-                        // console.log(cadastroError)
-                    }}
-                    success={cadastroSuccess}
-                    failed={false}
-                />
-            ) : cadastroError ? (
-                <AlertCadastro
-                    open={AlertCadastroAberto}
-                    onClose={fecharAlertCadastro}
-                    onAnimationComplete={() => {
-                        setCadastroSuccess(false);
-                        setCadastroError(false);
-                        // console.log(cadastroSuccess)
-                        // console.log(cadastroError)
-                    }}
-                    failed={cadastroError}
-                    success={false}
-                />
-            ) : null}
+            <div>
+
+            </div>
+
+
 
 
             {/* Selecionar Usuario, remover, Permissoes */}

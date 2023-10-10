@@ -4,6 +4,8 @@ import { useRouter } from "next/navigation"; // Corrigido de next/navigation
 import { SyntheticEvent, useState } from "react";
 import LoginLogo from "../assets/jpnr-login.png";
 import Image from "next/image";
+import { toast } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
 
 
 export default function Login() {
@@ -30,11 +32,31 @@ export default function Login() {
     setIsLoading(false);
 
     if (result?.error) {
-      setErrorMessage('Email ou senha incorretos'); // Define a mensagem de erro
+      toast.error('Erro em fazer login. Email ou senha incorretos!', {
+        position: "bottom-left",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+    });
     } else {
       setErrorMessage(null); // Reseta a mensagem de erro se não houver erro
-      router.replace('/modulos');
-      window.location.reload();
+      router.push('/modulos');
+      // window.location.reload();
+      toast.success('Login efetuado com sucesso !', {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+
+      });
     }
   }
 
@@ -100,9 +122,6 @@ export default function Login() {
             </button>
           </div>
         </form>
-
-        {/* Exibe a mensagem de erro, se houver */}
-        {errorMessage && <p className='text-red-500 text-sm flex justify-center mt-2'>{errorMessage}</p>}
 
       </div>
     </main>
