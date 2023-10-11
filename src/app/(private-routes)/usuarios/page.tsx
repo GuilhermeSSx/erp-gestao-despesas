@@ -212,7 +212,7 @@ export default function Usuarios() {
 
                 <div className='flex justify-between rounded-lg my-8 w-full'>
                     <Link
-                        href={'/usuarios/perfil-acesso'}
+                        href={'/usuarios/permissoes'}
                         className='group relative items-center w-full flex justify-center py-2 px-2 border border-transparent text-sm font-medium rounded-md bg-orange-600 hover:bg-orange-500 text-white hover:scale-[1.02] duration-200 mr-1'
                     >
                         Perfil de Acesso
@@ -240,32 +240,18 @@ export default function Usuarios() {
                 <div className='flex justify-center items-center rounded w-full h-fit'>
                     <div className='flex justify-between rounded-lg my-2 w-full'>
                         {selectedUsuario ? (
-                            <>
-                                <Link
-                                    href={{ pathname: "/usuarios/permissoes", query: { id: selectedUsuario.id } }}
-                                    className='group relative items-center w-[50%] flex justify-center py-2 px-2 border border-transparent text-sm font-medium rounded-md bg-orange-600 hover:bg-orange-500 text-white hover:scale-[1.02] duration-200 mr-1'
-                                >
-                                    Permissões
-                                </Link>
-                                <button
-                                    onClick={() => abrirPopupExcluirUsuario(selectedUsuario ? selectedUsuario.id : 0)}
-                                    className='group relative items-center w-[50%] flex justify-center py-2 px-2 border border-transparent text-sm font-medium rounded-md bg-red-700 hover:bg-red-400 text-white hover:scale-[1.02] duration-200 ml-1'
-                                >
-                                    Excluir
-                                </button>
-                            </>
-
+                            <button
+                                onClick={() => abrirPopupExcluirUsuario(selectedUsuario ? selectedUsuario.id : 0)}
+                                className='group relative items-center w-full flex justify-center py-2 px-2 border border-transparent text-sm font-medium rounded-md bg-red-700 hover:bg-red-400 text-white hover:scale-[1.02] duration-200 ml-1'
+                            >
+                                Excluir
+                            </button>
                         ) : (
-                            <>
-                                <div className='group relative items-center w-[50%] flex justify-center py-2 px-2 border border-transparent text-sm font-medium rounded-md bg-orange-500 text-gray-500 cursor-not-allowed mr-1'>
-                                    Permissões
-                                </div>
-                                <button
-                                    className='group relative items-center w-[50%] flex justify-center py-2 px-2 border border-transparent text-sm font-medium rounded-md bg-red-500 text-gray-500 hover:scale-[1.02] duration-200 ml-1 cursor-not-allowed'
-                                >
-                                    Excluir
-                                </button>
-                            </>
+                            <button
+                                className='group relative items-center w-full flex justify-center py-2 px-2 border border-transparent text-sm font-medium rounded-md bg-red-500 text-gray-500 hover:scale-[1.02] duration-200 ml-1 cursor-not-allowed'
+                            >
+                                Excluir
+                            </button>
                         )}
 
                         {selectedUsuario && (
