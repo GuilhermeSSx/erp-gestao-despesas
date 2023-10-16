@@ -42,11 +42,14 @@ const Modulos: React.FC = () => {
 
   return (
 
-    <motion.div
-      initial={{ opacity: 0, x: -80 }}
-      animate={{ opacity: 1, x: 0 }}
+    <div
       className="fixed w-full h-[calc(100vh-60px)] flex flex-col justify-center items-center text-white px-6 overflow-hidden">
-      <div className='p-8 md:w-[60%] w-full h-[80%] bg-[#4b4b4b2d] rounded-xl flex flex-col items-center shadow-2xl'>
+      <motion.div
+        initial={{ opacity: 0, x: 500 }}
+        transition={{ duration: 0.6, type: 'spring'  }}
+        animate={{ opacity: 1, x: 0 }}
+        className='p-8 lg-1920:w-[40%] md:w-[50%] w-full h-[80%] bg-[#4b4b4b2d] rounded-xl flex flex-col items-center shadow-2xl'
+      >
         <h1 className='text-[1.5rem] font-extrabold text-black select-none'>Lista de Módulos</h1>
         <div className='flex justify-center mt-[0.7rem] text-black w-full'>
           <input
@@ -77,8 +80,8 @@ const Modulos: React.FC = () => {
             ))}
           </ul>
         </div>
-      </div>
-    </motion.div>
+      </motion.div>
+    </div>
 
   );
 };

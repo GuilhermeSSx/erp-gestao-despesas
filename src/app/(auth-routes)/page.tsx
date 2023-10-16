@@ -63,7 +63,7 @@ export default function Login() {
   return (
     <main className='h-[calc(100vh-60px)] w-full bg-slate-400 flex justify-center items-center overflow-auto sm:p-10 sm-mobile:p-4 p-2'>
 
-      <div className='w-full lg-1920:w-[30%] md-1190:w-[40%] md:w-[60%] md-web:w-[90%] h-fit bg-[#ffffff] rounded-xl flex flex-col items-center justify-center sm-mobile:p-4 p-2'>
+      <div className='w-full max-w-[460px] lg-1920:w-[25%] md-1190:w-[40%] md:w-[60%] md-web:w-[90%] h-fit bg-[#ffffff] rounded-xl flex flex-col items-center justify-center sm-mobile:p-4 p-2'>
 
         <Image
           className='flex relative justify-center items-center my-2'
