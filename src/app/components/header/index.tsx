@@ -29,9 +29,16 @@ export default function Header() {
     return (
         <header className="flex bg-black w-full h-[60px] p-[10px] sticky top-0 z-50 justify-between select-none">
             <div className="flex items-center mx-3">
-                <Link href={"/"}>
-                    <Image priority={true} alt="" src={Logo} width={60} />
-                </Link>
+                {session ? (
+                    <Link href={"/modulos"}>
+                        <Image priority={true} alt="" src={Logo} width={60} />
+                    </Link>
+                ) : (
+                    <Link href={"/"}>
+                        <Image priority={true} alt="" src={Logo} width={60} />
+                    </Link>
+                )}
+
             </div>
             <div className="flex w-fit justify-end mx-3">
                 {session ? (

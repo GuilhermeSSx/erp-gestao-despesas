@@ -34,21 +34,19 @@ export default function Login() {
     if (result?.error) {
       toast.error('Erro em fazer login. Email ou senha incorretos!', {
         position: "bottom-left",
-        autoClose: 5000,
+        autoClose: 4000,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
         draggable: true,
         progress: undefined,
         theme: "light",
-    });
+      });
     } else {
-      setErrorMessage(null); // Reseta a mensagem de erro se não houver erro
-      router.push('/modulos');
-      window.location.reload();
+      router.replace('/modulos');
       toast.success('Login efetuado com sucesso !', {
         position: "top-center",
-        autoClose: 5000,
+        autoClose: 3200,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
@@ -57,6 +55,8 @@ export default function Login() {
         theme: "light",
 
       });
+      setErrorMessage(null); // Reseta a mensagem de erro se não houver erro
+
     }
   }
 
