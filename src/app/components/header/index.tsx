@@ -3,10 +3,11 @@ import Link from "next/link";
 import Image from "next/image";
 import Logo from "../../assets/Energia-JPNR-BRANCO.png";
 import { Menu } from "@headlessui/react";
-import { ChevronDownIcon } from "@heroicons/react/20/solid";
+import { ChevronDownIcon, Bars3Icon } from "@heroicons/react/20/solid";
 import { signOut } from "next-auth/react";
 import { useRouter, } from "next/navigation";
 import { useSession } from "next-auth/react"
+import DrawerOpenClose from "../drawer";
 
 
 export default function Header() {
@@ -26,9 +27,13 @@ export default function Header() {
     // @ts-ignore
     const user = session?.user?.name;
 
+
+
     return (
-        <header className="flex bg-black w-full h-[60px] p-[10px] sticky top-0 z-50 justify-between select-none">
-            <div className="flex items-center mx-3">
+        <header className="flex bg-black w-full h-[60px] p-[10px] sticky top-0 z-50 select-none">
+            {session ? (<DrawerOpenClose />) : (<></>)}
+            <div className="flex items-center mx-4">
+
                 {session ? (
                     <Link href={"/modulos"}>
                         <Image priority={true} alt="" src={Logo} width={60} />
@@ -40,7 +45,7 @@ export default function Header() {
                 )}
 
             </div>
-            <div className="flex w-fit justify-end mx-3">
+            <div className="flex w-fit justify-end mx-4 absolute right-0">
                 {session ? (
                     <Menu
                         as="div"
@@ -89,6 +94,7 @@ export default function Header() {
                 ) : null}
 
             </div>
+            
 
         </header>
 
