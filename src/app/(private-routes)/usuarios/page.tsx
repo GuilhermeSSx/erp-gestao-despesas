@@ -3,10 +3,9 @@ import TableUsuarios from '@/app/components/tableUsuarios';
 import { useState, useEffect, useRef } from 'react';
 import PopupExcluirUsuario from '@/app/components/popupExcluirUsuario';
 import Link from 'next/link';
-
 import { toast } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
-import ComboBox from '@/app/components/comboBox';
+import { useSession } from "next-auth/react"
 
 interface Usuario {
     id: number;
@@ -16,6 +15,8 @@ interface Usuario {
 }
 
 export default function Usuarios() {
+
+    const { data: session } = useSession(); // Obtenha a sessão do usuário
 
     const [usuariosData, setUsuariosData] = useState<Usuario[]>([]); // Initialize usuariosData state
     const [searchTerm, setSearchTerm] = useState('');
@@ -242,7 +243,9 @@ export default function Usuarios() {
                         {selectedUsuario ? (
                             <button
                                 onClick={() => abrirPopupExcluirUsuario(selectedUsuario ? selectedUsuario.id : 0)}
-                                className='group relative items-center w-full flex justify-center py-2 px-2 border border-transparent text-sm font-medium rounded-md bg-red-700 hover:bg-red-400 text-white hover:scale-[1.02] duration-200 ml-1'
+                                className={`group relative items-center w-full flex justify-center py-2 px-2 border border-transparent text-sm font-medium rounded-md ${selectedUsuario && selectedUsuario.name === session?.user?.name ? 'bg-red-500 text-gray-500 cursor-not-allowed' : 'bg-red-700 hover:bg-red-400 text-white hover:scale-[1.02] duration-200'
+                                    } ml-1`}
+                                disabled={selectedUsuario && selectedUsuario.name === session?.user?.name}
                             >
                                 Excluir
                             </button>
