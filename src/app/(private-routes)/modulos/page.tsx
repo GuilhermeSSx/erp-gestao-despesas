@@ -43,7 +43,7 @@ const Modulos: React.FC = () => {
   return (
 
     <div
-      className="fixed w-full h-[calc(100vh-60px)] flex flex-col justify-center items-center text-white px-6 overflow-hidden">
+      className="w-full h-[calc(100vh-60px)] flex flex-col justify-center items-center text-white px-6 overflow-hidden">
       <motion.div
         initial={{ opacity: 0, x: 500 }}
         transition={{ duration: 0.6, type: 'spring'  }}

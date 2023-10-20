@@ -27,7 +27,7 @@ export default function Usuarios() {
 
     const getUsers = async () => {
         try {
-            const response = await fetch('https://jpnr-gestao-api.vercel.app/user/get-users', {
+            const response = await fetch('https://jpnr-gestao-sqlserver.vercel.app/user/get-users', {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -87,7 +87,7 @@ export default function Usuarios() {
         setLoading(true);
 
         try {
-            const response = await fetch('https://jpnr-gestao-api.vercel.app/user/sign-up', {
+            const response = await fetch('https://jpnr-gestao-sqlserver.vercel.app/user/sign-up', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

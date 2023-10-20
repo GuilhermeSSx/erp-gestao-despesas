@@ -18,7 +18,7 @@ const PopupExcluirUsuario: React.FC<PopupProps> = ({ open, onClose, userName, us
 
     const deleteUser = async (id: number) => {
         try {
-            const response = await fetch(`https://jpnr-gestao-api.vercel.app/user/delete-user/${id}`, {
+            const response = await fetch(`https://jpnr-gestao-sqlserver.vercel.app/user/delete-user/${id}`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',
@@ -39,6 +39,7 @@ const PopupExcluirUsuario: React.FC<PopupProps> = ({ open, onClose, userName, us
                 });
                 reloadUsers();
             } else {
+                reloadUsers();
                 toast.error('Erro ao deletar o usuário!', {
                     position: "bottom-left",
                     autoClose: 5000,
@@ -96,7 +97,7 @@ const PopupExcluirUsuario: React.FC<PopupProps> = ({ open, onClose, userName, us
                     <div className='rounded-lg w-full p-1 '>
                         <h2 className="text-xl font-bold text-center">Deseja Excluir?</h2>
                         <div className="border mt-4" />
-                        <h2 className="mt-3 text-base font-bold text-center">{userName}</h2>
+                        <h2 className="mt-3 text-base font-bold text-center">{userName}, {userId}</h2>
                     </div>
 
                     <div className='flex justify-between mt-4'>

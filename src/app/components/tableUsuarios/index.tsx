@@ -81,7 +81,7 @@ const TableUsuarios: React.FC<TableUsuariosProps> = ({ usuarios, onUsuarioSelect
                         >
                             <td className="w-full p-2 px-4 text-xs font-semibold text-gray-700 whitespace-nowrap">
                                 <div>
-                                    <h1 className='font-bold text-sm'>{usuario.name}</h1>
+                                    <h1 className='font-bold text-sm'>{usuario.name}, {usuario.id}</h1>
                                 </div>
                                 <div>
                                     <h2 className='font-semibold text-gray-500'>{usuario.email}</h2>
