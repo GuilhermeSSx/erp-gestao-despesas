@@ -15,9 +15,12 @@ const CriarSelecionarPerfilAcesso = () => {
     const [perfilAcessosData, setPerfilAcessosData] = useState<PerfilAcesso[]>([]);
 
     useEffect(() => {
-        getPerfilAcessos();
-        console.log(perfilAcessosData);
-    }, [perfilAcessosData]);
+        if(!acessoDataFetched) {
+            getPerfilAcessos();
+            //console.log(perfilAcessosData);
+        }
+
+    }, []);
 
     const getPerfilAcessos = async () => {
         try {
@@ -37,10 +40,17 @@ const CriarSelecionarPerfilAcesso = () => {
             }
         } catch (error) {
             console.error('Erro:', error);
+        } finally {
+            setAcessoDataFetched(true);
         }
     };
 
+        // Adicione um estado para controlar se a solicitação já foi feita
+        const [acessoDataFetched, setAcessoDataFetched] = useState(false);
+
     //-------------------------------------------------------------------------------
+
+
 
     const [loading, setLoading] = useState(false);
 
@@ -155,7 +165,7 @@ const CriarSelecionarPerfilAcesso = () => {
                 <div className='mt-4 rounded-xl flex h-[calc(100vh-300px)]'>
                     <TablePerfisAcesso perfisAcessos={perfilAcessosData} onPefilAcessoSelected={handlePefilAcessoSelected} />
                 </div>
-                
+
 
 
             </div>

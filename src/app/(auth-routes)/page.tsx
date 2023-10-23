@@ -32,6 +32,7 @@ export default function Login() {
     setIsLoading(false);
 
     if (result?.error) {
+      console.error(result.error);
       toast.error('Erro em fazer login. Email ou senha incorretos!', {
         position: "bottom-left",
         autoClose: 4000,

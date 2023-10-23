@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 
 interface Funcionalidade {
-    id: number;
-    name: string;
+    id_funcionalidade: number;
+    nome_funcionalidade: string;
+    acesso: string;
 }
 
 interface TableUsuariosProps {
@@ -62,7 +63,7 @@ const TableFuncionalidades: React.FC<TableUsuariosProps> = ({ funcionalidades, o
     };
 
     return (
-        <div className='rounded-lg border h-full w-[100%] overflow-y-scroll mt-2 bg-white'>
+        <div className='rounded-lg border h-full w-[100%] overflow-y-scroll bg-white'>
             <table className="w-full h-fit select-none " ref={tableRef}>
                 <thead className="bg-gray-50 border-b-2 border-gray-200 sticky top-0">
                     <tr className='divide-x divide-gray-300'>
@@ -74,30 +75,43 @@ const TableFuncionalidades: React.FC<TableUsuariosProps> = ({ funcionalidades, o
                 <tbody className="divide-y-2 divide-blue-100">
                     {funcionalidades.map((funcionalidade, index) => (
                         <tr
-                            key={funcionalidade.id}
+                            key={funcionalidade.id_funcionalidade}
                             className={` hover:bg-slate-100 cursor-pointer ${selectedItemIndex === index ? 'bg-slate-50' : 'bg-white'}`}
                             onClick={() => handleRowClick(funcionalidade, index)}
                         >
 
                             <td className="w-12 p-3 px-4 text-xs font-semibold text-gray-700 whitespace-nowrap">
                                 <div>
-                                    <h1 className='font-bold text-sm'>{funcionalidade.id}</h1>
+                                    <h1 className='font-bold text-sm'>{funcionalidade.id_funcionalidade}</h1>
                                 </div>
                             </td>
 
                             <td className='w-[50%] p-3 px-4 text-xs font-semibold text-gray-700 whitespace-nowrap'>
                                 <div>
-                                    <h2 className='font-semibold text-gray-500'>{funcionalidade.name}</h2>
+                                    <h2 className='font-semibold text-gray-500'>{funcionalidade.nome_funcionalidade}</h2>
                                 </div>
                             </td>
 
                             <td className='flex items-center justify-center text-gray-700 w-full'>
                                 <div className="flex justify-center items-center w-full p-2 border-l border-blue-500">
-                                    <select className='w-full h-full p-3 text-sm flex items-center' >
-                                        <option className=' hover:bg-slate-200 bg-slate-100 w-full'>Sem acesso</option>
-                                        <option className=' hover:bg-slate-200 bg-slate-100 w-full'>Apenas leitura</option>
-                                        <option className=' hover:bg-slate-200 bg-slate-100 w-full'>Leitura e Gravação</option>
+
+
+                                    <select
+                                        className='w-full h-full p-3 text-sm flex items-center'
+                                        value={funcionalidade.acesso} // Defina o valor do select com base no valor de acesso
+                                        onChange={(e) => {
+                                            const newAcesso = e.target.value;
+                                            const updatedFuncionalidades = [...funcionalidades];
+                                            updatedFuncionalidades[index] = { ...funcionalidade, acesso: newAcesso };
+                                            onFuncionalidadeSelected(updatedFuncionalidades[index]);
+                                        }}
+                                    >
+                                        <option value="Sem acesso">Sem acesso</option>
+                                        <option value="Apenas leitura">Apenas leitura</option>
+                                        <option value="Leitura e Gravação">Leitura e Gravação</option>
                                     </select>
+
+
                                 </div>
                             </td>
 

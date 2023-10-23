@@ -1,124 +1,137 @@
-"use client"
-import { useState } from 'react';
-import Tabs from '@mui/material/Tabs';
-import Tab from '@mui/material/Tab';
-import Typography from '@mui/material/Typography';
-import Box from '@mui/material/Box';
-import TableModulos from '@/app/components/tableModulos';
+"use client";
+import { useState, useEffect } from 'react';
+import { useSearchParams } from 'next/navigation';
 import TableFuncionalidades from '@/app/components/tableFuncionalidades';
-
-import { useSearchParams } from 'next/navigation'
-
-
-interface TabPanelProps {
-    children?: React.ReactNode;
-    index: number;
-    value: number;
-}
+import TableModulos from '@/app/components/tableModulos';
+import { motion } from 'framer-motion';
 
 interface Modulo {
-    id: number;
-    name: string;
+    id_modulo: number;
+    nome_modulo: string;
+    acesso: string;
 }
-
-const modulos: Modulo[] = [
-    { id: 1, name: 'Cadastro' },
-    { id: 2, name: 'Lançamentos' },
-    { id: 3, name: 'Buscar CAR' },
-];
 
 interface Funcionalidade {
-    id: number;
-    name: string;
-}
+    id_funcionalidade: number;
+    nome_funcionalidade: string;
+    acesso: string;
 
-const funcionalidades: Funcionalidade[] = [
-    { id: 101, name: 'Entrada' },
-    { id: 102, name: 'Despesas' },
-    { id: 103, name: 'Grupos' },
-    { id: 104, name: 'Centro De Custos' },
-    { id: 105, name: 'Favorecidos' },
-];
-
-const PerfilAcesso = (props: TabPanelProps) => {
-    const { children, value, index, ...other } = props;
-
-    return (
-        <div
-            role="tabpanel"
-            hidden={value !== index}
-            id={`simple-tabpanel-${index}`}
-            aria-labelledby={`simple-tab-${index}`}
-            {...other}
-        >
-            {value === index && (
-                <Box>
-                    <Typography className='flex w-full h-[calc(100vh-130px)] p-8'>{children}</Typography>
-                </Box>
-            )}
-        </div>
-    );
-}
-
-function a11yProps(index: number) {
-    return {
-        id: `simple-tab-${index}`,
-        'aria-controls': `simple-tabpanel-${index}`,
-    };
 }
 
 export default function BasicTabs() {
-    const [selectedModulo, setSelectedModulo] = useState<Modulo | null>(null);
-    const [selectedFuncionalidade, setSelectedFuncionalidade] = useState<Funcionalidade | null>(null);
-
     const usuarioParams = useSearchParams();
-    const id = usuarioParams.get('id')
+    const id_perfil_acesso = usuarioParams.get('id');
+
+    const [value, setValue] = useState(0);
+    const [selectedModulo, setSelectedModulo] = useState<Modulo | null>(null);
+    const [selectedFuncionalidade, setSelectedFuncionalidade] = useState<Funcionalidade | null>();
+
+    // Adicione um estado para controlar se a solicitação já foi feita
+    const [acessoDataFetched, setAcessoDataFetched] = useState(false);
+
     const handleModuloSelected = (modulo: Modulo) => {
         setSelectedModulo(modulo);
+        setValue(1);
     };
 
     const handleFuncionalidadeSelected = (funcionalidade: Funcionalidade) => {
         setSelectedFuncionalidade(funcionalidade);
+        setValue(2);
     };
 
-    const [value, setValue] = useState(0);
-
-    const handleChange = (event: React.SyntheticEvent, newValue: number) => {
-        setValue(newValue);
+    const buttonVariants = {
+        initial: { borderBottom: '2px solid transparent' },
+        animate: { borderBottom: '2px solid blue' },
     };
+
+    const [modulosAcessoData, setModulosAcessoData] = useState<[]>([]);
+    const [funcionalidadesAcessoData, setFuncionalidadesAcessoData] = useState<[]>([]);
+
+    const getAcessos = async () => {
+        try {
+            const response = await fetch('https://jpnr-gestao-sqlserver.vercel.app/user/get-perfil-acesso', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ id_perfil_acesso: id_perfil_acesso })
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                setModulosAcessoData(data.modulos_acessos);
+                setFuncionalidadesAcessoData(data.funcionalidades_acessos);
+            } else {
+                throw new Error('Erro em carregar o perfil de acesso!');
+            }
+        } catch (error) {
+            console.error('Erro:', error);
+        } finally {
+            // Marque que a solicitação foi feita
+            setAcessoDataFetched(true);
+        }
+    };
+
+    // Use useEffect para chamar getAcessos apenas uma vez quando value é 0
+    useEffect(() => {
+        if (value === 0 && !acessoDataFetched) {
+            getAcessos();
+        }
+    }, [value, acessoDataFetched]);
 
     return (
-        <Box sx={{ width: '100%', marginTop: '20px' }}>
-            <Box sx={{ borderBottom: 1, borderColor: 'divider', display: 'flex', width: '100%', justifyContent: 'space-around' }}>
-
-                <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
-                    <Tab label="Perfil de Acesso" {...a11yProps(0)} />
-                    <Tab label="Modulos" {...a11yProps(1)} />
-                    <Tab label="Funcionalidades" {...a11yProps(2)} />
-                </Tabs>
-            </Box>
-            <PerfilAcesso value={value} index={0}>
-                <div className='w-full h-full flex flex-rol justify-center bg-slate-50 rounded-lg p-28'>
-                    <h1 className='text-4xl'>{id}</h1>
+        <div className="w-full mt-4">
+            <div className="border-b border-gray-300 flex w-full justify-center box-content text-sm font-extrabold select-none">
+                <motion.button
+                    onClick={() => setValue(0)}
+                    className={`tab-button p-4 hover-bg-slate-100 ${value === 0 ? 'active' : ''}`}
+                    initial="initial"
+                    animate={value === 0 ? "animate" : "initial"}
+                    variants={buttonVariants}
+                    transition={{ duration: 0.2 }}
+                >
+                    PERFIL DE ACESSO
+                </motion.button>
+                <motion.button
+                    onClick={() => setValue(1)}
+                    className={`tab-button p-4 hover-bg-slate-100 ${value === 1 ? 'active' : ''}`}
+                    initial="initial"
+                    animate={value === 1 ? "animate" : "initial"}
+                    variants={buttonVariants}
+                    transition={{ duration: 0.2 }}
+                >
+                    MODULOS
+                </motion.button>
+                <motion.button
+                    onClick={() => setValue(2)}
+                    className={`tab-button p-4 hover-bg-slate-100 ${value === 2 ? 'active' : ''}`}
+                    initial="initial"
+                    animate={value === 2 ? "animate" : "initial"}
+                    variants={buttonVariants}
+                    transition={{ duration: 0.2 }}
+                >
+                    FUNCIONALIDADES
+                </motion.button>
+            </div>
+            {value === 0 && (
+                <div className="fixed w-full h-[calc(100vh-136px)] flex justify-center items-center bg-slate-50 rounded-lg">
+                    <h1 className="text-4xl">{id_perfil_acesso}</h1>
                 </div>
-
-            </PerfilAcesso>
-            <PerfilAcesso value={value} index={1}>
-                <div className='w-full h-full flex justify-center items-center bg-white rounded-lg'>
-                    <div className='w-full h-full p-2'>
-
-                        <TableModulos modulos={modulos} onModuloSelected={handleModuloSelected} />
-
+            )}
+            {value === 1 && (
+                <div className="fixed w-full h-[calc(100vh-136px)] flex justify-center items-center bg-slate-50 rounded-lg">
+                    <div className="w-full h-full p-2">
+                        <TableModulos modulos={modulosAcessoData} onModuloSelected={handleModuloSelected} />
                     </div>
                 </div>
-            </PerfilAcesso>
-            <PerfilAcesso value={value} index={2}>
-                <div className='w-full h-full flex justify-center items-center bg-white rounded-lg'>
-                    <div className='w-full h-full p-2'>
-                        <TableFuncionalidades funcionalidades={funcionalidades} onFuncionalidadeSelected={handleFuncionalidadeSelected} />
+            )}
+            {value === 2 && (
+                <div className="fixed w-full h-[calc(100vh-136px)] flex justify-center items-center bg-slate-50 rounded-lg">
+                    <div className="w-full h-full p-2">
+                        <TableFuncionalidades funcionalidades={funcionalidadesAcessoData} onFuncionalidadeSelected={handleFuncionalidadeSelected} />
                     </div>
                 </div>
-            </PerfilAcesso>
-        </Box>
+            )}
+        </div>
     );
 }

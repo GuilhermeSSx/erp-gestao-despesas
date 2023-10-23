@@ -1,6 +1,5 @@
 import { toast } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
-// import getPerfilAcessos from '@/app/(private-routes)/usuarios/permissoes/page';
 
 export const excluirPerfilAcesso = async (id_perfil_acesso: number) => {
     try {
