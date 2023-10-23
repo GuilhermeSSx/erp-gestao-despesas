@@ -26,7 +26,6 @@ const PopupExcluirUsuario: React.FC<PopupProps> = ({ open, onClose, userName, us
             });
 
             if (response.ok) {
-                console.info('Usuário deletado com sucesso');
                 toast.success('Usuário deletado com sucesso!', {
                     position: "bottom-left",
                     autoClose: 5000,

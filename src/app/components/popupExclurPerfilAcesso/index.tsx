@@ -1,73 +1,25 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Dialog } from '@headlessui/react';
 import { ArrowUturnLeftIcon, XMarkIcon } from '@heroicons/react/20/solid';
-import { toast } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
+import { excluirPerfilAcesso } from '../../lib/apiRequests';
 
 interface PopupProps {
     open: boolean;
     onClose: () => void;
     id_perfil_acesso: number;
     nome_perfil_acesso: string;
-    reloadPerfilAcessos: () => void;
+    // reloadPerfilAcessos: () => void;
 }
 
-const PopupExcluirPerfilAcesso: React.FC<PopupProps> = ({ open, onClose, id_perfil_acesso, nome_perfil_acesso, reloadPerfilAcessos }) => {
+const PopupExcluirPerfilAcesso: React.FC<PopupProps> = ({ open, onClose, id_perfil_acesso, nome_perfil_acesso }) => {
     const cancelButtonRef = useRef<HTMLButtonElement | null>(null);
     const deleteButtonRef = useRef<HTMLButtonElement | null>(null);
 
-    const excluirPerfilAcesso = async (id_perfil_acesso: number) => {
-        try {
-            const response = await fetch('https://jpnr-gestao-sqlserver.vercel.app/user/excluir-perfil-acesso', {
-                method: 'DELETE',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(id_perfil_acesso)
-            });
+    const handleDelete = async () => {
 
-            if (response.ok) {
-                console.info('Perfil de acesso deletado com sucesso');
-                toast.success('Perfil de acesso deletado com sucesso!', {
-                    position: "bottom-left",
-                    autoClose: 5000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "light",
-                });
-                reloadPerfilAcessos();
-            } else {
-                reloadPerfilAcessos();
-                toast.error('Erro ao deletar o perfil de acesso!', {
-                    position: "bottom-left",
-                    autoClose: 5000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "light",
-                });
-                // Handle error if necessary
-            }
+        await excluirPerfilAcesso(id_perfil_acesso);
 
-        } catch (error) {
-            console.error('Erro:', error);
-            toast.error('Erro ao deletar o perfil de acesso!', {
-                position: "bottom-left",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "light",
-            });
-            // Handle error if necessary
-        }
     };
 
     useEffect(() => {
@@ -118,7 +70,7 @@ const PopupExcluirPerfilAcesso: React.FC<PopupProps> = ({ open, onClose, id_perf
                         <button
                             onClick={() => {
                                 try {
-                                    excluirPerfilAcesso(id_perfil_acesso)
+                                    handleDelete();
                                     onClose();
                                 } catch (error) {
                                     console.log(error);

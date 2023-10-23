@@ -122,13 +122,12 @@ const TablePerfisAcesso: React.FC<TablePerfisAcessosProps> = ({ perfisAcessos, o
                     ))}
                 </tbody>
             </table>
-            {/* <PopupExcluirPerfilAcesso
+            <PopupExcluirPerfilAcesso
                 open={popupAbertoExcluirPerfilAcesso}
                 onClose={fecharPopupExcluirPerfilAcesso}
-                id_perfil_acesso={selectedItem ? selectedItem.id_perfil_acesso : null}
+                id_perfil_acesso={selectedItem ? selectedItem.id_perfil_acesso : 0}
                 nome_perfil_acesso={selectedItem ? selectedItem.nome_perfil_acesso : ''}
-                //reloadPerfilAcessos={reloadPerfilAcessos} -- Continuar
-            /> */}
+            />
 
         </div>
     );

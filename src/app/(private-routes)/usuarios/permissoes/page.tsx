@@ -1,6 +1,6 @@
 "use client"
 import TablePerfisAcesso from '@/app/components/tablePerfisAcesso';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useLayoutEffect } from 'react';
 import { UserPlusIcon } from '@heroicons/react/20/solid';
 import { toast } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
@@ -16,7 +16,8 @@ const CriarSelecionarPerfilAcesso = () => {
 
     useEffect(() => {
         getPerfilAcessos();
-    }, []);
+        console.log(perfilAcessosData);
+    }, [perfilAcessosData]);
 
     const getPerfilAcessos = async () => {
         try {
@@ -111,7 +112,6 @@ const CriarSelecionarPerfilAcesso = () => {
 
     const handlePefilAcessoSelected = (perfilAcesso: PerfilAcesso) => {
         setSelectedPerfilAcesso(perfilAcesso);
-        console.log(selectedPefilAcesso);
     };
 
     return (
