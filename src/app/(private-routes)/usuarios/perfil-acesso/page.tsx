@@ -15,7 +15,6 @@ interface Funcionalidade {
     id_funcionalidade: number;
     nome_funcionalidade: string;
     acesso: string;
-
 }
 
 export default function BasicTabs() {
@@ -29,14 +28,18 @@ export default function BasicTabs() {
     // Adicione um estado para controlar se a solicitação já foi feita
     const [acessoDataFetched, setAcessoDataFetched] = useState(false);
 
-    const handleModuloSelected = (modulo: Modulo) => {
-        setSelectedModulo(modulo);
+    const handleModuloSelected = (modulos: Modulo[]) => {
+        setSelectedModulo(modulos[0]);
+        setModulosAcessoData(modulos); // Atualize o estado modulosAcessoData com os módulos selecionados
         setValue(1);
+        console.log(modulos);
     };
 
-    const handleFuncionalidadeSelected = (funcionalidade: Funcionalidade) => {
-        setSelectedFuncionalidade(funcionalidade);
+    const handleFuncionalidadeSelected = (funcionalidade: Funcionalidade[]) => {
+        setSelectedFuncionalidade(funcionalidade[0]);
+        setFuncionalidadesAcessoData(funcionalidade);
         setValue(2);
+        console.log(funcionalidade);
     };
 
     const buttonVariants = {
@@ -44,8 +47,8 @@ export default function BasicTabs() {
         animate: { borderBottom: '2px solid blue' },
     };
 
-    const [modulosAcessoData, setModulosAcessoData] = useState<[]>([]);
-    const [funcionalidadesAcessoData, setFuncionalidadesAcessoData] = useState<[]>([]);
+    const [modulosAcessoData, setModulosAcessoData] = useState<Modulo[]>([]);
+    const [funcionalidadesAcessoData, setFuncionalidadesAcessoData] = useState<Funcionalidade[]>([]);
 
     const getAcessos = async () => {
         try {
@@ -74,14 +77,12 @@ export default function BasicTabs() {
 
     // Use useEffect para chamar getAcessos apenas uma vez quando value é 0
     useEffect(() => {
-        if (value === 0 && !acessoDataFetched) {
-            getAcessos();
-        }
+        getAcessos();
     }, [value, acessoDataFetched]);
 
     return (
         <div className="w-full mt-4">
-            <div className="border-b border-gray-300 flex w-full justify-center box-content text-sm font-extrabold select-none">
+            <div className="border-b border-gray-300 flex w-full justify-center box-content md-web:text-sm text-[10px] font-extrabold select-none">
                 <motion.button
                     onClick={() => setValue(0)}
                     className={`tab-button p-4 hover-bg-slate-100 ${value === 0 ? 'active' : ''}`}
@@ -120,14 +121,15 @@ export default function BasicTabs() {
             )}
             {value === 1 && (
                 <div className="fixed w-full h-[calc(100vh-136px)] flex justify-center items-center bg-slate-50 rounded-lg">
-                    <div className="w-full h-full p-2">
+                    <div className="w-full h-full md-1190:mx-[22rem] mx-1 py-8">
+                        
                         <TableModulos modulos={modulosAcessoData} onModuloSelected={handleModuloSelected} />
                     </div>
                 </div>
             )}
             {value === 2 && (
                 <div className="fixed w-full h-[calc(100vh-136px)] flex justify-center items-center bg-slate-50 rounded-lg">
-                    <div className="w-full h-full p-2">
+                    <div className="w-full h-full md-1190:mx-[22rem] mx-1 py-8">
                         <TableFuncionalidades funcionalidades={funcionalidadesAcessoData} onFuncionalidadeSelected={handleFuncionalidadeSelected} />
                     </div>
                 </div>
