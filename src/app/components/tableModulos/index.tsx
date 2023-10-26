@@ -1,4 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { toast } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
 
 interface Modulo {
     id_modulo: number;
@@ -12,35 +14,76 @@ interface TableUsuariosProps {
     onModuloSelected: (modulos: Modulo[]) => void;
 }
 
-
-
-
-
-
 const TableModulos: React.FC<TableUsuariosProps> = ({ modulos, onModuloSelected }) => {
     const [selectedItemIndex, setSelectedItemIndex] = useState<number | null>(null);
     const [originalModulos, setOriginalModulos] = useState<Modulo[]>([]); // Estado para o array original
     const [isSelectionChanged, setIsSelectionChanged] = useState(false); // Estado para controlar se as seleções foram alteradas
     const tableRef = useRef<HTMLTableElement | null>(null);
 
-    //Terminar a implementação do update dos modulos de acesso
+    const extractAcessoData = (modulos: Modulo[]) => {
+        // Mapeia os objetos Modulo para as listas de id_modulo_acesso e acesso
+        const idModuloAcessoList = modulos.map((modulo) => modulo.id_modulo_acesso);
+        const acessoList = modulos.map((modulo) => modulo.acesso);
+        // Converte as listas em strings separadas por vírgulas
+        const idModuloAcessoString = idModuloAcessoList.join(', ');
+        const acessoString = acessoList.join(',');
+        return { idModuloAcessoList: idModuloAcessoString, acessoList: acessoString };
+    };
+
+    
     const updateModulosAcesso = async () => {
         try {
+            const { idModuloAcessoList, acessoList } = extractAcessoData(modulos);
             const response = await fetch('https://jpnr-gestao-sqlserver.vercel.app/user/update-acesso-modulo', {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ })
+                body: JSON.stringify({
+                    ID_MODULO_ACESSO_LIST: idModuloAcessoList,
+                    ACESSO_LIST: acessoList,
+                }),
             });
 
-            console.log('modulos print',modulos)
+            if(response.ok) {
+                toast.success('Acessos atualizados com sucesso', {
+                    position: "bottom-left",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+
+                });
+            } else {
+                toast.error('Erro ao atualizar os acessos', {
+                    position: "bottom-left",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                });
+            }
+
             
         } catch (error) {
-            console.error('Erro:', error);
+            toast.error(`Erro: ${error}`, {
+                position: "bottom-left",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            });
         }
     };
-
 
     useEffect(() => {
         if (selectedItemIndex === null) {

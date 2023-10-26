@@ -32,14 +32,12 @@ export default function BasicTabs() {
         setSelectedModulo(modulos[0]);
         setModulosAcessoData(modulos); // Atualize o estado modulosAcessoData com os módulos selecionados
         setValue(1);
-        console.log(modulos);
     };
 
     const handleFuncionalidadeSelected = (funcionalidade: Funcionalidade[]) => {
         setSelectedFuncionalidade(funcionalidade[0]);
         setFuncionalidadesAcessoData(funcionalidade);
         setValue(2);
-        console.log(funcionalidade);
     };
 
     const buttonVariants = {
@@ -75,10 +73,9 @@ export default function BasicTabs() {
         }
     };
 
-    // Use useEffect para chamar getAcessos apenas uma vez quando value é 0
     useEffect(() => {
         getAcessos();
-    }, [value, acessoDataFetched]);
+    }, [value]);
 
     return (
         <div className="w-full mt-4">

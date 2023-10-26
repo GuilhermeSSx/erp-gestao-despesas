@@ -1,9 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { toast } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
 
 interface Funcionalidade {
     id_funcionalidade: number;
     nome_funcionalidade: string;
     acesso: string;
+    id_funcionalidade_acesso?: number;
 }
 
 interface TableFuncionalidadesProps {
@@ -16,6 +19,72 @@ const TableFuncionalidades: React.FC<TableFuncionalidadesProps> = ({ funcionalid
     const [originalFuncionarios, setOriginalFuncionarios] = useState<Funcionalidade[]>([]); // Estado para o array original
     const [isSelectionChanged, setIsSelectionChanged] = useState(false); // Estado para controlar se as seleções foram alteradas
     const tableRef = useRef<HTMLTableElement | null>(null);
+
+
+    const extractAcessoData = (funcionalidades: Funcionalidade[]) => {
+        // Mapeia os objetos Modulo para as listas de id_modulo_acesso e acesso
+        const idFuncionalidadeAcessoList = funcionalidades.map((funcionalidade) => funcionalidade.id_funcionalidade_acesso);
+        const acessoList = funcionalidades.map((funcionalidade) => funcionalidade.acesso);
+        // Converte as listas em strings separadas por vírgulas
+        const idFuncionalidadeAcessoString = idFuncionalidadeAcessoList.join(', ');
+        const acessoString = acessoList.join(',');
+        return { idFuncionalidadeAcessoList: idFuncionalidadeAcessoString, acessoList: acessoString };
+    };
+
+    
+    const updateFuncionalidadesAcesso = async () => {
+        try {
+            const { idFuncionalidadeAcessoList, acessoList } = extractAcessoData(funcionalidades);
+            const response = await fetch('https://jpnr-gestao-sqlserver.vercel.app/user/update-acesso-funcionalidade', {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    ID_FUNCIONALIDADE_ACESSO_LIST: idFuncionalidadeAcessoList,
+                    ACESSO_LIST: acessoList,
+                }),
+            });
+
+            if(response.ok) {
+                toast.success('Acessos atualizados com sucesso', {
+                    position: "bottom-left",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+
+                });
+            } else {
+                toast.error('Erro ao atualizar os acessos', {
+                    position: "bottom-left",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                });
+            }
+
+            
+        } catch (error) {
+            toast.error(`Erro: ${error}`, {
+                position: "bottom-left",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            });
+        }
+    };
 
     useEffect(() => {
         if (selectedItemIndex === null) {
@@ -63,6 +132,7 @@ const TableFuncionalidades: React.FC<TableFuncionalidadesProps> = ({ funcionalid
     const handleSave = () => {
         setOriginalFuncionarios([...funcionalidades]); // Atualize o array original
         setIsSelectionChanged(false); // Redefina o estado de alterações nas seleções
+        updateFuncionalidadesAcesso();
     };
 
     return (
