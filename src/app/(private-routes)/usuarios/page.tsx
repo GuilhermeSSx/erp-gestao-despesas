@@ -213,7 +213,7 @@ export default function Usuarios() {
 
                 <div className='flex justify-between rounded-lg my-8 w-full'>
                     <Link
-                        href={'/usuarios/permissoes'}
+                        href={'/usuarios/perfil-acesso'}
                         className='group relative items-center w-full flex justify-center py-2 px-2 border border-transparent text-sm font-medium rounded-md bg-orange-600 hover:bg-orange-500 text-white hover:scale-[1.02] duration-200 mr-1'
                     >
                         Perfil de Acesso

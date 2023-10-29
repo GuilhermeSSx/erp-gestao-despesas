@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronDownIcon, Bars3Icon } from "@heroicons/react/20/solid";
 import { Menu } from "@headlessui/react";
 import Link from "next/link";
+import { type } from 'os';
 
 function DrawerOpenClose() {
     const [isOpen, setIsOpen] = useState(false);
@@ -42,10 +43,11 @@ function DrawerOpenClose() {
             <AnimatePresence>
                 {isOpen && (
                     <motion.div
-                        initial={{ opacity: 0, x: -200 }}
+                        initial={{ opacity: 0, x: -300 }}
+                        transition={{type: "tween", duration: 0.3}}
                         animate={{ opacity: 1, x: 0 }}
-                        exit={{ opacity: 0, x: -200 }}
-                        className='fixed bg-white shadow-lg h-full w-full max-w-[300px] min-w-[250px] flex top-0 left-0 border-r-[1px] border-jpnrAzul '
+                        exit={{ opacity: 0, x: -300 }}
+                        className='fixed bg-white shadow-2xl h-full w-full max-w-[250px] min-w-[200px] flex top-0 left-0'
                         ref={drawerRef}
                     >
                         <div className='flex flex-col w-full divide-y-4'>
@@ -58,7 +60,7 @@ function DrawerOpenClose() {
                                     />
                                 </button>
                             </div>
-                            
+
                             <Menu
                                 as="div"
                                 id="MenuDiv"
@@ -69,8 +71,7 @@ function DrawerOpenClose() {
                                     id="MenuButton"
                                     className="relavite z-24 inline-flex w-full justify-between rounded-md bg-white bg-opacity-20 px-4 py-[10px] text-sm font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-90"
                                 >
-                                    <span className=" md-web:flex hidden text-black font-bold text-base">Modulos</span>
-                                    <span className=" md-web:hidden text-black">Modulos hidden</span>
+                                    <span className=" md-web:flex text-black font-bold text-base">Modulos</span>
 
                                     <ChevronDownIcon
                                         className="ml-2 -mr-1 h-5 w-5 text-black hover:text-[#CE466F]"
@@ -79,7 +80,7 @@ function DrawerOpenClose() {
                                 </Menu.Button>
 
                                 <Menu.Items className="right-0 mt-2 w-full origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                                    <motion.div 
+                                    <motion.div
                                         className="px-1 py-1"
                                         initial={{ opacity: 0, y: -150 }}
                                         animate={{ opacity: 1, y: 0 }}
@@ -89,21 +90,21 @@ function DrawerOpenClose() {
                                             <>
                                                 <Link
                                                     onClick={toggleDrawer}
-                                                    className={"font-semibold group flex w-full justify-center items-center rounded-md p-4 text-sm hover:bg-selecaoLinha"}
+                                                    className={"font-semibold group flex w-full items-center rounded-md p-4 text-sm hover:bg-selecaoLinha"}
                                                     href={"/modulos/cadastros"}
                                                 >
                                                     Cadastros
                                                 </Link>
                                                 <Link
                                                     onClick={toggleDrawer}
-                                                    className={"font-semibold group flex w-full justify-center items-center rounded-md p-4 text-sm hover:bg-selecaoLinha"}
+                                                    className={"font-semibold group flex w-full items-center rounded-md p-4 text-sm hover:bg-selecaoLinha"}
                                                     href={"/modulos/lancamentos"}
                                                 >
-                                                    Lancamentos
+                                                    Lançamentos
                                                 </Link>
                                                 <Link
                                                     onClick={toggleDrawer}
-                                                    className={"font-semibold group flex w-full justify-center items-center rounded-md p-4 text-sm hover:bg-selecaoLinha"}
+                                                    className={"font-semibold group flex w-full items-center rounded-md p-4 text-sm hover:bg-selecaoLinha"}
                                                     href={"/modulos/buscarLatLong"}
                                                 >
                                                     Buscar CAR por LAT/LONG
@@ -124,8 +125,7 @@ function DrawerOpenClose() {
                                     id="MenuButton"
                                     className="relavite z-24 inline-flex w-full justify-between rounded-md bg-white bg-opacity-20 px-4 py-[10px] text-sm font-medium text-white hover:bg-opacity-70 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-90"
                                 >
-                                    <span className=" md-web:flex hidden text-black font-bold text-base">Configurações</span>
-                                    <span className=" md-web:hidden text-black">Modulos hidden</span>
+                                    <span className=" md-web:flex text-black font-bold text-base">Configurações</span>
 
                                     <ChevronDownIcon
                                         className="ml-2 -mr-1 h-5 w-5 text-black hover:text-[#CE466F]"
@@ -134,26 +134,31 @@ function DrawerOpenClose() {
                                 </Menu.Button>
 
                                 <Menu.Items className="right-0 mt-2 w-full origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                                    <div className="px-1 py-1">
+                                    <motion.div
+                                        className="px-1 py-1"
+                                        initial={{ opacity: 0, y: -150 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        exit={{ opacity: 0, y: -150 }}
+                                    >
                                         <Menu.Item>
                                             <>
                                                 <Link
                                                     onClick={toggleDrawer}
-                                                    className={"font-semibold group flex w-full justify-center items-center rounded-md p-4 text-sm hover:bg-selecaoLinha"}
+                                                    className={"font-semibold group flex w-full items-center rounded-md p-4 text-sm hover:bg-selecaoLinha"}
                                                     href={"/usuarios"}
                                                 >
                                                     Usuarios
                                                 </Link>
                                                 <Link
                                                     onClick={toggleDrawer}
-                                                    className={"font-semibold group flex w-full justify-center items-center rounded-md p-4 text-sm hover:bg-selecaoLinha"}
-                                                    href={"/usuarios/permissoes"}
+                                                    className={"font-semibold group flex w-full items-center rounded-md p-4 text-sm hover:bg-selecaoLinha"}
+                                                    href={"/usuarios/perfil-acesso"}
                                                 >
-                                                    Permissões
+                                                    Perfil de Acesso
                                                 </Link>
                                             </>
                                         </Menu.Item>
-                                    </div>
+                                    </motion.div>
                                 </Menu.Items>
                             </Menu>
 

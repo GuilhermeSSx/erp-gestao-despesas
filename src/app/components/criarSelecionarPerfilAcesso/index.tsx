@@ -125,19 +125,24 @@ const CriarSelecionarPerfilAcesso = () => {
     };
 
     return (
-        <main className='fixed w-screen h-[calc(100vh-60px)] flex justify-center'>
+        <div className='flex w-full h-full justify-center'>
+            <div className='w-full md:w-[32%] md:min-w-[490px] px-2'>
 
-            <div className='w-full h-full md-web:w-[70%] md:w-[50%]'>
+                <h2 className="text-xl font-bold text-center mt-8">Selecione um Perfil de Acesso</h2>
 
-                <form className='w-full h-fit flex flex-col items-center rounded-xl mt-8' onSubmit={handleSubmit}>
+                <div className='mt-4 rounded-xl flex h-[calc(100vh-380px)]'>
+                    <TablePerfisAcesso perfisAcessos={perfilAcessosData} onPefilAcessoSelected={handlePefilAcessoSelected} />
+                </div>
+
+                <form className='w-full h-fit flex flex-col items-center rounded-xl mt-4' onSubmit={handleSubmit}>
                     <div className='rounded-lg w-full'>
-                        <h2 className="text-xl font-bold text-center">Criar perfil de acesso</h2>
+                        
                         <div className="border mt-4" />
                         <input
                             id='nome-perfil-acesso'
                             name='nome_perfil_acesso'
                             className='mt-3 relative block border-2 w-full px-4 py-2 rounded-t-md'
-                            placeholder='Nome do perfil de acesso...'
+                            placeholder='Nome do novo perfil de acesso...'
                             type='text'
                             required
                             onChange={handleChange}
@@ -146,7 +151,7 @@ const CriarSelecionarPerfilAcesso = () => {
                         />
                     </div>
 
-                    <div className='flex justify-between mt-2 w-full'>
+                    <div className='flex justify-between w-full'>
                         <button
                             title="Cadastrar Perfil de Acesso"
                             className='mt-2 group relative w-full flex justify-center items-center py-1 px-4 border border-transparent
@@ -162,16 +167,12 @@ const CriarSelecionarPerfilAcesso = () => {
                     </div>
                 </form>
 
-                <div className='mt-4 rounded-xl flex h-[calc(100vh-300px)]'>
-                    <TablePerfisAcesso perfisAcessos={perfilAcessosData} onPefilAcessoSelected={handlePefilAcessoSelected} />
-                </div>
-
 
 
             </div>
 
 
-        </main>
+        </div>
     );
 };
 

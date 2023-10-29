@@ -4,6 +4,7 @@ import { useSearchParams } from 'next/navigation';
 import TableFuncionalidades from '@/app/components/tableFuncionalidades';
 import TableModulos from '@/app/components/tableModulos';
 import { motion } from 'framer-motion';
+import CriarSelecionarPerfilAcesso from '@/app/components/criarSelecionarPerfilAcesso';
 
 interface Modulo {
     id_modulo: number;
@@ -113,7 +114,7 @@ export default function BasicTabs() {
             </div>
             {value === 0 && (
                 <div className="fixed w-full h-[calc(100vh-136px)] flex justify-center items-center bg-slate-50 rounded-lg">
-                    <h1 className="text-4xl">{id_perfil_acesso}</h1>
+                    <CriarSelecionarPerfilAcesso />
                 </div>
             )}
             {value === 1 && (
