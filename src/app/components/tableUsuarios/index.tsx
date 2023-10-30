@@ -69,7 +69,7 @@ const TableUsuarios: React.FC<TableUsuariosProps> = ({ usuarios, onUsuarioSelect
                 <thead className="bg-gray-50 border-b-2 border-gray-200 sticky top-0">
                     <tr className='divide-x divide-gray-300'>
                         <th className="p-3 text-sm font-bold tracking-wide text-left">Usuário</th>
-                        <th className="p-3 text-sm font-bold tracking-wide text-left">Permissão</th>
+                        <th className="p-3 text-sm font-bold tracking-wide text-left">Perfil de Acesso</th>
                     </tr>
                 </thead>
                 <tbody className="divide-y-2 divide-blue-100">
@@ -81,7 +81,7 @@ const TableUsuarios: React.FC<TableUsuariosProps> = ({ usuarios, onUsuarioSelect
                         >
                             <td className="w-full p-2 px-4 text-xs font-semibold text-gray-700 whitespace-nowrap">
                                 <div>
-                                    <h1 className='font-bold text-sm'>{usuario.name}, {usuario.id}</h1>
+                                    <h1 className='font-bold text-sm'>{usuario.name}</h1>
                                 </div>
                                 <div>
                                     <h2 className='font-semibold text-gray-500'>{usuario.email}</h2>
