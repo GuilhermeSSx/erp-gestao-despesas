@@ -1,5 +1,5 @@
-"use client";
-import { useState, useEffect } from 'react';
+"use client"
+import React, { useState, useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
 import TableFuncionalidades from '@/app/components/tableFuncionalidades';
 import TableModulos from '@/app/components/tableModulos';
@@ -75,8 +75,11 @@ export default function BasicTabs() {
     };
 
     useEffect(() => {
-        getAcessos();
+        if (value !== 0) getAcessos();
     }, [value]);
+
+    // Disable buttons for tabs 1 and 2 when id_perfil_acesso is not available
+    const isPerfilAcessoAvailable = !!id_perfil_acesso;
 
     return (
         <div className="w-full mt-4">
@@ -85,29 +88,31 @@ export default function BasicTabs() {
                     onClick={() => setValue(0)}
                     className={`tab-button p-4 hover-bg-slate-100 ${value === 0 ? 'active' : ''}`}
                     initial="initial"
-                    animate={value === 0 ? "animate" : "initial"}
+                    animate={value === 0 ? 'animate' : 'initial'}
                     variants={buttonVariants}
                     transition={{ duration: 0.2 }}
                 >
                     PERFIL DE ACESSO
                 </motion.button>
                 <motion.button
-                    onClick={() => setValue(1)}
-                    className={`tab-button p-4 hover-bg-slate-100 ${value === 1 ? 'active' : ''}`}
+                    onClick={() => isPerfilAcessoAvailable && setValue(1)}
+                    className={`tab-button p-4 ${!isPerfilAcessoAvailable ? ' cursor-not-allowed text-gray-400' : ''} ${value === 1 ? 'active' : ''}`}
                     initial="initial"
-                    animate={value === 1 ? "animate" : "initial"}
+                    animate={value === 1 ? 'animate' : 'initial'}
                     variants={buttonVariants}
                     transition={{ duration: 0.2 }}
+                    disabled={!isPerfilAcessoAvailable}
                 >
                     MODULOS
                 </motion.button>
                 <motion.button
-                    onClick={() => setValue(2)}
-                    className={`tab-button p-4 hover-bg-slate-100 ${value === 2 ? 'active' : ''}`}
+                    onClick={() => isPerfilAcessoAvailable && setValue(2)}
+                    className={`tab-button p-4 ${!isPerfilAcessoAvailable ? ' cursor-not-allowed text-gray-400' : ''} ${value === 2 ? 'active' : ''}`}
                     initial="initial"
-                    animate={value === 2 ? "animate" : "initial"}
+                    animate={value === 2 ? 'animate' : 'initial'}
                     variants={buttonVariants}
                     transition={{ duration: 0.2 }}
+                    disabled={!isPerfilAcessoAvailable}
                 >
                     FUNCIONALIDADES
                 </motion.button>
@@ -117,15 +122,14 @@ export default function BasicTabs() {
                     <CriarSelecionarPerfilAcesso />
                 </div>
             )}
-            {value === 1 && (
+            {value === 1 && isPerfilAcessoAvailable && (
                 <div className="fixed w-full h-[calc(100vh-136px)] flex justify-center items-center bg-slate-50 rounded-lg">
                     <div className="w-full h-full md-1190:mx-[22rem] mx-1 py-8">
-                        
                         <TableModulos modulos={modulosAcessoData} onModuloSelected={handleModuloSelected} />
                     </div>
                 </div>
             )}
-            {value === 2 && (
+            {value === 2 && isPerfilAcessoAvailable && (
                 <div className="fixed w-full h-[calc(100vh-136px)] flex justify-center items-center bg-slate-50 rounded-lg">
                     <div className="w-full h-full md-1190:mx-[22rem] mx-1 py-8">
                         <TableFuncionalidades funcionalidades={funcionalidadesAcessoData} onFuncionalidadeSelected={handleFuncionalidadeSelected} />

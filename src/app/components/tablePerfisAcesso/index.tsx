@@ -14,52 +14,19 @@ interface TablePerfisAcessosProps {
 
 const TablePerfisAcesso: React.FC<TablePerfisAcessosProps> = ({ perfisAcessos, onPefilAcessoSelected }) => {
     const [selectedItemIndex, setSelectedItemIndex] = useState<number | null>(null);
-    const [selectedItem, setSelectedItem] = useState<PerfilAcesso | null>(null);
-    const [selectedEditarItem, setSelectedEditarItem] = useState<PerfilAcesso | null>(null);
+    const [selectedItem, setSelectedItem] = useState<PerfilAcesso | null>(null); // Change variable name to 'selectedItem'
     const tableRef = useRef<HTMLTableElement | null>(null);
 
-    useEffect(() => {
-        if (selectedItemIndex === null) {
-            setSelectedItemIndex(0);
-            onPefilAcessoSelected(perfisAcessos[0]);
-        } else {
-            if (perfisAcessos[selectedItemIndex] === undefined) {
-                setSelectedItemIndex(0);
-                onPefilAcessoSelected(perfisAcessos[0]);
-            }
-            onPefilAcessoSelected(perfisAcessos[selectedItemIndex]);
-        }
-        const handleKeyDown = (event: KeyboardEvent) => {
-            if (!tableRef.current) return;
-
-            const rows = Array.from(tableRef.current.querySelectorAll('tbody tr'));
-
-            if (event.key === 'ArrowDown' && selectedItemIndex !== null) {
-                const nextIndex = selectedItemIndex + 1;
-                if (nextIndex < rows.length) {
-                    setSelectedItemIndex(nextIndex);
-                    onPefilAcessoSelected(perfisAcessos[nextIndex]);
-                }
-            } else if (event.key === 'ArrowUp' && selectedItemIndex !== null) {
-                const prevIndex = selectedItemIndex - 1;
-                if (prevIndex >= 0) {
-                    setSelectedItemIndex(prevIndex);
-                    onPefilAcessoSelected(perfisAcessos[prevIndex]);
-                }
-            }
-        };
-
-        window.addEventListener('keydown', handleKeyDown);
-
-        return () => {
-            window.removeEventListener('keydown', handleKeyDown);
-        };
-    }, [selectedItemIndex, onPefilAcessoSelected, perfisAcessos]);
-
-
-
     const handleRowClick = (perfilAcesso: PerfilAcesso, index: number) => {
-        setSelectedItemIndex(index);
+        if (selectedItem && selectedItem.id_perfil_acesso === perfilAcesso.id_perfil_acesso) {
+            // Deselect the current item if it's already selected
+            setSelectedItem(null);
+            setSelectedItemIndex(null);
+        } else {
+            // Select the clicked item
+            setSelectedItem(perfilAcesso);
+            setSelectedItemIndex(index);
+        }
         onPefilAcessoSelected(perfilAcesso);
     };
 
@@ -74,8 +41,6 @@ const TablePerfisAcesso: React.FC<TablePerfisAcessosProps> = ({ perfisAcessos, o
         setPopupAbertoExcluirPerfilAcesso(false);
     };
 
-
-
     return (
         <div className='rounded-lg border h-full w-[100%] overflow-y-scroll mt-2 bg-white'>
             <table className="w-full h-fit select-none" ref={tableRef}>
@@ -89,8 +54,8 @@ const TablePerfisAcesso: React.FC<TablePerfisAcessosProps> = ({ perfisAcessos, o
                     {perfisAcessos.map((perfilAcesso, index) => (
                         <tr
                             key={perfilAcesso.id_perfil_acesso}
+                            onClick={() => handleRowClick(perfilAcesso, index)} // Added onClick event
                         >
-
                             <td className='w-[50%] p-3 px-4 text-xs font-semibold text-gray-700 whitespace-nowrap'>
                                 <div>
                                     <h2 className='font-semibold text-gray-500'>{perfilAcesso.nome_perfil_acesso}</h2>
@@ -100,18 +65,19 @@ const TablePerfisAcesso: React.FC<TablePerfisAcessosProps> = ({ perfisAcessos, o
                                 <div className='flex justify-evenly items-center'>
                                     <Link
                                         href={{ pathname: "/usuarios/perfil-acesso", query: { id: perfilAcesso.id_perfil_acesso } }}
-                                        className='w-[50%] h-[38px] flex items-center justify-center border border-transparent
-                                                text-sm rounded-md bg-blue-400 hover:bg-blue-300'
+                                        className={`w-[50%] h-[38px] flex items-center justify-center border border-transparent
+                                        text-sm rounded-md ${selectedItem && selectedItem.id_perfil_acesso === perfilAcesso.id_perfil_acesso ? 'bg-green-400' : 'bg-blue-400'} hover:bg-blue-300`}
                                     >
-                                        Selecionar
+                                        {selectedItem && selectedItem.id_perfil_acesso === perfilAcesso.id_perfil_acesso
+                                            ? 'Selecionado'
+                                            : 'Selecionar'}
                                     </Link>
                                     <button
                                         className='w-[48%] h-[38px] flex items-center justify-center border border-transparent
-                                        text-sm rounded-md bg-red-300 hover:bg-red-400'
+                                        text-sm rounded-md bg-red-300 hover-bg-red-400'
                                         onClick={(e) => {
                                             e.stopPropagation();
                                             abrirPopupExcluirPerfilAcesso(perfilAcesso);
-
                                         }}
                                     >
                                         Remover
@@ -128,7 +94,6 @@ const TablePerfisAcesso: React.FC<TablePerfisAcessosProps> = ({ perfisAcessos, o
                 id_perfil_acesso={selectedItem ? selectedItem.id_perfil_acesso : 0}
                 nome_perfil_acesso={selectedItem ? selectedItem.nome_perfil_acesso : ''}
             />
-
         </div>
     );
 };

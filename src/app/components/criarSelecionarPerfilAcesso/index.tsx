@@ -18,6 +18,8 @@ const CriarSelecionarPerfilAcesso = () => {
         if(!acessoDataFetched) {
             getPerfilAcessos();
             //console.log(perfilAcessosData);
+        } else {
+            console.log(perfilAcessosData);
         }
 
     }, []);
