@@ -46,8 +46,8 @@ const TableSaida: React.FC<TableEntradaProps> = ({ saidas }) => {
             <table className='w-full h-fit'>
                 <thead className='bg-gray-50 border-b-2 border-gray-200 sticky top-0'>
                     <tr>
-                        <th className="w-[70%] p-3 text-sm font-semibold tracking-wide text-left bg-emerald-500">Registros De Saidas</th>
-                        <th className="w-[30%] p-3 text-sm font-semibold tracking-wide text-center bg-orange-300 select-none">Ação</th>
+                        <th className="w-[60%] p-3 text-sm font-semibold tracking-wide text-left bg-emerald-500">Classificações de Saida</th>
+                        <th className="w-[40%] p-3 text-sm font-semibold tracking-wide text-center bg-orange-300 select-none">Ação</th>
                     </tr>
                 </thead>
                 <tbody className='divide-y divide-gray-100'>

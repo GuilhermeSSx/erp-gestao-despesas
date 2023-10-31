@@ -44,9 +44,15 @@ const TableCentroDeCustos: React.FC<TableCentroCustosProps> = ({ centroCustos })
     };
 
     return (
-        <div className='rounded-lg pl-2 h-[26rem] w-[98%] overflow-y-scroll'>
+        <div className='rounded-lg h-full w-full overflow-y-scroll'>
             <table className="w-full h-fit">
-                {/* ... (thead) */}
+                <thead className="bg-gray-50 border-b-2 border-gray-200 sticky top-0">
+                    <tr>
+                        <th className="w-[10%] p-3 text-sm font-bold tracking-wide text-left">ID</th>
+                        <th className="w-[50%] p-3 text-sm font-semibold tracking-wide text-left">Nome</th>
+                        <th className="w-[40%] p-3 text-sm font-semibold tracking-wide text-left">Ações</th>
+                    </tr>
+                </thead>
                 <tbody className="divide-y divide-gray-100">
                     {centroCustos.map((centroCusto) => (
                         <tr key={centroCusto.id} className="bg-white hover:bg-slate-50 divide-w">

@@ -33,8 +33,8 @@ function DrawerOpenClose() {
     };
 
     return (
-        <div className='h-[calc(100vh-10px)]'>
-            <button onClick={toggleDrawer} className="flex w-fit h-fit justify-center items-center p-2 ml-2 mr-4 ">
+        <>
+            <button onClick={toggleDrawer} className="flex w-fit h-fit justify-center items-center p-2 ml-2 mr-4 rounded-md hover:bg-white hover:bg-opacity-20">
                 <Bars3Icon
                     className="h-7 w-7 text-violet-200 hover:text-[#CE466F]"
                     aria-hidden="true"
@@ -44,7 +44,7 @@ function DrawerOpenClose() {
                 {isOpen && (
                     <motion.div
                         initial={{ opacity: 0, x: -300 }}
-                        transition={{type: "tween", duration: 0.3}}
+                        transition={{ type: "tween", duration: 0.3 }}
                         animate={{ opacity: 1, x: 0 }}
                         exit={{ opacity: 0, x: -300 }}
                         className='fixed bg-white shadow-2xl h-full w-full max-w-[250px] min-w-[200px] flex top-0 left-0'
@@ -160,7 +160,7 @@ function DrawerOpenClose() {
                     </motion.div>
                 )}
             </AnimatePresence>
-        </div>
+        </>
     );
 }
 
