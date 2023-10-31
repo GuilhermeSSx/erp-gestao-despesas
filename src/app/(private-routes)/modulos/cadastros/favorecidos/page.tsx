@@ -151,13 +151,13 @@ export default function Favorecidos() {
     );
 
     return (
-        <div className="fixed w-screen h-[calc(100vh-60px)] flex bg-slate-50 justify-center items-center">
+        <div className="fixed w-screen h-[calc(100vh-60px)] flex bg-slate-50 ">
 
-            <div className='mt-2 w-[12%] min-w-[200px]  h-[92%] flex flex-col bg-gradient-to-bl from-[#86868600] via-[#eb090900] to-[#8ed15acb] rounded-xl'>
+            <div className='ml-1 mt-4 w-[12%] min-w-[210px] h-[96%] flex flex-col bg-gradient-to-bl from-[#86868600] via-[#eb090900] to-[#8ed15acb] rounded-xl'>
 
                 <Link href={'/modulos/cadastros'} title="voltar">
-                    <div className='group flex justify-center items-center py-2 md:px-4 border border-transparent text-base rounded-md hover:bg-slate-200 text-slate-400'>
-                        <ArrowLeftIcon className="mr-8 h-7 w-5 text-center" aria-hidden="true" />
+                    <div className='group flex justify-evenly items-center py-2 md:px-4 border border-transparent text-base rounded-md hover:bg-slate-200 text-slate-400'>
+                        <ArrowLeftIcon className=" h-7 w-5 text-center" aria-hidden="true" />
                         <span className='hidden md:block'>Voltar</span>
                     </div>
                 </Link>
@@ -240,7 +240,7 @@ export default function Favorecidos() {
             </div>
 
             {/* Cadastro Favorecido */}
-            <div className='mt-2 w-[82%] h-[92%] flex flex-col px-2 bg-gradient-to-bl from-[#86868600] via-[#eb090900] to-[#8ed15acb] rounded-xl'>
+            <div className='mt-4 w-full h-[96%] flex flex-col px-[10px] bg-gradient-to-bl from-[#86868600] via-[#eb090900] to-[#8ed15acb] rounded-xl'>
 
                 <div className='h-fit'>
                     <form className='flex justify-center'>
@@ -264,7 +264,7 @@ export default function Favorecidos() {
                     </div>
                 )}
 
-                <div className='h-fit flex flex-col py-1 items-center mt-1 mb-2'>
+                <div className='h-fit flex flex-col py-1 items-center mt-1 mb-[6px]'>
                     <div className='w-full flex flex-col'>
                         <div className='flex justify-between w-full'>
                             <button

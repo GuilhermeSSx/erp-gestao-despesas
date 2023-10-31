@@ -84,9 +84,9 @@ export default function BasicTabs() {
     const isPerfilAcessoAvailable = !!id_perfil_acesso;
 
     return (
-        <div className="w-full mt-4 relative">
+        <div className="w-full mt-4 fixed">
             <Link href={'/modulos'} title="voltar">
-                <div className='absolute top-[-13px] z-10 md:left-3 left-1 group flex justify-center items-center py-4 md:px-4 border border-transparent text-base rounded-md hover:bg-slate-200 text-slate-400'>
+                <div className='absolute top-[-12px] z-10 md:left-3 left-1 group flex justify-center items-center py-4 md:px-4 border border-transparent text-base rounded-md hover:bg-slate-200 text-slate-400'>
                     <ArrowLeftIcon className="mr-4 h-7 w-5 text-center" aria-hidden="true" />
                     <span className='hidden md:block'>Voltar</span>
                 </div>

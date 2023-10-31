@@ -20,11 +20,11 @@ const PopupEditarFavTipo: React.FC<PopupProps> = ({ open, onClose, tipoNome, tip
     }, [open, tipoNome]);
 
     return (
-        <Dialog open={open} onClose={onClose} className="fixed inset-0 z-10 overflow-y-auto ">
-            <div className="flex flex-col items-center justify-center min-h-screen p-4">
+        <Dialog open={open} onClose={onClose} className="relative inset-0 z-10 overflow-y-auto ">
+            <div className="flex flex-col items-center justify-center h-[calc(100vh-60px)] p-4">
                 <Dialog.Overlay className="fixed inset-0 bg-black opacity-30 " />
 
-                <div className='sm:w-[80%] md:w-[60%] w-full h-[80%] items-center bg-white z-20 p-3 rounded-xl  '>
+                <div className='sm:w-[80%] md:w-[60%] w-full h-fit items-center bg-white z-20 p-3 rounded-xl  '>
                     <div className='rounded-lg w-full p-1 '>
                         <h2 className="text-xl font-bold text-center">Editar Tipo de Favorecido.</h2>
                         <div className="border mt-4" />

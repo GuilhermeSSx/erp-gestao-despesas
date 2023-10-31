@@ -40,7 +40,7 @@ const TableFavorecidos: React.FC<TableFavorecidosProps> = ({ favorecidos, onFavo
     };
 
     return (
-        <div className='rounded-lg h-full w-[100%] overflow-y-scroll mt-2'>
+        <div className='rounded-lg h-full w-[100%] overflow-y-scroll mt-1'>
             <table className="w-full h-fit">
                 <thead className="bg-gray-50 border-b-2 border-gray-200 sticky top-0 divide-x divide-black">
                     <tr>

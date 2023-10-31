@@ -13,8 +13,8 @@ const PopupExcluirLancamento: React.FC<PopupProps> = ({ open, onClose, lancId })
     return (
         <AnimatePresence>
             {open && (
-                <Dialog open={true} onClose={onClose} className="fixed inset-0 z-10 overflow-y-auto">
-                    <div className="flex flex-col items-center justify-center min-h-screen p-4">
+                <Dialog open={true} onClose={onClose} className="relative inset-0 z-10 overflow-y-auto">
+                    <div className="flex flex-col items-center justify-center h-[calc(100vh-60px)] p-4">
                         <Dialog.Overlay className="fixed inset-0 bg-black opacity-30" />
                         <motion.div
                             initial={{ opacity: 0, x: -100 }}

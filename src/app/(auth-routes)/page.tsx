@@ -84,7 +84,7 @@ export default function Login() {
       toast.success('Login efetuado com sucesso!', {
         position: "top-center",
         transition: Slide,
-        autoClose: 1700,
+        autoClose: 1500,
         hideProgressBar: false,
         closeOnClick: true,
         draggable: false,
@@ -151,11 +151,17 @@ export default function Login() {
           <div className='my-8'>
             <button
               type='submit'
-              className='group relative w-full flex justify-center py-2 px-4 border border-transparent
+              className='group relative w-full flex justify-center items-center py-2 px-4 border border-transparent
               text-sm font-medium rounded-md bg-lime-400 hover:bg-lime-500 hover:scale-[1.02] transition duration-300'
               disabled={isLoading}
             >
-              {isLoading ? 'Carregando...' : 'Entrar'}
+              {isLoading ?
+                <div className="flex items-center">
+                  <div className="w-full text-center">
+                    <div className="w-5 h-5 border-[2px] border-dashed rounded-full animate-spin dark:border-white" />
+                  </div>
+                </div>
+                : 'Entrar'}
             </button>
           </div>
         </form>
