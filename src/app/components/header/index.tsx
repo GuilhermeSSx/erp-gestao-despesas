@@ -71,12 +71,6 @@ export default function Header() {
                                 <Menu.Item>
                                     {({ active }) => (
                                         <>
-                                            <Link
-                                                className={"font-semibold group flex w-full justify-center items-center rounded-md p-4 text-sm hover:bg-selecaoLinha"}
-                                                href={"/usuarios"}
-                                            >
-                                                Configurações
-                                            </Link>
                                             <button
                                                 onClick={logout}
                                                 className={"font-semibold group flex w-full justify-center items-center rounded-md p-4 text-sm hover:bg-selecaoLinha"}

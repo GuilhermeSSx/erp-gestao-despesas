@@ -10,14 +10,14 @@ interface PopupProps {
     onClose: () => void;
     lancId: number | null;
     lancData?: string;
+    lancVencimento?: string;
     lancClassificacao?: string;
-    lancPlanoConta?: string;
     lancDescricao?: string;
     lancStatus?: string;
     lancFavorecido?: string;
     lancCentroCusto?: string;
     lancValor?: number;
-    lancVencimento?: string;
+    
 }
 
 
@@ -99,13 +99,12 @@ const dataFromCentroCustos: Item[] = [
 
 const PopupEditarLancamento: React.FC<PopupProps> = (
     {
-        open, onClose, lancId, lancData, lancClassificacao, lancPlanoConta,
+        open, onClose, lancId, lancData, lancClassificacao,
         lancDescricao, lancStatus, lancFavorecido, lancCentroCusto, lancValor, lancVencimento
     }) => {
 
     const [inputLancData, setInputLancData] = useState(lancData);
     const [inputLancClassificacao, setInputLancClassificacao] = useState(lancClassificacao);
-    const [inputLancPlanoConta, setInputLancPlanoConta] = useState(lancPlanoConta);
     const [inputLancDescricao, setInputLancDescricao] = useState(lancDescricao);
     const [inputLancStatus, setInputLancStatus] = useState(lancStatus);
     const [inputLancFavorecido, setInputLancFavorecido] = useState(lancFavorecido);
@@ -116,7 +115,6 @@ const PopupEditarLancamento: React.FC<PopupProps> = (
     useEffect(() => {
         setInputLancData(lancData);
         setInputLancClassificacao(lancClassificacao);
-        setInputLancPlanoConta(lancPlanoConta);
         setInputLancDescricao(lancDescricao);
         setInputLancStatus(lancStatus);
         setInputLancFavorecido(lancFavorecido);
@@ -135,18 +133,6 @@ const PopupEditarLancamento: React.FC<PopupProps> = (
                 setInputLancClassificacao(selectedClassificacao.itemNome);
             } else {
                 setClassificadosId(null);
-            }
-        }
-
-        if (lancPlanoConta) {
-            const selectedPlanoConta = dataFromPlanoContas.find(
-                (item) => item.itemNome === lancPlanoConta
-            );
-            if (selectedPlanoConta) {
-                setPlanoContaId(selectedPlanoConta.itemId);
-                setInputLancPlanoConta(selectedPlanoConta.itemNome);
-            } else {
-                setPlanoContaId(null);
             }
         }
 
@@ -187,7 +173,7 @@ const PopupEditarLancamento: React.FC<PopupProps> = (
         }
 
 
-    }, [open, lancData, lancClassificacao, lancPlanoConta, lancDescricao,
+    }, [open, lancData, lancClassificacao, lancDescricao,
         lancStatus, lancFavorecido, lancCentroCusto, lancValor, lancVencimento]);
 
     const [classificadosId, setClassificadosId] = useState<number | null>(null);
@@ -231,6 +217,14 @@ const PopupEditarLancamento: React.FC<PopupProps> = (
 
                         <InputDate placeholder='Data' />
 
+                        <input
+                            value={inputLancVencimento ? convertDateToISOFormat(inputLancVencimento) : ''}
+                            onChange={(e) => setInputLancVencimento(e.target.value)}
+                            className='m-1 appearance-none rounded-none relative h-8 block border w-full xl:w-40 px-4 py-2 rounded-t-md'
+                            type='date'
+                            placeholder='Vencimento'
+                        />
+
                         <ComboBox
                             selectValue={inputLancClassificacao || ''}
                             onChange={(e) => {
@@ -251,29 +245,6 @@ const PopupEditarLancamento: React.FC<PopupProps> = (
                             onItemSelect={(itemId) => {
                                 setClassificadosId(itemId);
                                 console.log(classificadosId);
-                            }}
-                        />
-
-                        <ComboBox
-                            selectValue={inputLancPlanoConta || ''}
-                            onChange={(e) => {
-                                const selectedValue = e.target.value;
-                                setInputLancPlanoConta(selectedValue);
-
-                                // Verifica se o valor do input corresponde a algum item da lista
-                                const selectedItem = dataFromPlanoContas.find(
-                                    (item) => item.itemNome === selectedValue
-                                );
-
-                                // Define o ID com base na correspondência ou como null se não corresponder
-                                setPlanoContaId(selectedItem ? selectedItem.itemId : null);
-                            }}
-                            className="m-1 w-fit"
-                            placeholder="Plano De Conta"
-                            data={dataFromPlanoContas}
-                            onItemSelect={(itemId) => {
-                                setPlanoContaId(itemId);
-                                console.log(planoContaId);
                             }}
                         />
 
@@ -361,15 +332,6 @@ const PopupEditarLancamento: React.FC<PopupProps> = (
                             type='combobox'
                             placeholder='Valor'
                         />
-
-                        <input
-                            value={inputLancVencimento ? convertDateToISOFormat(inputLancVencimento) : ''}
-                            onChange={(e) => setInputLancVencimento(e.target.value)}
-                            className='m-1 appearance-none rounded-none relative h-8 block border w-full xl:w-[20%] px-4 py-2 rounded-t-md'
-                            type='date'
-                            placeholder='Vencimento'
-                        />
-
 
                     </div>
 

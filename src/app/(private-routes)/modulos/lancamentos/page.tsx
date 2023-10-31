@@ -8,53 +8,54 @@ import PopupExcluirLancamento from '@/app/components/popupExcluirLancamento';
 
 interface Lancamento {
   lancId: number;
+  lancVencimento: string;
   lancData: string;
   lancClassificacao: string;
-  lancPlanoConta: string;
   lancDescricao: string;
+  lancAutorizacao: string;
   lancStatus: string;
   lancFavorecidos: string;
   lancCentroCusto: string;
   lancValor: number;
-  lancVencimento: string;
+  
 }
 
 const lancamentos: Lancamento[] = [
   {
     lancId: 1,
     lancData: '01/01/2023',
+    lancVencimento: '21/01/2023',
     lancClassificacao: 'CUSTO MATERIAS',
-    lancPlanoConta: 'Fretes e Carretos',
     lancDescricao: 'descrição teste 1',
+    lancAutorizacao: 'Sim',
     lancStatus: 'Em Aberto',
     lancFavorecidos: 'FUN- Guilherme',
     lancCentroCusto: 'UFV TAIUVA',
-    lancValor: 1000,
-    lancVencimento: '21/01/2023',
+    lancValor: 1000
   },
   {
     lancId: 2,
     lancData: '02/02/2023',
+    lancVencimento: '22/02/2023',
     lancClassificacao: 'CUSTO 2',
-    lancPlanoConta: 'Assesoria de mkt 2',
     lancDescricao: 'descrição teste 2',
+    lancAutorizacao: 'Aguardando',
     lancStatus: 'Inadimplente 2',
     lancFavorecidos: 'Funcionario teste 2',
     lancCentroCusto: 'UFV TAIUVA 2',
-    lancValor: 1200,
-    lancVencimento: '22/02/2023',
+    lancValor: 1200
   },
   {
     lancId: 3,
     lancData: '03/03/2023',
+    lancVencimento: '23/03/2023',
     lancClassificacao: 'CUSTO 3',
-    lancPlanoConta: 'Assesoria de mkt 3',
     lancDescricao: 'descrição teste 3',
+    lancAutorizacao: 'Não',
     lancStatus: 'Inadimplente 3',
     lancFavorecidos: 'Funcionario teste 3',
     lancCentroCusto: 'UFV TAIUVA 3',
     lancValor: 1300,
-    lancVencimento: '23/03/2023',
   },
 
 
@@ -143,7 +144,6 @@ export default function Lancamentos() {
               lancId={selectedLancamento.lancId}
               lancData={selectedLancamento.lancData}
               lancClassificacao={selectedLancamento.lancClassificacao}
-              lancPlanoConta={selectedLancamento.lancPlanoConta}
               lancDescricao={selectedLancamento.lancDescricao}
               lancStatus={selectedLancamento.lancStatus}
               lancFavorecido={selectedLancamento.lancFavorecidos}

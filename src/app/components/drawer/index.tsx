@@ -69,7 +69,7 @@ function DrawerOpenClose() {
 
                                 <Menu.Button
                                     id="MenuButton"
-                                    className="relavite z-24 inline-flex w-full justify-between rounded-md bg-white bg-opacity-20 px-4 py-[10px] text-sm font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-90"
+                                    className="relavite z-24 inline-flex w-full justify-between rounded-md bg-white bg-opacity-30 px-4 py-[10px] text-sm font-medium text-white hover:bg-opacity-80 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-90"
                                 >
                                     <span className=" md-web:flex text-black font-bold text-base">Modulos</span>
 
@@ -102,13 +102,6 @@ function DrawerOpenClose() {
                                                 >
                                                     Lançamentos
                                                 </Link>
-                                                <Link
-                                                    onClick={toggleDrawer}
-                                                    className={"font-semibold group flex w-full items-center rounded-md p-4 text-sm hover:bg-selecaoLinha"}
-                                                    href={"/modulos/buscarLatLong"}
-                                                >
-                                                    Buscar CAR por LAT/LONG
-                                                </Link>
                                             </>
                                         </Menu.Item>
                                     </motion.div>
@@ -123,7 +116,7 @@ function DrawerOpenClose() {
 
                                 <Menu.Button
                                     id="MenuButton"
-                                    className="relavite z-24 inline-flex w-full justify-between rounded-md bg-white bg-opacity-20 px-4 py-[10px] text-sm font-medium text-white hover:bg-opacity-70 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-90"
+                                    className="relavite z-24 inline-flex w-full justify-between rounded-md bg-white bg-opacity-30 px-4 py-[10px] text-sm font-medium text-white hover:bg-opacity-80 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-90"
                                 >
                                     <span className=" md-web:flex text-black font-bold text-base">Configurações</span>
 

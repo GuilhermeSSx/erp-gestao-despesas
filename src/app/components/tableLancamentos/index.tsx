@@ -3,15 +3,16 @@ import React, { useState } from 'react';
 
 interface Lancamento {
     lancId: number;
+    lancVencimento: string;
     lancData: string;
     lancClassificacao: string;
-    lancPlanoConta: string;
     lancDescricao: string;
+    lancAutorizacao: string;
     lancStatus: string;
     lancFavorecidos: string;
     lancCentroCusto: string;
     lancValor: number;
-    lancVencimento: string;
+    
 }
 
 interface TableLancamentosProps {
@@ -33,14 +34,14 @@ const TableLancamentos: React.FC<TableLancamentosProps> = ({ lancamentos, onLanc
                 <thead className='bg-gray-50 border-b-2 border-jpnrVerde sticky top-0'>
                     <tr className='divide-x divide-gray-300'>
                         <th className='w-[2%] p-[6px] text-sm font-semibold tracking-wide text-left bg-jpnrVerde'>Data Lançamento</th>
-                        <th className='w-[20%] p-[6px] text-sm font-semibold tracking-wide text-left'>Classificação</th>
-                        <th className='w-[16%] p-[6px] text-sm font-semibold tracking-wide text-left'>Plano De Conta</th>
-                        <th className='w-[20%] p-[6px] text-sm font-semibold tracking-wide text-left'>Descrição</th>
-                        <th className='w-[10%] p-[6px] text-sm font-semibold tracking-wide text-left'>Status</th>
+                        <th className='w-[2%] p-[6px] text-sm font-semibold tracking-wide text-left'>Vencimento</th>
+                        <th className='w-[15%] p-[6px] text-sm font-semibold tracking-wide text-left'>Classificação</th>
+                        <th className='w-[25%] p-[6px] text-sm font-semibold tracking-wide text-left'>Descrição</th>
+                        <th className='w-[5%] p-[6px] text-sm font-semibold tracking-wide text-left'>Autorização</th>
+                        <th className='w-[5%] p-[6px] text-sm font-semibold tracking-wide text-left'>Status</th>
                         <th className='w-[10%] p-[6px] text-sm font-semibold tracking-wide text-left'>Favorecido</th>
                         <th className='w-[10%] p-[6px] text-sm font-semibold tracking-wide text-left'>Centro de Custo</th>
-                        <th className='w-[10%] p-[6px] text-sm font-semibold tracking-wide text-left'>Valor</th>
-                        <th className='w-[2%] p-[6px] text-sm font-semibold tracking-wide text-left'>Vencimento</th>
+                        <th className='w-[6%] p-[6px] text-sm font-semibold tracking-wide text-left'>Valor</th>
                     </tr>
                 </thead>
                 <tbody className='divide-y divide-gray-500'>
@@ -59,14 +60,15 @@ const TableLancamentos: React.FC<TableLancamentosProps> = ({ lancamentos, onLanc
                                 }}
                             >
                                 <td className='p-2 text-sm text-gray-700 whitespace-nowrap font-semibold'>{lancamento.lancData}</td>
+                                <td className='p-2 text-sm text-gray-700 whitespace-nowrap'>{lancamento.lancVencimento}</td>
                                 <td className='p-2 text-sm text-gray-700 whitespace-nowrap'>{lancamento.lancClassificacao}</td>
-                                <td className='p-2 text-sm text-gray-700 whitespace-nowrap'>{lancamento.lancPlanoConta}</td>
-                                <td className='p-2 text-sm text-gray-700 whitespace-nowrap'>{lancamento.lancDescricao}</td>
+                                <td className='p-2 text-sm text-gray-700 whitespace-normal'>{lancamento.lancDescricao}</td>
+                                <td className='p-2 text-sm text-gray-700 whitespace-nowrap'>{lancamento.lancAutorizacao}</td>
                                 <td className='p-2 text-sm text-gray-700 whitespace-nowrap'>{lancamento.lancStatus}</td>
                                 <td className='p-2 text-sm text-gray-700 whitespace-nowrap'>{lancamento.lancFavorecidos}</td>
                                 <td className='p-2 text-sm text-gray-700 whitespace-nowrap'>{lancamento.lancCentroCusto}</td>
                                 <td className='p-2 text-sm text-gray-700 whitespace-nowrap'>{lancamento.lancValor}</td>
-                                <td className='p-2 text-sm text-gray-700 whitespace-nowrap'>{lancamento.lancVencimento}</td>
+
                             </tr>
                         );
                     })}

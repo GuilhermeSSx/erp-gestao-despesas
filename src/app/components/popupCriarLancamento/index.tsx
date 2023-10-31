@@ -31,14 +31,6 @@ const dataFromClassificados: ItemData[] = [
 
 ];
 
-const dataFromPlanoContas: ItemData[] = [
-    {
-        itemId: 1,
-        itemNome: 'Fretes e Carretos'
-    }
-
-];
-
 const dataFromStatus: ItemData[] = [
     {
         itemId: 1,
@@ -124,6 +116,8 @@ const PopupCriarLancamento: React.FC<PopupProps> = ({ open, onClose, LancId, Lan
 
                             <InputDate placeholder='Data' />
 
+                            <input className='m-1 appearance-none rounded-none relative h-8 block border w-full xl:w-40 px-4 py-2 rounded-t-md' type='date' placeholder='Vencimento' />
+
                             <ComboBox
                                 selectValue={''}
                                 className='m-1 w-fit'
@@ -132,17 +126,6 @@ const PopupCriarLancamento: React.FC<PopupProps> = ({ open, onClose, LancId, Lan
                                 onItemSelect={(itemId) => {
                                     ClassificadosId = itemId;
                                     console.log(ClassificadosId)
-                                }}
-                            />
-
-                            <ComboBox
-                                selectValue={''}
-                                className='m-1 w-fit'
-                                placeholder='Plano De Conta'
-                                data={dataFromPlanoContas}
-                                onItemSelect={(itemId) => {
-                                    PlanoContaId = itemId;
-                                    console.log(PlanoContaId)
                                 }}
                             />
 
@@ -183,7 +166,7 @@ const PopupCriarLancamento: React.FC<PopupProps> = ({ open, onClose, LancId, Lan
 
                             <input className='m-1 appearance-none rounded-none relative h-8 block border w-full xl:w-[15%] px-4 py-2 rounded-t-md' type='combobox' placeholder='Valor' />
 
-                            <input className='m-1 appearance-none rounded-none relative h-8 block border w-full xl:w-[20%] px-4 py-2 rounded-t-md' type='date' placeholder='Vencimento' />
+                            
                         </div>
 
                         <div className='flex justify-between mt-4'>

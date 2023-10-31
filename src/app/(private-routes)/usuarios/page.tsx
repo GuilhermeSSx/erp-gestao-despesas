@@ -163,7 +163,7 @@ export default function Usuarios() {
         <main className='md-web:w-screen md-web:h-[calc(100vh-60px)] flex justify-center items-center p-2 flex-col bg-slate-50'>
 
             {/* Selecionar Usuario, remover, Permissoes */}
-            <div className='flex flex-col w-full h-[80%] md:w-[32%] bg-slate-300 md:min-w-[500px] p-2 md:p-4 rounded-lg'>
+            <div className='flex flex-col w-full h-screen md:h-[80%] md:w-[32%] bg-slate-300 md:min-w-[500px] p-2 md:p-4 rounded-lg'>
                 <h1 className='font-extrabold  text-center mt-4 select-none'>Selecionar Usuarios</h1>
                 <div className='flex justify-center mt-4 text-black w-full'>
                     <input
