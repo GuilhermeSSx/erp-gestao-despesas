@@ -2,11 +2,12 @@
 import TableUsuarios from '@/app/components/tableUsuarios';
 import { useState, useEffect, useRef } from 'react';
 import PopupExcluirUsuario from '@/app/components/popupExcluirUsuario';
-import Link from 'next/link';
 import { toast } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 import { useSession } from "next-auth/react"
 import PopupCriarUsuario from '@/app/components/popupCriarUsuario';
+import Link from 'next/link';
+import { ArrowLeftIcon } from '@heroicons/react/20/solid';
 
 interface Usuario {
     id: number;
@@ -160,10 +161,16 @@ export default function Usuarios() {
     );
 
     return (
-        <main className='md-web:w-screen md-web:h-[calc(100vh-60px)] flex justify-center items-center p-2 flex-col bg-slate-50'>
+        <main className='fixed md-web:w-screen md-web:h-[calc(100vh-60px)] flex justify-center items-center p-2 flex-col bg-slate-50'>
+            <Link href={'/modulos'} title="voltar">
+                <div className='absolute top-[13px] z-10 left-3 group flex justify-center items-center py-8 px-4 border border-transparent text-base rounded-md hover:bg-slate-200 text-slate-400'>
+                    <ArrowLeftIcon className="mr-4 h-7 w-5 text-center" aria-hidden="true" />
+                    <span className='hidden md:block'>Voltar</span>
+                </div>
+            </Link>
 
             {/* Selecionar Usuario, remover, Permissoes */}
-            <div className='flex flex-col w-full h-screen md:h-[80%] md:w-[32%] bg-slate-300 md:min-w-[500px] p-2 md:p-4 rounded-lg'>
+            <div className='flex flex-col w-full h-screen md:h-[80%] md:w-[32%] bg-slate-300 md:min-w-[500px] p-2 md:p-4 rounded-lg mt-24 md:mt-0'>
                 <h1 className='font-extrabold  text-center mt-4 select-none'>Selecionar Usuarios</h1>
                 <div className='flex justify-center mt-4 text-black w-full'>
                     <input

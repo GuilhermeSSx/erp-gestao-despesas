@@ -11,6 +11,7 @@ import PopupExcluirFav from '@/app/components/popupExcluirFav';
 import PopupEditarFav from '@/app/components/popupEditarFav';
 import PopupCriarTipoFav from '@/app/components/popupCriarTipoFav';
 import PopupCriarFav from '@/app/components/popupCriarFav';
+import { VoltarButton } from '@/app/components/voltarButton';
 
 interface Tipo {
     id: number;
@@ -149,10 +150,12 @@ export default function Favorecidos() {
     );
 
     return (
-        <div className="fixed w-screen h-[calc(100vh-60px)] flex bg-slate-200">
+        <div className="fixed w-screen h-[calc(100vh-60px)] flex bg-slate-50 justify-center items-center">
+
+            <VoltarButton />
 
             {/* Cadastro Tipo */}
-            <div className='w-[18%] h-full flex flex-col bg-gradient-to-r from-[#8ed15aec] via-[#ffffff80] to-[#80797802] px-2'>
+            <div className='mt-[80px] w-[12%] min-w-[160px] h-[85%] flex flex-col bg-gradient-to-r from-[#8ed15aec] via-[#ffffff80] to-[#80797802] px-2 rounded-lg'>
                 <div className='h-fit'>
                     <button
                         onClick={abrirPopupCriarTipoFav}
@@ -227,7 +230,7 @@ export default function Favorecidos() {
             </div>
 
             {/* Cadastro Favorecido */}
-            <div className='mt-2 w-[82%] h-full flex flex-col px-2 bg-gradient-to-bl from-[#86868600] via-[#eb090900] to-[#8ed15acb]'>
+            <div className='mt-2 w-[82%] h-[92%] flex flex-col px-2 bg-gradient-to-bl from-[#86868600] via-[#eb090900] to-[#8ed15acb] rounded-xl'>
 
                 <div className='h-fit'>
                     <form className='flex justify-center'>

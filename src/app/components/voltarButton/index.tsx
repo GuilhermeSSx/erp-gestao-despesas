@@ -10,7 +10,7 @@ export const VoltarButton = () => {
     // Obtenha o caminho atual a partir da localização da janela do navegador
     const rotaAtual = pathname;
 
-    // console.log(rotaAtual)
+    console.log(rotaAtual)
 
     // Separa a rota por /
     const partesRota = rotaAtual.split('/');

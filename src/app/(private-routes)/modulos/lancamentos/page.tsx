@@ -5,6 +5,8 @@ import { motion } from "framer-motion";
 import PopupCriarLancamento from '@/app/components/popupCriarLancamento';
 import PopupEditarLancamento from '@/app/components/popupEditarLancamento';
 import PopupExcluirLancamento from '@/app/components/popupExcluirLancamento';
+import Link from 'next/link';
+import { ArrowLeftIcon } from '@heroicons/react/20/solid';
 
 interface Lancamento {
   lancId: number;
@@ -17,7 +19,7 @@ interface Lancamento {
   lancFavorecidos: string;
   lancCentroCusto: string;
   lancValor: number;
-  
+
 }
 
 const lancamentos: Lancamento[] = [
@@ -108,16 +110,26 @@ export default function Lancamentos() {
   return (
     <div className="fixed w-screen h-[calc(100vh-60px)] flex flex-col bg-slate-300">
 
+
+
       {/* Cadastro de lançamento */}
       <motion.div
         initial={{ opacity: 0, y: -60 }}
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, y: -20 }}
         className='flex justify-center items-center rounded w-full h-fit'>
-        <div className='flex justify-between rounded-lg mt-1 p-2 w-full'>
+        <div className='relative flex justify-end rounded-lg mt-1 p-2 w-full'>
+
+          <Link href={'/modulos'} title="voltar">
+            <div className='absolute top-[4px] z-10 left-[8px] group flex justify-center items-center py-2 px-4 border border-transparent text-base rounded-md hover:bg-slate-200 text-black'>
+              <ArrowLeftIcon className="mr-4 h-7 w-5 text-center" aria-hidden="true" />
+              <span className='hidden md:block'>Voltar</span>
+            </div>
+          </Link>
+
           <button
             onClick={abrirPopupCriarLancamento}
-            className='group relative items-center w-[32%] flex justify-center py-1 px-2 border border-transparent text-sm font-medium rounded-md bg-lime-500 hover:bg-lime-400 text-black hover:scale-[1.02] duration-200'
+            className='mx-4 group relative items-center w-[25%] flex justify-center py-1 px-2 border border-transparent text-sm font-medium rounded-md bg-lime-500 hover:bg-lime-400 text-black hover:scale-[1.02] duration-200'
           >
             Cadastrar
           </button>
@@ -133,7 +145,7 @@ export default function Lancamentos() {
               }
             }
             }
-            className='group relative items-center w-[32%] flex justify-center py-2 px-2 border border-transparent text-sm font-medium rounded-md bg-orange-600 hover:bg-orange-500 text-white hover:scale-[1.02] duration-200'
+            className='mx-4 group relative items-center w-[25%] flex justify-center py-2 px-2 border border-transparent text-sm font-medium rounded-md bg-orange-600 hover:bg-orange-500 text-white hover:scale-[1.02] duration-200'
           >
             Editar
           </button>
@@ -161,7 +173,7 @@ export default function Lancamentos() {
               }
             }
             }
-            className='group relative items-center w-[32%] flex justify-center py-2 px-2 border border-transparent text-sm font-medium rounded-md bg-red-700 hover:bg-red-400 text-white hover:scale-[1.02] duration-200'
+            className='group relative items-center w-[25%] flex justify-center py-2 px-2 border border-transparent text-sm font-medium rounded-md bg-red-700 hover:bg-red-400 text-white hover:scale-[1.02] duration-200'
           >
             Excluir
           </button>

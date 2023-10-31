@@ -5,6 +5,8 @@ import TableFuncionalidades from '@/app/components/tableFuncionalidades';
 import TableModulos from '@/app/components/tableModulos';
 import { motion } from 'framer-motion';
 import CriarSelecionarPerfilAcesso from '@/app/components/criarSelecionarPerfilAcesso';
+import Link from 'next/link';
+import { ArrowLeftIcon } from '@heroicons/react/20/solid';
 
 interface Modulo {
     id_modulo: number;
@@ -82,7 +84,13 @@ export default function BasicTabs() {
     const isPerfilAcessoAvailable = !!id_perfil_acesso;
 
     return (
-        <div className="w-full mt-4">
+        <div className="w-full mt-4 relative">
+            <Link href={'/modulos'} title="voltar">
+                <div className='absolute top-[-13px] z-10 md:left-3 left-1 group flex justify-center items-center py-4 md:px-4 border border-transparent text-base rounded-md hover:bg-slate-200 text-slate-400'>
+                    <ArrowLeftIcon className="mr-4 h-7 w-5 text-center" aria-hidden="true" />
+                    <span className='hidden md:block'>Voltar</span>
+                </div>
+            </Link>
             <div className="border-b border-gray-300 flex w-full justify-center box-content md-web:text-sm text-[10px] font-extrabold select-none">
                 <motion.button
                     onClick={() => setValue(0)}
