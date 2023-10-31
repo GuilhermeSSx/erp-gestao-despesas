@@ -152,17 +152,18 @@ export default function Favorecidos() {
 
     return (
         <div className="fixed w-screen h-[calc(100vh-60px)] flex bg-slate-50 justify-center items-center">
-            <div className='flex flex-col h-[92%] w-[12%] min-w-[160px] mt-2 rounded-xl '>
 
-                <Link href={'/modulos/cadastros'} title="voltar" className='h-fit'>
+            <div className='mt-2 w-[12%] min-w-[200px]  h-[92%] flex flex-col bg-gradient-to-bl from-[#86868600] via-[#eb090900] to-[#8ed15acb] rounded-xl'>
+
+                <Link href={'/modulos/cadastros'} title="voltar">
                     <div className='group flex justify-center items-center py-2 md:px-4 border border-transparent text-base rounded-md hover:bg-slate-200 text-slate-400'>
-                        <ArrowLeftIcon className="mr-4 h-7 w-5 text-center" aria-hidden="true" />
+                        <ArrowLeftIcon className="mr-8 h-7 w-5 text-center" aria-hidden="true" />
                         <span className='hidden md:block'>Voltar</span>
                     </div>
                 </Link>
 
                 {/* Cadastro Tipo */}
-                <div className='pb-1 mt-2 w-full h-full flex flex-col bg-gradient-to-r from-[#8ed15aec] via-[#ffffff80] to-[#80797802] px-2 rounded-lg'>
+                <div className='pb-1 mt-2 w-full h-full flex flex-col px-2 rounded-lg'>
 
                     <div className='h-fit'>
                         <button

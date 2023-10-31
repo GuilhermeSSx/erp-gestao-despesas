@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import { SyntheticEvent, useState, useEffect, useRef } from "react";
 import LoginLogo from "../assets/jpnr-login.png";
 import Image from "next/image";
-import { toast } from 'react-toastify';
+import { Slide, toast } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 import { enc, AES } from 'crypto-js'; // Importa as funções necessárias do crypto-js
 
@@ -83,13 +83,14 @@ export default function Login() {
       router.replace('/modulos');
       toast.success('Login efetuado com sucesso!', {
         position: "top-center",
-        autoClose: 3200,
+        transition: Slide,
+        autoClose: 1700,
         hideProgressBar: false,
         closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
+        draggable: false,
         progress: undefined,
-        theme: "light",
+        theme: "dark",
+        className: "mt-[50px]"
       });
       setErrorMessage(null);
     }
