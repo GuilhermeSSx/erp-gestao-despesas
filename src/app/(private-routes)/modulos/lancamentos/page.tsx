@@ -28,22 +28,22 @@ const lancamentos: Lancamento[] = [
     lancData: '01/01/2023',
     lancVencimento: '21/01/2023',
     lancClassificacao: 'CUSTO MATERIAS',
-    lancDescricao: 'descrição teste 1',
+    lancDescricao: '200 Unidades de Materiais',
     lancAutorizacao: 'Sim',
-    lancStatus: 'Em Aberto',
+    lancStatus: 'Pago',
     lancFavorecidos: 'FUN- Guilherme',
-    lancCentroCusto: 'UFV TAIUVA',
+    lancCentroCusto: 'UFV TAIUVA 1',
     lancValor: 1000
   },
   {
     lancId: 2,
     lancData: '02/02/2023',
     lancVencimento: '22/02/2023',
-    lancClassificacao: 'CUSTO 2',
-    lancDescricao: 'descrição teste 2',
+    lancClassificacao: 'POSTES',
+    lancDescricao: '100 Unidades de Postes',
     lancAutorizacao: 'Aguardando',
-    lancStatus: 'Inadimplente 2',
-    lancFavorecidos: 'Funcionario teste 2',
+    lancStatus: 'Em Aberto',
+    lancFavorecidos: 'FOR- Matheus',
     lancCentroCusto: 'UFV TAIUVA 2',
     lancValor: 1200
   },
@@ -54,13 +54,11 @@ const lancamentos: Lancamento[] = [
     lancClassificacao: 'CUSTO 3',
     lancDescricao: 'descrição teste 3',
     lancAutorizacao: 'Não',
-    lancStatus: 'Inadimplente 3',
+    lancStatus: 'Inadimplente',
     lancFavorecidos: 'Funcionario teste 3',
     lancCentroCusto: 'UFV TAIUVA 3',
     lancValor: 1300,
   },
-
-
 
   // Adicione mais lançamentos conforme necessário
 ];

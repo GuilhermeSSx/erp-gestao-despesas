@@ -1,7 +1,7 @@
 import Link from 'next/link';
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import PopupExcluirPerfilAcesso from '../popupExclurPerfilAcesso';
-import { useRouter } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 
 interface PerfilAcesso {
     id_perfil_acesso: number;
@@ -20,24 +20,12 @@ const TablePerfisAcesso: React.FC<TablePerfisAcessosProps> = ({ perfisAcessos, o
     const [itemToBeRemoved, setItemToBeRemoved] = useState<PerfilAcesso | null>(null);
     const tableRef = useRef<HTMLTableElement | null>(null);
 
-    const pathname = useRouter();
 
-    // useEffect(() => {
-    //     console.log(pathname);
-    // })
-    // Comparar com ID da rota para saber se o item foi selecionado <- fazer
-    const handleRowClick = (perfilAcesso: PerfilAcesso, index: number) => {
-        if (selectedItem && selectedItem.id_perfil_acesso === perfilAcesso.id_perfil_acesso) {
-            // Deselect the current item if it's already selected
-            setSelectedItem(null);
-            setSelectedItemIndex(null);
-        } else {
-            // Select the clicked item
-            setSelectedItem(perfilAcesso);
-            setSelectedItemIndex(index);
-        }
-        onPefilAcessoSelected(perfilAcesso);
-    };
+    // Comparar com ID da rota para saber se o item foi selecionado
+    const usuarioParams = useSearchParams();
+    const id_perfil_acesso = usuarioParams.get('id');
+    const id_perfil_acessoNumber = id_perfil_acesso ? parseInt(id_perfil_acesso, 10) : null;
+
 
     const abrirPopupExcluirPerfilAcesso = (perfil_acesso: PerfilAcesso) => {
         setItemToBeRemoved(perfil_acesso);
@@ -74,9 +62,9 @@ const TablePerfisAcesso: React.FC<TablePerfisAcessosProps> = ({ perfisAcessos, o
                                             },
                                         }}
                                         className={`w-[50%] h-[38px] flex items-center justify-center border border-transparent
-                                                text-sm rounded-md bg-blue-400 hover:bg-blue-300`}
+                                        text-sm rounded-md ${id_perfil_acessoNumber === perfilAcesso.id_perfil_acesso ? 'bg-green-400' : 'bg-blue-400'} hover:bg-blue-300`}
                                     >
-                                        Selecionar
+                                        {id_perfil_acessoNumber === perfilAcesso.id_perfil_acesso ? 'Selecionado' : 'Selecionar'}
                                     </Link>
                                     <button
                                         className='w-[48%] h-[38px] flex items-center justify-center border border-transparent
@@ -84,7 +72,6 @@ const TablePerfisAcesso: React.FC<TablePerfisAcessosProps> = ({ perfisAcessos, o
                                         onClick={(e) => {
                                             e.stopPropagation();
                                             abrirPopupExcluirPerfilAcesso(perfilAcesso);
-                                            console.log(index);
                                         }}
                                     >
                                         Remover

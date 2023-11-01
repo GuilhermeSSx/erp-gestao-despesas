@@ -3,6 +3,8 @@ import { Dialog } from '@headlessui/react';
 import { ArrowUturnLeftIcon, XMarkIcon } from '@heroicons/react/20/solid';
 import "react-toastify/dist/ReactToastify.css";
 import { excluirPerfilAcesso } from '../../lib/apiRequests';
+import { useRouter } from 'next/navigation';
+
 
 interface PopupProps {
     open: boolean;
@@ -16,11 +18,17 @@ const PopupExcluirPerfilAcesso: React.FC<PopupProps> = ({ open, onClose, id_perf
     const cancelButtonRef = useRef<HTMLButtonElement | null>(null);
     const deleteButtonRef = useRef<HTMLButtonElement | null>(null);
 
+    const router = useRouter();
+
     const handleDelete = async () => {
         try {
             await excluirPerfilAcesso(id_perfil_acesso);
             getPerfilAcessos(); // Chame a função para atualizar a lista
             onClose();
+
+            // Use o router para navegar para a mesma página sem o parâmetro 'id'
+            router.replace('/usuarios/perfil-acesso');
+
         } catch (error) {
             console.log(error);
         }

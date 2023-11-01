@@ -15,11 +15,9 @@ const CriarSelecionarPerfilAcesso = () => {
     const [perfilAcessosData, setPerfilAcessosData] = useState<PerfilAcesso[]>([]);
 
     useEffect(() => {
-        if(!acessoDataFetched) {
+        if (!acessoDataFetched) {
             getPerfilAcessos();
             //console.log(perfilAcessosData);
-        } else {
-            console.log(perfilAcessosData);
         }
 
     }, []);
@@ -48,8 +46,8 @@ const CriarSelecionarPerfilAcesso = () => {
         }
     };
 
-        // Adicione um estado para controlar se a solicitação já foi feita
-        const [acessoDataFetched, setAcessoDataFetched] = useState(false);
+    // Adicione um estado para controlar se a solicitação já foi feita
+    const [acessoDataFetched, setAcessoDataFetched] = useState(false);
 
     //-------------------------------------------------------------------------------
 
@@ -134,8 +132,8 @@ const CriarSelecionarPerfilAcesso = () => {
                 <h2 className="text-xl font-bold text-center mt-8">Selecione um Perfil de Acesso</h2>
 
                 <div className='mt-4 rounded-xl flex h-[calc(100vh-380px)]'>
-                    <TablePerfisAcesso 
-                        perfisAcessos={perfilAcessosData} 
+                    <TablePerfisAcesso
+                        perfisAcessos={perfilAcessosData}
                         onPefilAcessoSelected={handlePefilAcessoSelected}
                         getPerfilAcessos={getPerfilAcessos} // Passe a função aqui
                     />
@@ -143,7 +141,7 @@ const CriarSelecionarPerfilAcesso = () => {
 
                 <form className='w-full h-fit flex flex-col items-center rounded-xl mt-4' onSubmit={handleSubmit}>
                     <div className='rounded-lg w-full'>
-                        
+
                         <div className="border mt-2" />
                         <input
                             id='nome-perfil-acesso'
