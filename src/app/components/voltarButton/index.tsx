@@ -10,7 +10,7 @@ export const VoltarButton = () => {
     // Obtenha o caminho atual a partir da localização da janela do navegador
     const rotaAtual = pathname;
 
-    console.log(rotaAtual)
+    // console.log(rotaAtual)
 
     // Separa a rota por /
     const partesRota = rotaAtual.split('/');
@@ -23,7 +23,7 @@ export const VoltarButton = () => {
 
     return (
         <Link href={rotaVoltar} title="voltar">
-            <div className='absolute top-[13px] z-10 left-3 group flex justify-center items-center py-8 px-4 border border-transparent text-base rounded-md hover:bg-slate-200 text-slate-400'>
+            <div className='select-none absolute top-[13px] z-10 left-3 group flex justify-center items-center py-8 px-4 border border-transparent text-base rounded-md hover:bg-slate-200 text-slate-400'>
                 <ArrowLeftIcon className="mr-4 h-7 w-5 text-center" aria-hidden="true" />
                 <span className='hidden md:block'>Voltar</span>
             </div>

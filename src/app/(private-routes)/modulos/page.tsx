@@ -1,8 +1,7 @@
 "use client"
 import Link from 'next/link';
 import React, { useState, useEffect, useRef } from 'react';
-import { MagnifyingGlassIcon } from '@heroicons/react/20/solid'
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 
 interface Option {
   nome: string;

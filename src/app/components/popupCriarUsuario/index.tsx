@@ -1,18 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Dialog } from '@headlessui/react';
-import { UserPlusIcon } from '@heroicons/react/20/solid';
-import { ArrowUturnLeftIcon } from '@heroicons/react/20/solid';
 import { motion } from "framer-motion";
-import ComboBox from '../comboBox';
-import InputDate from '../inputDate';
 import { toast } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
+import { carregarSelecaoPerfilAcesso } from '../../lib/apiRequests';
 
-interface Usuario {
-    id: number;
-    name: string;
-    email: string;
-    role: string;
+interface PerfilAcesso {
+    id_perfil_acesso: number;
+    nome_perfil_acesso: string;
 }
 
 interface PopupProps {
@@ -25,6 +20,21 @@ interface PopupProps {
 
 const PopupCriarUsuario: React.FC<PopupProps> = ({ open, onClose, reloadUsers }) => {
 
+    const [perfilAcessos, setPerfilAcessos] = useState<PerfilAcesso[]>([]);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const data = await carregarSelecaoPerfilAcesso();
+                setPerfilAcessos(data);
+            } catch (error) {
+                console.error(error);
+            }
+        };
+
+        fetchData();
+    }, []);
+
 
     const [loading, setLoading] = useState(false);
 
@@ -32,6 +42,7 @@ const PopupCriarUsuario: React.FC<PopupProps> = ({ open, onClose, reloadUsers })
         name: '',
         email: '',
         password: '',
+        role: 'Convidado'
     });
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -39,39 +50,42 @@ const PopupCriarUsuario: React.FC<PopupProps> = ({ open, onClose, reloadUsers })
         setFormData({ ...formData, [name]: value });
     };
 
+    const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        const { name, value } = e.target;
+        setFormData({ ...formData, [name]: value });
+    };
+
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setLoading(true);
+        let response; // Declaramos a variável response fora do bloco try
 
         try {
-            const response = await fetch('https://jpnr-gestao-sqlserver.vercel.app/user/sign-up', {
+            response = await fetch('https://jpnr-gestao-sqlserver.vercel.app/user/sign-up', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify(formData),
             });
-            // console.log(response)
+            console.log(formData)
 
             if (response.ok) {
-
                 toast.success('Cadastro Realizado com sucesso', {
                     position: "bottom-left",
-                    autoClose: 5000,
+                    autoClose: 2900,
                     hideProgressBar: false,
                     closeOnClick: true,
                     pauseOnHover: true,
                     draggable: true,
                     progress: undefined,
                     theme: "light",
-
                 });
                 reloadUsers();
             } else {
-                reloadUsers();
                 toast.error('Erro em cadastrar o usuário', {
                     position: "bottom-left",
-                    autoClose: 5000,
+                    autoClose: 4200,
                     hideProgressBar: false,
                     closeOnClick: true,
                     pauseOnHover: true,
@@ -79,12 +93,11 @@ const PopupCriarUsuario: React.FC<PopupProps> = ({ open, onClose, reloadUsers })
                     progress: undefined,
                     theme: "light",
                 });
-
             }
         } catch (error) {
-            toast.error('Erro contate o adminstrador!', {
+            toast.error('Erro contate o administrador!', {
                 position: "bottom-left",
-                autoClose: 5000,
+                autoClose: 4200,
                 hideProgressBar: false,
                 closeOnClick: true,
                 pauseOnHover: true,
@@ -92,10 +105,11 @@ const PopupCriarUsuario: React.FC<PopupProps> = ({ open, onClose, reloadUsers })
                 progress: undefined,
                 theme: "light",
             });
-
         } finally {
             setLoading(false);
-            onClose();
+            if (response && response.ok) {
+                onClose();
+            }
         }
     };
 
@@ -158,10 +172,22 @@ const PopupCriarUsuario: React.FC<PopupProps> = ({ open, onClose, reloadUsers })
                                 />
                             </div>
 
-                            <select className='appearance-none rounded-none relative block border w-full px-3 py-2 mt-4 rounded-t-md'>
-                                <option value="Administrador">convidado</option>
-                                <option value="Colaborador">admin</option>
+                            <select
+                                name='role'
+                                onChange={handleSelectChange}
+                                value={formData.role}
+                                className='appearance-none rounded-none relative block border w-full px-3 py-2 mt-4 rounded-t-md'
+                            >
+                                {perfilAcessos.map((perfil_acesso) => (
+                                    <option
+                                        key={perfil_acesso.id_perfil_acesso}
+                                        value={perfil_acesso.nome_perfil_acesso}
+                                    >
+                                        {perfil_acesso.nome_perfil_acesso}
+                                    </option>
+                                ))}
                             </select>
+
                             <div className='flex justify-between rounded-lg my-6 w-full'>
                                 <div className='group relative flex-1'>
                                     <div className='absolute -inset-1 rounded-lg bg-gradient-to-r from-lime-500 via-gray-200 to-gray-400 opacity-30 blur transition duration-500 group-hover:opacity-100'></div>
@@ -179,8 +205,8 @@ const PopupCriarUsuario: React.FC<PopupProps> = ({ open, onClose, reloadUsers })
                     </div>
 
                 </motion.div>
-            </div>
-        </Dialog>
+            </div >
+        </Dialog >
     );
 };
 

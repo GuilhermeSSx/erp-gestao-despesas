@@ -53,3 +53,26 @@ export const excluirPerfilAcesso = async (id_perfil_acesso: number) => {
     }
 };
 
+export const carregarSelecaoPerfilAcesso = async () => {
+
+    try {
+        const response = await fetch('https://jpnr-gestao-sqlserver.vercel.app/user/get-perfil-acessos', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+
+        if (response.ok) {
+            const data = await response.json();
+
+            // console.log(data);
+            return data.perfil_acessos;
+
+        }
+
+    } catch (error) {
+        console.error('Erro:', error);
+    }
+};
+
