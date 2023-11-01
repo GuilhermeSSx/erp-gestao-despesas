@@ -9,17 +9,21 @@ interface PopupProps {
     onClose: () => void;
     id_perfil_acesso: number;
     nome_perfil_acesso: string;
-    // reloadPerfilAcessos: () => void;
+    getPerfilAcessos: () => void;
 }
 
-const PopupExcluirPerfilAcesso: React.FC<PopupProps> = ({ open, onClose, id_perfil_acesso, nome_perfil_acesso }) => {
+const PopupExcluirPerfilAcesso: React.FC<PopupProps> = ({ open, onClose, id_perfil_acesso, nome_perfil_acesso, getPerfilAcessos }) => {
     const cancelButtonRef = useRef<HTMLButtonElement | null>(null);
     const deleteButtonRef = useRef<HTMLButtonElement | null>(null);
 
     const handleDelete = async () => {
-
-        await excluirPerfilAcesso(id_perfil_acesso);
-
+        try {
+            await excluirPerfilAcesso(id_perfil_acesso);
+            getPerfilAcessos(); // Chame a função para atualizar a lista
+            onClose();
+        } catch (error) {
+            console.log(error);
+        }
     };
 
     useEffect(() => {

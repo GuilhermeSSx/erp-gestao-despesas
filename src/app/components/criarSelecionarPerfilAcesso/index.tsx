@@ -24,6 +24,7 @@ const CriarSelecionarPerfilAcesso = () => {
 
     }, []);
 
+
     const getPerfilAcessos = async () => {
         try {
             const response = await fetch('https://jpnr-gestao-sqlserver.vercel.app/user/get-perfil-acessos', {
@@ -133,13 +134,17 @@ const CriarSelecionarPerfilAcesso = () => {
                 <h2 className="text-xl font-bold text-center mt-8">Selecione um Perfil de Acesso</h2>
 
                 <div className='mt-4 rounded-xl flex h-[calc(100vh-380px)]'>
-                    <TablePerfisAcesso perfisAcessos={perfilAcessosData} onPefilAcessoSelected={handlePefilAcessoSelected} />
+                    <TablePerfisAcesso 
+                        perfisAcessos={perfilAcessosData} 
+                        onPefilAcessoSelected={handlePefilAcessoSelected}
+                        getPerfilAcessos={getPerfilAcessos} // Passe a função aqui
+                    />
                 </div>
 
                 <form className='w-full h-fit flex flex-col items-center rounded-xl mt-4' onSubmit={handleSubmit}>
                     <div className='rounded-lg w-full'>
                         
-                        <div className="border mt-4" />
+                        <div className="border mt-2" />
                         <input
                             id='nome-perfil-acesso'
                             name='nome_perfil_acesso'

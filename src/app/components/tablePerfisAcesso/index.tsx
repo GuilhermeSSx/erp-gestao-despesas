@@ -1,6 +1,7 @@
 import Link from 'next/link';
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import PopupExcluirPerfilAcesso from '../popupExclurPerfilAcesso';
+import { useRouter } from 'next/navigation';
 
 interface PerfilAcesso {
     id_perfil_acesso: number;
@@ -10,13 +11,21 @@ interface PerfilAcesso {
 interface TablePerfisAcessosProps {
     perfisAcessos: PerfilAcesso[];
     onPefilAcessoSelected: (perfilAcesso: PerfilAcesso) => void;
+    getPerfilAcessos: () => void;
 }
 
-const TablePerfisAcesso: React.FC<TablePerfisAcessosProps> = ({ perfisAcessos, onPefilAcessoSelected }) => {
+const TablePerfisAcesso: React.FC<TablePerfisAcessosProps> = ({ perfisAcessos, onPefilAcessoSelected, getPerfilAcessos }) => {
     const [selectedItemIndex, setSelectedItemIndex] = useState<number | null>(null);
-    const [selectedItem, setSelectedItem] = useState<PerfilAcesso | null>(null); // Change variable name to 'selectedItem'
+    const [selectedItem, setSelectedItem] = useState<PerfilAcesso | null>(null);
+    const [itemToBeRemoved, setItemToBeRemoved] = useState<PerfilAcesso | null>(null);
     const tableRef = useRef<HTMLTableElement | null>(null);
 
+    const pathname = useRouter();
+
+    useEffect(() => {
+        console.log(pathname);
+    })
+    // Comparar com ID da rota para saber se o item foi selecionado <- fazer
     const handleRowClick = (perfilAcesso: PerfilAcesso, index: number) => {
         if (selectedItem && selectedItem.id_perfil_acesso === perfilAcesso.id_perfil_acesso) {
             // Deselect the current item if it's already selected
@@ -30,15 +39,12 @@ const TablePerfisAcesso: React.FC<TablePerfisAcessosProps> = ({ perfisAcessos, o
         onPefilAcessoSelected(perfilAcesso);
     };
 
-    const [popupAbertoExcluirPerfilAcesso, setPopupAbertoExcluirPerfilAcesso] = useState(false);
-
     const abrirPopupExcluirPerfilAcesso = (perfil_acesso: PerfilAcesso) => {
-        setSelectedItem(perfil_acesso);
-        setPopupAbertoExcluirPerfilAcesso(true);
+        setItemToBeRemoved(perfil_acesso);
     };
 
     const fecharPopupExcluirPerfilAcesso = () => {
-        setPopupAbertoExcluirPerfilAcesso(false);
+        setItemToBeRemoved(null);
     };
 
     return (
@@ -52,10 +58,7 @@ const TablePerfisAcesso: React.FC<TablePerfisAcessosProps> = ({ perfisAcessos, o
                 </thead>
                 <tbody className="divide-y-2 divide-blue-100">
                     {perfisAcessos.map((perfilAcesso, index) => (
-                        <tr
-                            key={perfilAcesso.id_perfil_acesso}
-                            onClick={() => handleRowClick(perfilAcesso, index)} // Added onClick event
-                        >
+                        <tr key={perfilAcesso.id_perfil_acesso}>
                             <td className='w-[50%] p-3 px-4 text-xs font-semibold text-gray-700 whitespace-nowrap'>
                                 <div>
                                     <h2 className='font-semibold text-gray-500'>{perfilAcesso.nome_perfil_acesso}</h2>
@@ -64,13 +67,16 @@ const TablePerfisAcesso: React.FC<TablePerfisAcessosProps> = ({ perfisAcessos, o
                             <td className='text-sm text-gray-700 whitespace-nowrap h-[46px] px-1 justify-evenly items-center select-none'>
                                 <div className='flex justify-evenly items-center'>
                                     <Link
-                                        href={{ pathname: "/usuarios/perfil-acesso", query: { id: perfilAcesso.id_perfil_acesso } }}
+                                        href={{
+                                            pathname: "/usuarios/perfil-acesso",
+                                            query: {
+                                                id: perfilAcesso.id_perfil_acesso,
+                                            },
+                                        }}
                                         className={`w-[50%] h-[38px] flex items-center justify-center border border-transparent
-                                        text-sm rounded-md ${selectedItem && selectedItem.id_perfil_acesso === perfilAcesso.id_perfil_acesso ? 'bg-green-400' : 'bg-blue-400'} hover:bg-blue-300`}
+                                                text-sm rounded-md bg-blue-400 hover:bg-blue-300`}
                                     >
-                                        {selectedItem && selectedItem.id_perfil_acesso === perfilAcesso.id_perfil_acesso
-                                            ? 'Selecionado'
-                                            : 'Selecionar'}
+                                        Selecionar
                                     </Link>
                                     <button
                                         className='w-[48%] h-[38px] flex items-center justify-center border border-transparent
@@ -78,6 +84,7 @@ const TablePerfisAcesso: React.FC<TablePerfisAcessosProps> = ({ perfisAcessos, o
                                         onClick={(e) => {
                                             e.stopPropagation();
                                             abrirPopupExcluirPerfilAcesso(perfilAcesso);
+                                            console.log(index);
                                         }}
                                     >
                                         Remover
@@ -89,10 +96,11 @@ const TablePerfisAcesso: React.FC<TablePerfisAcessosProps> = ({ perfisAcessos, o
                 </tbody>
             </table>
             <PopupExcluirPerfilAcesso
-                open={popupAbertoExcluirPerfilAcesso}
+                open={itemToBeRemoved !== null}
                 onClose={fecharPopupExcluirPerfilAcesso}
-                id_perfil_acesso={selectedItem ? selectedItem.id_perfil_acesso : 0}
-                nome_perfil_acesso={selectedItem ? selectedItem.nome_perfil_acesso : ''}
+                id_perfil_acesso={itemToBeRemoved ? itemToBeRemoved.id_perfil_acesso : 0}
+                nome_perfil_acesso={itemToBeRemoved ? itemToBeRemoved.nome_perfil_acesso : ''}
+                getPerfilAcessos={getPerfilAcessos}
             />
         </div>
     );
