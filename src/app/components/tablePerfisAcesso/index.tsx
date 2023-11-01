@@ -22,9 +22,9 @@ const TablePerfisAcesso: React.FC<TablePerfisAcessosProps> = ({ perfisAcessos, o
 
     const pathname = useRouter();
 
-    useEffect(() => {
-        console.log(pathname);
-    })
+    // useEffect(() => {
+    //     console.log(pathname);
+    // })
     // Comparar com ID da rota para saber se o item foi selecionado <- fazer
     const handleRowClick = (perfilAcesso: PerfilAcesso, index: number) => {
         if (selectedItem && selectedItem.id_perfil_acesso === perfilAcesso.id_perfil_acesso) {
