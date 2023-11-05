@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Dialog } from '@headlessui/react';
 import { motion } from "framer-motion";
 import { toast } from 'react-toastify';
@@ -35,14 +35,13 @@ const PopupCriarUsuario: React.FC<PopupProps> = ({ open, onClose, reloadUsers })
         fetchData();
     }, []);
 
-
     const [loading, setLoading] = useState(false);
 
     const [formData, setFormData] = useState({
         name: '',
         email: '',
         password: '',
-        role: 'Convidado'
+        role: 'convidado'
     });
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -73,7 +72,7 @@ const PopupCriarUsuario: React.FC<PopupProps> = ({ open, onClose, reloadUsers })
             if (response.ok) {
                 toast.success('Cadastro Realizado com sucesso', {
                     position: "bottom-left",
-                    autoClose: 2900,
+                    autoClose: 2200,
                     hideProgressBar: false,
                     closeOnClick: true,
                     pauseOnHover: true,
@@ -85,7 +84,7 @@ const PopupCriarUsuario: React.FC<PopupProps> = ({ open, onClose, reloadUsers })
             } else {
                 toast.error('Erro em cadastrar o usuário', {
                     position: "bottom-left",
-                    autoClose: 4200,
+                    autoClose: 3600,
                     hideProgressBar: false,
                     closeOnClick: true,
                     pauseOnHover: true,
@@ -97,7 +96,7 @@ const PopupCriarUsuario: React.FC<PopupProps> = ({ open, onClose, reloadUsers })
         } catch (error) {
             toast.error('Erro contate o administrador!', {
                 position: "bottom-left",
-                autoClose: 4200,
+                autoClose: 3600,
                 hideProgressBar: false,
                 closeOnClick: true,
                 pauseOnHover: true,
@@ -150,7 +149,7 @@ const PopupCriarUsuario: React.FC<PopupProps> = ({ open, onClose, reloadUsers })
                                 <input
                                     name="email"
                                     type='email'
-                                    autoComplete='new-email'
+                                    autoComplete='off'
                                     required
                                     className='appearance-none rounded-none relative block border w-full px-3 py-2 mt-4 rounded-t-md'
                                     placeholder='Email...'
@@ -162,7 +161,7 @@ const PopupCriarUsuario: React.FC<PopupProps> = ({ open, onClose, reloadUsers })
                                 <input
                                     name='password'
                                     type='password'
-                                    autoComplete='new-password'
+                                    autoComplete='off'
                                     required
                                     className='appearance-none rounded-none relative block border w-full px-3 py-2 mt-4 rounded-t-md'
                                     placeholder='Senha'
@@ -178,6 +177,7 @@ const PopupCriarUsuario: React.FC<PopupProps> = ({ open, onClose, reloadUsers })
                                 value={formData.role}
                                 className='appearance-none rounded-none relative block border w-full px-3 py-2 mt-4 rounded-t-md'
                             >
+                                <option value="convidado">Convidado</option>
                                 {perfilAcessos.map((perfil_acesso) => (
                                     <option
                                         key={perfil_acesso.id_perfil_acesso}

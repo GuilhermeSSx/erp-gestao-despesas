@@ -28,7 +28,7 @@ const PopupExcluirUsuario: React.FC<PopupProps> = ({ open, onClose, userName, us
             if (response.ok) {
                 toast.success('Usuário deletado com sucesso!', {
                     position: "bottom-left",
-                    autoClose: 5000,
+                    autoClose: 2200,
                     hideProgressBar: false,
                     closeOnClick: true,
                     pauseOnHover: true,
@@ -41,7 +41,7 @@ const PopupExcluirUsuario: React.FC<PopupProps> = ({ open, onClose, userName, us
                 reloadUsers();
                 toast.error('Erro ao deletar o usuário!', {
                     position: "bottom-left",
-                    autoClose: 5000,
+                    autoClose: 3600,
                     hideProgressBar: false,
                     closeOnClick: true,
                     pauseOnHover: true,
@@ -56,7 +56,7 @@ const PopupExcluirUsuario: React.FC<PopupProps> = ({ open, onClose, userName, us
             console.error('Erro:', error);
             toast.error('Erro ao deletar o usuário! admin', {
                 position: "bottom-left",
-                autoClose: 5000,
+                autoClose: 3600,
                 hideProgressBar: false,
                 closeOnClick: true,
                 pauseOnHover: true,

@@ -1,10 +1,16 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { carregarSelecaoPerfilAcesso } from '../../lib/apiRequests';
 
 interface Usuario {
     id: number;
     name: string;
     email: string;
     role: string;
+}
+
+interface PerfilAcesso {
+    id_perfil_acesso: number;
+    nome_perfil_acesso: string;
 }
 
 interface TableUsuariosProps {
@@ -15,6 +21,29 @@ interface TableUsuariosProps {
 const TableUsuarios: React.FC<TableUsuariosProps> = ({ usuarios, onUsuarioSelected }) => {
     const [selectedItemIndex, setSelectedItemIndex] = useState<number | null>(null);
     const tableRef = useRef<HTMLTableElement | null>(null);
+
+    const [perfilAcessos, setPerfilAcessos] = useState<PerfilAcesso[]>([]);
+
+    const [selectedPerfisAcesso, setSelectedPerfisAcesso] = useState<string[]>([]);
+
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const data = await carregarSelecaoPerfilAcesso();
+                setPerfilAcessos(data);
+            } catch (error) {
+                console.error(error);
+            }
+        };
+
+        fetchData();
+    }, []);
+
+    useEffect(() => {
+        // Inicialize o estado selectedPerfisAcesso com os perfis de acesso atuais dos usuários
+        setSelectedPerfisAcesso(usuarios.map((usuario) => usuario.role));
+    }, [usuarios]);
 
     useEffect(() => {
 
@@ -63,6 +92,12 @@ const TableUsuarios: React.FC<TableUsuariosProps> = ({ usuarios, onUsuarioSelect
         onUsuarioSelected(usuario);
     };
 
+    const handleSelectChange = (index: number, newPerfilAcesso: string) => {
+        const updatedSelectedPerfisAcesso = [...selectedPerfisAcesso];
+        updatedSelectedPerfisAcesso[index] = newPerfilAcesso;
+        setSelectedPerfisAcesso(updatedSelectedPerfisAcesso); // Atualize o estado
+    };
+
     return (
         <div className='rounded-lg h-full w-[100%] overflow-y-scroll mt-2 bg-white'>
             <table className="w-full h-fit select-none" ref={tableRef}>
@@ -90,8 +125,20 @@ const TableUsuarios: React.FC<TableUsuariosProps> = ({ usuarios, onUsuarioSelect
                             </td>
                             <td className='flex items-center justify-center text-gray-700 md-web:w-48 w-32'>
                                 <div className="flex justify-center items-center w-full p-2 border-l border-blue-500">
-                                    <select className='w-full h-full p-2 text-sm flex items-center' >
-                                        <option className=' hover:bg-slate-200 bg-slate-100 w-full'>{usuario.role}</option>
+                                    <select
+                                        className='w-full h-full p-2 text-sm flex items-center'
+                                        value={selectedPerfisAcesso[index]}  // Use o valor do estado local
+                                        onChange={(e) => handleSelectChange(index, e.target.value)}
+                                    >
+                                        {perfilAcessos.map((perfil_acesso) => (
+                                            <option
+                                                key={perfil_acesso.id_perfil_acesso}
+                                                value={perfil_acesso.nome_perfil_acesso}
+                                            >
+                                                {perfil_acesso.nome_perfil_acesso}
+                                            </option>
+                                        ))}
+
                                     </select>
                                 </div>
                             </td>
