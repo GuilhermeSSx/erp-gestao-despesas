@@ -2,8 +2,6 @@
 import TableUsuarios from '@/app/components/tableUsuarios';
 import { useState, useEffect, useRef } from 'react';
 import PopupExcluirUsuario from '@/app/components/popupExcluirUsuario';
-import { toast } from 'react-toastify';
-import "react-toastify/dist/ReactToastify.css";
 import { useSession } from "next-auth/react"
 import PopupCriarUsuario from '@/app/components/popupCriarUsuario';
 import Link from 'next/link';
@@ -52,8 +50,6 @@ export default function Usuarios() {
         }
     };
 
-    const [loading, setLoading] = useState(false);
-
     const [selectedUsuario, setSelectedUsuario] = useState<Usuario | null>(null);
 
     const [popupAbertoExcluirUsuario, setPopupExcluirUsuarioAberto] = useState(false);
@@ -81,80 +77,6 @@ export default function Usuarios() {
     const fecharPopupCriarUsuario = () => {
         setPopupCriarUsuarioAberto(false);
     };
-
-
-    // ---------------------------------------------------------------------------
-
-    const [formData, setFormData] = useState({
-        name: '',
-        email: '',
-        password: '',
-    });
-
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const { name, value } = e.target;
-        setFormData({ ...formData, [name]: value });
-    };
-
-    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        setLoading(true);
-
-        try {
-            const response = await fetch('https://jpnr-gestao-sqlserver.vercel.app/user/sign-up', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(formData),
-            });
-            // console.log(response)
-
-            if (response.ok) {
-                getUsers();
-
-                toast.success('Cadastro Realizado com sucesso', {
-                    position: "bottom-left",
-                    autoClose: 5000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "light",
-
-                });
-            } else {
-                toast.error('Erro em cadastrar o usuário', {
-                    position: "bottom-left",
-                    autoClose: 5000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "light",
-                });
-
-            }
-        } catch (error) {
-            toast.error('Erro contate o adminstrador!', {
-                position: "bottom-left",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "light",
-            });
-
-        } finally {
-            setLoading(false);
-        }
-    };
-
-    // -----------------------------------------------------------
 
     const filteredUsuariosData = usuariosData.filter(userData =>
         userData.name.toLowerCase().includes(searchTerm.toLowerCase())

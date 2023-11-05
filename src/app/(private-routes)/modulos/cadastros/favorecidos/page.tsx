@@ -156,7 +156,7 @@ export default function Favorecidos() {
             <div className='ml-1 mt-4 w-[12%] min-w-[210px] h-[96%] flex flex-col bg-gradient-to-bl from-[#86868600] via-[#eb090900] to-[#8ed15acb] rounded-xl'>
 
                 <Link href={'/modulos/cadastros'} title="voltar">
-                    <div className='group flex justify-evenly items-center py-2 md:px-4 border border-transparent text-base rounded-md hover:bg-slate-200 text-slate-400'>
+                    <div className='group flex justify-evenly items-center py-2 md:px-4 mx-2 border border-transparent text-base rounded-md hover:bg-slate-200 text-slate-400'>
                         <ArrowLeftIcon className=" h-7 w-5 text-center" aria-hidden="true" />
                         <span className='hidden md:block'>Voltar</span>
                     </div>
