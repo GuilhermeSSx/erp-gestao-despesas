@@ -127,7 +127,7 @@ export default function Lancamentos() {
 
           <button
             onClick={abrirPopupCriarLancamento}
-            className='mx-4 group relative items-center w-[25%] flex justify-center py-1 px-2 border border-transparent text-sm font-medium rounded-md bg-lime-500 hover:bg-lime-400 text-black hover:scale-[1.02] duration-200'
+            className=' group relative items-center w-[25%] flex justify-center py-1 px-2 border border-transparent text-sm font-medium rounded-md bg-lime-500 hover:bg-lime-400 text-black hover:scale-[1.02] duration-200'
           >
             Cadastrar
           </button>

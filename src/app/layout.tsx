@@ -3,7 +3,6 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import Header from './components/header'
 import NextAuthSessionProvider from '@/providers/sessionProvider'
-import { CrudStore } from './contexts/crudContext'
 import { Analytics } from '@vercel/analytics/react';
 import { ToastContainer } from 'react-toastify';
 
@@ -22,13 +21,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-
         <NextAuthSessionProvider>
-          <CrudStore>
-            <Header />
-            {children}
-            <ToastContainer />
-          </CrudStore>
+          <Header />
+          {children}
+          <ToastContainer />
         </NextAuthSessionProvider>
         <Analytics />
       </body>

@@ -1,4 +1,5 @@
 "use client"
+import { GetServerSideProps } from 'next';
 import TableUsuarios from '@/app/components/tableUsuarios';
 import { useState, useEffect, useRef } from 'react';
 import PopupExcluirUsuario from '@/app/components/popupExcluirUsuario';
