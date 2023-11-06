@@ -84,7 +84,6 @@ interface PopupProps {
 const PopupCriarLancamento: React.FC<PopupProps> = ({ open, onClose, LancId, LancClassificacao }) => {
 
     let ClassificadosId: number | null;
-    let PlanoContaId: number | null;
     let StatusId: number | null;
     let FavorecidosId: number | null;
     let CentroCustoId: number | null;
@@ -175,7 +174,6 @@ const PopupCriarLancamento: React.FC<PopupProps> = ({ open, onClose, LancId, Lan
                                 className='mt-2 group relative w-[50%] flex justify-center items-center py-1 px-4 border border-transparent text-base rounded-md bg-emerald-400 hover:bg-lime-500 '
                                 onClick={() => console.log(
                                     ClassificadosId,
-                                    PlanoContaId,
                                     StatusId,
                                     FavorecidosId,
                                     CentroCustoId

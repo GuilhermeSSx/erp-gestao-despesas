@@ -46,14 +46,6 @@ const dataFromClassificados: Item[] = [
 
 ];
 
-const dataFromPlanoContas: Item[] = [
-    {
-        itemId: 1,
-        itemNome: 'Fretes e Carretos'
-    }
-
-];
-
 const dataFromStatus: Item[] = [
     {
         itemId: 1,
@@ -355,7 +347,6 @@ const PopupEditarLancamento: React.FC<PopupProps> = (
                                 console.log(`Editar tipo com ID ${lancId}`);
                                 console.log(
                                     classificadosId,
-                                    planoContaId,
                                     statusId,
                                     favorecidosId,
                                     centroCustoId
