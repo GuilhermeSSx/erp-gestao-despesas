@@ -106,7 +106,7 @@ export default function Lancamentos() {
   };
 
   return (
-    <div className="fixed w-screen h-[calc(100vh-60px)] flex flex-col bg-slate-300">
+    <div className="fixed w-screen h-[calc(100vh-60px)] flex flex-col bg-white">
 
 
 

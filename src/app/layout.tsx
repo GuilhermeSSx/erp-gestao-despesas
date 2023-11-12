@@ -1,7 +1,6 @@
 import './globals.css'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
-import Header from './components/header'
 import NextAuthSessionProvider from '@/providers/sessionProvider'
 // import { Analytics } from '@vercel/analytics/react';
 import { ToastContainer } from 'react-toastify';
@@ -22,7 +21,6 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <NextAuthSessionProvider>
-          <Header />
           {children}
           <ToastContainer />
         </NextAuthSessionProvider>

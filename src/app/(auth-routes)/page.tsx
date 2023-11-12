@@ -13,6 +13,7 @@ export default function Login() {
   const [password, setPassword] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [isAuthorized, setIsAuthorized] = useState<boolean>(false);
 
   const rememberMeCheckboxRef = useRef<HTMLInputElement | null>(null);
 
@@ -97,7 +98,7 @@ export default function Login() {
   }
 
   return (
-    <main className='h-[calc(100vh-60px)] w-full bg-slate-400 flex justify-center items-center overflow-auto sm:p-10 sm-mobile:p-4 p-2'>
+    <main className='h-screen w-full bg-slate-400 flex justify-center items-center overflow-auto sm:p-10 sm-mobile:p-4 p-2'>
       <div className='w-full max-w-[460px] lg-1920:w-[25%] md-1190:w-[40%] md:w-[60%] md-web:w-[90%] h-fit bg-[#ffffff] rounded-xl flex flex-col items-center justify-center sm-mobile:p-4 p-2'>
         <Image
           className='flex relative justify-center items-center my-2'
@@ -153,15 +154,19 @@ export default function Login() {
               type='submit'
               className='group relative w-full flex justify-center items-center py-2 px-4 border border-transparent
               text-sm font-medium rounded-md bg-lime-400 hover:bg-lime-500 hover:scale-[1.02] transition duration-300'
-              disabled={isLoading}
+              disabled={isLoading || isAuthorized}
             >
-              {isLoading ?
+              {isLoading ? (
                 <div className="flex items-center">
                   <div className="w-full text-center">
                     <div className="w-5 h-5 border-[2px] border-dashed rounded-full animate-spin dark:border-white" />
                   </div>
                 </div>
-                : 'Entrar'}
+              ) : isAuthorized ? (
+                <span>OK</span> // Exibe OK quando autorizado
+              ) : (
+                'Entrar'
+              )}
             </button>
           </div>
         </form>

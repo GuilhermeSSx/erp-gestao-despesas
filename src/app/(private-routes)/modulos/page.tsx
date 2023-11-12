@@ -1,7 +1,6 @@
 "use client"
 import Link from 'next/link';
 import React, { useState, useEffect, useRef } from 'react';
-import { motion } from "framer-motion";
 
 interface Option {
   nome: string;
@@ -43,10 +42,7 @@ const Modulos: React.FC = () => {
 
     <div
       className="w-full h-[calc(100vh-60px)] flex flex-col justify-center items-center text-white md:px-6 px-1 overflow-hidden">
-      <motion.div
-        initial={{ opacity: 0, x: 500 }}
-        transition={{ duration: 0.6, type: 'spring'  }}
-        animate={{ opacity: 1, x: 0 }}
+      <div
         className='md:p-8 py-4 px-3 md:min-w-[500px] lg-1920:w-[30%] md:w-[40%] w-full h-full md:h-[80%] my-8 bg-[#4b4b4b2d] rounded-xl flex flex-col items-center shadow-2xl'
       >
         <h1 className='text-[1.5rem] font-extrabold text-black select-none'>Lista de Módulos</h1>
@@ -79,7 +75,7 @@ const Modulos: React.FC = () => {
             ))}
           </ul>
         </div>
-      </motion.div>
+      </div>
     </div>
 
   );
