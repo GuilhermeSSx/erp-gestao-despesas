@@ -2,7 +2,7 @@
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { SyntheticEvent, useState, useEffect, useRef } from "react";
-import LoginLogo from "../assets/jpnr-login.png";
+import LoginLogo from "../../../public/jpnr-login.png";
 import Image from "next/image";
 import { Slide, toast } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";

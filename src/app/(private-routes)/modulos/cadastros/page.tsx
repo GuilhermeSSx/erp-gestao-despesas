@@ -1,6 +1,6 @@
 "use client"
 import Image from 'next/image';
-import saidaIcon from "../../../assets/saida.svg";
+import saidaIcon from "../../../../../public/saida.svg";
 import { motion } from "framer-motion";
 import Link from 'next/link';
 import { VoltarButton } from '@/app/components/voltarButton';

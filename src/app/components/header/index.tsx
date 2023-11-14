@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import Image from "next/image";
-import Logo from "../../assets/Energia-JPNR-BRANCO.png";
+import Logo from "#/public/Energia-JPNR-BRANCO.png";
 import { Menu } from "@headlessui/react";
 import { ChevronDownIcon, Bars3Icon } from "@heroicons/react/20/solid";
 import { signOut } from "next-auth/react";
@@ -35,7 +35,7 @@ export default function Header() {
             <AnimatePresence>
                 <motion.header
                     initial={{ opacity: 0, y: -300 }}
-                    transition={{ type: "tween", duration: 1.5, ease: "easeInOut" }}
+                    transition={{ type: "tween", duration: 1 }}
                     animate={{ opacity: 1, y: 0, }}
                     exit={{ opacity: 0, y: -300 }}
                     className="flex bg-black w-full h-[60px] p-[10px] sticky top-0 z-50 select-none">
