@@ -35,7 +35,7 @@ export default function Header() {
             <AnimatePresence>
                 <motion.header
                     initial={{ opacity: 0, y: -300 }}
-                    transition={{ type: "tween", duration: 1 }}
+                    transition={{ type: "tween", duration: 0.9 }}
                     animate={{ opacity: 1, y: 0, }}
                     exit={{ opacity: 0, y: -300 }}
                     className="flex bg-black w-full h-[60px] p-[10px] sticky top-0 z-50 select-none">
