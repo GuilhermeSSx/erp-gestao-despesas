@@ -8,7 +8,7 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        selecaoLinha: 'rgba(0, 150, 255, 0.4)', 
+        selecaoLinha: 'rgba(0, 150, 255, 0.4)',
         jpnrPink: '#F94B85',
         jpnrVerde: '#8ED155',
         jpnrAzul: '#24C5E8',
@@ -24,6 +24,9 @@ module.exports = {
         'gradient-conic':
           'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
       },
+      height: {
+        screen: ['100vh /* fallback for Opera, IE and etc. */', '100dvh'],
+      }
     },
   },
   plugins: [

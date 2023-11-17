@@ -23,12 +23,11 @@ const PopupExcluirPerfilAcesso: React.FC<PopupProps> = ({ open, onClose, id_perf
     const handleDelete = async () => {
         try {
             await excluirPerfilAcesso(id_perfil_acesso);
-             // Chame a função para atualizar a lista
+            getPerfilAcessos(); // Chame a função para atualizar a lista
             onClose();
 
             // Use o router para navegar para a mesma página sem o parâmetro 'id'
             router.replace('/usuarios/perfil-acesso');
-            getPerfilAcessos();
 
         } catch (error) {
             console.log(error);

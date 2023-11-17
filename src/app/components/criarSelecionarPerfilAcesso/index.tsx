@@ -1,89 +1,163 @@
-import Link from "next/link";
-import { ButtonRemover } from "./button";
-import { CriarPerfilAcesso } from "../criarPerfilAcesso";
+import React, { useState, useEffect, useRef } from 'react';
+import TablePerfisAcesso from '@/app/components/tablePerfisAcesso';
+import { UserPlusIcon } from '@heroicons/react/20/solid';
+import { toast } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
 
-interface Perfil {
+interface PerfilAcesso {
     id_perfil_acesso: number;
     nome_perfil_acesso: string;
 }
 
-async function getData(): Promise<{ perfil_acessos: Perfil[] }> {
-    // Configurando fetch para não armazenar cache
-    const res = await fetch('https://jpnr-gestao-sqlserver.vercel.app/user/get-perfil-acessos', {
-        cache: 'no-store'
-    });
+const CriarSelecionarPerfilAcesso = () => {
+    const [perfilAcessosData, setPerfilAcessosData] = useState<PerfilAcesso[]>([]);
+    const [acessoDataFetched, setAcessoDataFetched] = useState(false);
+    const [loading, setLoading] = useState(false);
+    const [formData, setFormData] = useState({ nome_perfil_acesso: '' });
+    const [selectedPefilAcesso, setSelectedPerfilAcesso] = useState<PerfilAcesso | null>(null);
+    const cacheAcessos = useRef<{ data: PerfilAcesso[] | null }>({ data: null });
 
-    if (!res.ok) {
-        throw new Error('Failed to fetch data');
-    }
+    useEffect(() => {
+        if (!acessoDataFetched) {
+            getPerfilAcessos();
+        }
+    }, []);
 
-    return res.json();
-}
-async function CriarSelecionarPerfilAcesso() {
+    const getPerfilAcessos = async () => {
+        if (cacheAcessos.current.data) {
+            setPerfilAcessosData(cacheAcessos.current.data);
+            setAcessoDataFetched(true);
+            return;
+        }
 
-    const data = await getData();
-    const perfis = data.perfil_acessos;
+        try {
+            const response = await fetch('https://jpnr-gestao-sqlserver.vercel.app/user/get-perfil-acessos', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
 
-    console.log(perfis);
+            if (response.ok) {
+                const data = await response.json();
+                cacheAcessos.current.data = data.perfil_acessos;
+                setPerfilAcessosData(data.perfil_acessos);
+            } else {
+                throw new Error('Erro ao buscar os perfis de acessos.');
+            }
+        } catch (error) {
+            console.error('Erro:', error);
+        } finally {
+            setAcessoDataFetched(true);
+        }
+    };
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = e.target;
+        setFormData({ ...formData, [name]: value });
+    };
+
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        setLoading(true);
+
+        try {
+            const response = await fetch('https://jpnr-gestao-sqlserver.vercel.app/user/criar-perfil-acesso', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData),
+            });
+
+            if (response.ok) {
+                cacheAcessos.current.data = null;
+                getPerfilAcessos();
+
+                toast.success('Cadastro Realizado com sucesso', {
+                    position: 'bottom-left',
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: 'light',
+                });
+            } else {
+                toast.error('Erro em cadastrar o usuário', {
+                    position: 'bottom-left',
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: 'light',
+                });
+            }
+        } catch (error) {
+            toast.error('Erro contate o administrador!', {
+                position: 'bottom-left',
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: 'light',
+            });
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const handlePefilAcessoSelected = (perfilAcesso: PerfilAcesso) => {
+        setSelectedPerfilAcesso(perfilAcesso);
+    };
 
     return (
-        <div className='flex w-full h-[80%] justify-center '>
+        <div className='flex w-full h-full justify-center'>
             <div className='w-full md:w-[32%] md:min-w-[490px] px-2'>
-
-                <h2 className="text-xl font-bold text-center">Selecione um Perfil de Acesso</h2>
-
-                <div className="rounded-lg border h-full w-[100%] overflow-y-scroll mt-2 bg-white">
-                    <table className="w-full h-fit select-none">
-                        <thead className="bg-gray-50 border-b-2 border-gray-200 sticky top-0">
-                            <tr className="divide-x divide-gray-300">
-                                <th className="p-3 text-sm font-bold tracking-wide text-left">Nome do Perfil</th>
-                                <th className="p-3 text-sm font-bold tracking-wide text-left">Ações</th>
-                            </tr>
-                        </thead>
-                        <tbody className="divide-y-2 divide-blue-100">
-                            {perfis.map((perfil: Perfil) => (
-                                <tr key={perfil.id_perfil_acesso}>
-                                    <td className='w-[50%] p-3 px-4 text-xs font-semibold text-gray-700 whitespace-nowrap'>
-                                        <div>
-                                            <h2 className='font-semibold text-gray-500'>{perfil.nome_perfil_acesso}</h2>
-                                        </div>
-                                    </td>
-
-                                    <td className='text-sm text-gray-700 whitespace-nowrap h-[46px] px-1 justify-evenly items-center select-none'>
-                                        <div className='flex justify-evenly items-center'>
-                                            <Link
-                                                href={{
-                                                    pathname: "/usuarios/perfil-acesso",
-                                                    query: {
-                                                        id: perfil.id_perfil_acesso,
-                                                    },
-                                                }}
-                                                className={`w-[50%] h-[38px] flex items-center justify-center border border-transparent
-                                        text-sm rounded-md ${perfil.id_perfil_acesso ? 'bg-green-400' : 'bg-blue-400'} hover:bg-blue-300`}
-                                            >
-                                                {perfil.id_perfil_acesso ? 'Selecionar' : 'Selecionado'}
-                                            </Link>
-                                            <ButtonRemover
-                                                id_perfil_acesso={perfil.id_perfil_acesso}
-                                                nome_perfil_acesso={perfil.nome_perfil_acesso}
-                                                getPerfilAcessos={getData}
-                                            />
-                                        </div>
-                                    </td>
-
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
+                <h2 className="text-xl font-bold text-center mt-8">Selecione um Perfil de Acesso</h2>
+                <div className='mt-4 rounded-xl flex h-[calc(100vh-380px)]'>
+                    <TablePerfisAcesso
+                        perfisAcessos={perfilAcessosData}
+                        onPefilAcessoSelected={handlePefilAcessoSelected}
+                        getPerfilAcessos={getPerfilAcessos}
+                    />
                 </div>
-
-
-
+                <form className='w-full h-fit flex flex-col items-center rounded-xl mt-4' onSubmit={handleSubmit}>
+                    <div className='rounded-lg w-full'>
+                        <div className="border mt-2" />
+                        <input
+                            id='nome-perfil-acesso'
+                            name='nome_perfil_acesso'
+                            className='mt-3 relative block border-2 w-full px-4 py-2 rounded-t-md'
+                            placeholder='Nome do novo perfil de acesso...'
+                            type='text'
+                            required
+                            onChange={handleChange}
+                            maxLength={15}
+                            minLength={4}
+                        />
+                    </div>
+                    <div className='flex justify-between w-full'>
+                        <button
+                            title="Cadastrar Perfil de Acesso"
+                            className='mt-2 group relative w-full flex justify-center items-center py-1 px-4 border border-transparent
+                            text-base rounded-md bg-emerald-400 hover:bg-lime-500'
+                            disabled={loading}
+                        >
+                            {loading ? 'Carregando...' : 'Cadastrar'}
+                            <UserPlusIcon
+                                className="ml-2 h-7 w-5 text-center"
+                                aria-hidden="true"
+                            />
+                        </button>
+                    </div>
+                </form>
             </div>
-
-            <CriarPerfilAcesso getPerfilAcessos={getData} />
-
-
         </div>
     );
 };
