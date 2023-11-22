@@ -39,7 +39,9 @@ export default function Header() {
                     animate={{ opacity: 1, y: 0, }}
                     exit={{ opacity: 0, y: -400 }}
                     className="flex bg-black w-full h-[60px] p-[10px] sticky top-0 z-50 select-none">
-                    {session ? (<DrawerOpenClose />) : (<></>)}
+
+                    <DrawerOpenClose />
+                    
                     <div className="flex items-center mx-4">
 
                         {session ? (
