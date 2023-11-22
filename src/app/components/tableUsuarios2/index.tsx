@@ -1,5 +1,5 @@
+"use client";
 import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { carregarSelecaoPerfilAcesso } from '../../lib/apiRequests';
 
 interface Usuario {
     id: number;
@@ -15,82 +15,19 @@ interface PerfilAcesso {
 
 interface TableUsuariosProps {
     usuarios: Usuario[];
-    onUsuarioSelected: (usuario: Usuario) => void;
+    perfil_acessos: PerfilAcesso[];
 }
 
-const TableUsuarios: React.FC<TableUsuariosProps> = React.memo(({ usuarios, onUsuarioSelected }) => {
+const TableUsuarios2: React.FC<TableUsuariosProps> = React.memo(({ usuarios, perfil_acessos }) => {
+
     const [selectedItemIndex, setSelectedItemIndex] = useState<number | null>(null);
-    const tableRef = useRef<HTMLTableElement | null>(null);
-
-    const [perfilAcessos, setPerfilAcessos] = useState<PerfilAcesso[]>([]);
-
-    const [selectedPerfisAcesso, setSelectedPerfisAcesso] = useState<string[]>([]);
-
-
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const data = await carregarSelecaoPerfilAcesso();
-                setPerfilAcessos(data);
-            } catch (error) {
-                console.error(error);
-            }
-        };
-
-        fetchData();
-    }, []);
-
-    useEffect(() => {
-        // Inicialize o estado selectedPerfisAcesso com os perfis de acesso atuais dos usuários
-        setSelectedPerfisAcesso(usuarios.map((usuario) => usuario.role));
-    }, [usuarios]);
-
-    useEffect(() => {
-
-        // Se um usuario foi adicionado ou removido, selecionar o primeiro
-        if (selectedItemIndex === null) {
-            setSelectedItemIndex(0);
-            onUsuarioSelected(usuarios[0]);
-        } else {
-            if (usuarios[selectedItemIndex] === undefined) {
-                setSelectedItemIndex(0);
-                onUsuarioSelected(usuarios[0]);
-            }
-            onUsuarioSelected(usuarios[selectedItemIndex]);
-        }
-        const handleKeyDown = (event: KeyboardEvent) => {
-            if (!tableRef.current) return;
-
-            const rows = Array.from(tableRef.current.querySelectorAll('tbody tr'));
-
-            if (event.key === 'ArrowDown' && selectedItemIndex !== null) {
-                const nextIndex = selectedItemIndex + 1;
-                if (nextIndex < rows.length) {
-                    setSelectedItemIndex(nextIndex);
-                    onUsuarioSelected(usuarios[nextIndex]);
-                }
-            } else if (event.key === 'ArrowUp' && selectedItemIndex !== null) {
-                const prevIndex = selectedItemIndex - 1;
-                if (prevIndex >= 0) {
-                    setSelectedItemIndex(prevIndex);
-                    onUsuarioSelected(usuarios[prevIndex]);
-                }
-            }
-        };
-
-        window.addEventListener('keydown', handleKeyDown);
-
-        return () => {
-            window.removeEventListener('keydown', handleKeyDown);
-        };
-    }, [selectedItemIndex, onUsuarioSelected, usuarios]);
-
-
 
     const handleRowClick = useCallback((usuario: Usuario, index: number) => {
         setSelectedItemIndex(index);
-        onUsuarioSelected(usuario);
-    }, [onUsuarioSelected]);
+        // console.log('Row clicked:', usuario);
+    }, []);
+
+    const [selectedPerfisAcesso, setSelectedPerfisAcesso] = useState<string[]>([]);
 
     const handleSelectChange = (index: number, newPerfilAcesso: string) => {
         const updatedSelectedPerfisAcesso = [...selectedPerfisAcesso];
@@ -98,9 +35,14 @@ const TableUsuarios: React.FC<TableUsuariosProps> = React.memo(({ usuarios, onUs
         setSelectedPerfisAcesso(updatedSelectedPerfisAcesso); // Atualize o estado
     };
 
+    useEffect(() => {
+        // Inicialize o estado selectedPerfisAcesso com os perfis de acesso atuais dos usuários
+        setSelectedPerfisAcesso(usuarios.map((usuario) => usuario.role));
+    }, [usuarios]);
+
     return (
         <div className='rounded-lg h-full w-[100%] overflow-y-scroll mt-2 bg-white'>
-            <table className="w-full h-fit select-none" ref={tableRef}>
+            <table className="w-full h-fit select-none">
                 <thead className="bg-gray-50 border-b-2 border-gray-200 sticky top-0">
                     <tr className='divide-x divide-gray-300'>
                         <th className="p-3 text-sm font-bold tracking-wide text-left">Usuário</th>
@@ -130,7 +72,7 @@ const TableUsuarios: React.FC<TableUsuariosProps> = React.memo(({ usuarios, onUs
                                         value={selectedPerfisAcesso[index]}  // Use o valor do estado local
                                         onChange={(e) => handleSelectChange(index, e.target.value)}
                                     >
-                                        {perfilAcessos.map((perfil_acesso) => (
+                                        {perfil_acessos.map((perfil_acesso) => (
                                             <option
                                                 key={perfil_acesso.id_perfil_acesso}
                                                 value={perfil_acesso.nome_perfil_acesso}
@@ -150,4 +92,4 @@ const TableUsuarios: React.FC<TableUsuariosProps> = React.memo(({ usuarios, onUs
     );
 });
 
-export default TableUsuarios;
+export default TableUsuarios2;

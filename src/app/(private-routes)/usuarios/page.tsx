@@ -1,12 +1,6 @@
-"use client"
-import { GetServerSideProps } from 'next';
-import TableUsuarios from '@/app/components/tableUsuarios';
-import { useState, useEffect, useRef } from 'react';
-import PopupExcluirUsuario from '@/app/components/popupExcluirUsuario';
-import { useSession } from "next-auth/react"
-import PopupCriarUsuario from '@/app/components/popupCriarUsuario';
 import Link from 'next/link';
 import { ArrowLeftIcon } from '@heroicons/react/20/solid';
+import TableUsuarios2 from '@/app/components/tableUsuarios2';
 
 interface Usuario {
     id: number;
@@ -15,76 +9,50 @@ interface Usuario {
     role: string;
 }
 
-export default function Usuarios() {
+interface PerfilAcesso {
+    id_perfil_acesso: number;
+    nome_perfil_acesso: string;
+}
 
-    const { data: session } = useSession(); // Obtenha a sessão do usuário
+async function getUsuarios(): Promise<{ usuarios: Usuario[] }> {
+    // Configurando fetch para não armazenar cache
+    const res = await fetch('https://jpnr-gestao-sqlserver.vercel.app/user/get-users', {
+        cache: 'no-store'
+    });
 
-    const [usuariosData, setUsuariosData] = useState<Usuario[]>([]); // Initialize usuariosData state
-    const [searchTerm, setSearchTerm] = useState('');
-    const searchInputRef = useRef<HTMLInputElement | null>(null);
+    if (!res.ok) {
+        throw new Error('Failed to fetch data');
+    }
 
-    const [popupAbertoCriarUsuario, setPopupCriarUsuarioAberto] = useState(false);
+    return res.json();
+}
 
-    useEffect(() => {
-        getUsers();
-    }, []);
+async function getPerfilAcessos(): Promise<{ perfil_acessos: PerfilAcesso[] }> {
+    // Configurando fetch para não armazenar cache
+    const res = await fetch('https://jpnr-gestao-sqlserver.vercel.app/user/get-perfil-acessos', {
+        cache: 'no-store'
+    });
 
-    const getUsers = async () => {
-        try {
-            const response = await fetch('https://jpnr-gestao-sqlserver.vercel.app/user/get-users', {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            });
+    if (!res.ok) {
+        throw new Error('Failed to fetch data');
+    }
 
-            if (response.ok) {
-                const data = await response.json();
-                // console.log(data);
-                setUsuariosData(data.usuarios);
+    const data = await res.json();
 
-            } else {
-                throw new Error('Erro ao buscar os usuários');
-            }
-        } catch (error) {
-            console.error('Erro:', error);
-        }
-    };
+    return { perfil_acessos: data.perfil_acessos };
+}
 
-    const [selectedUsuario, setSelectedUsuario] = useState<Usuario | null>(null);
+export default async function Usuarios() {
 
-    const [popupAbertoExcluirUsuario, setPopupExcluirUsuarioAberto] = useState(false);
-    const [selectedUserId, setSelectedUserId] = useState<number | null>(null);
+    const dataUsers = await getUsuarios();
+    const usuarios = dataUsers.usuarios;
 
-    const handleUsuarioSelected = (usuario: Usuario) => {
-        setSelectedUsuario(usuario);
-    };
-
-    // ---------------------------------------------------------------------------
-
-    const abrirPopupExcluirUsuario = (userId: number) => {
-        setSelectedUserId(userId);
-        setPopupExcluirUsuarioAberto(true);
-    };
-
-    const fecharPopupExcluirUsuario = () => {
-        setPopupExcluirUsuarioAberto(false);
-    };
-
-    const abrirPopupCriarUsuario = () => {
-        setPopupCriarUsuarioAberto(true);
-    };
-
-    const fecharPopupCriarUsuario = () => {
-        setPopupCriarUsuarioAberto(false);
-    };
-
-    const filteredUsuariosData = usuariosData.filter(userData =>
-        userData.name.toLowerCase().includes(searchTerm.toLowerCase())
-    );
+    const dataPerfilAcessos = await getPerfilAcessos();
+    const perfilAcessos = dataPerfilAcessos.perfil_acessos;  // Extraia apenas o array
+    
 
     return (
-        <main className='fixed md-web:w-screen md-web:h-[calc(100vh-60px)] flex justify-center items-center p-2 flex-col bg-slate-50'>
+        <main className='fixed md-web:w-screen md-web:h-[calc(100vh-60px)] flex justify-center items-center p-2 flex-col'>
             <Link href={'/modulos'} title="voltar">
                 <div className='absolute top-[13px] z-10 left-3 group flex justify-center items-center py-8 px-4 border border-transparent text-base rounded-md hover:bg-slate-200 text-slate-400'>
                     <ArrowLeftIcon className="mr-4 h-7 w-5 text-center" aria-hidden="true" />
@@ -97,25 +65,30 @@ export default function Usuarios() {
                 <h1 className='font-extrabold  text-center mt-4 select-none'>Selecionar Usuarios</h1>
                 <div className='flex justify-center mt-4 text-black w-full'>
                     <input
-                        ref={searchInputRef}
+                        // ref={searchInputRef}
                         id='pesquisar'
                         className='appearance-none rounded-none relative block border w-full px-4 py-1 rounded-t-md'
                         type='text'
                         placeholder='Pesquisar Usuarios'
-                        onChange={(e) => setSearchTerm(e.target.value)}
+                    // onChange={(e) => setSearchTerm(e.target.value)}
                     />
                 </div>
 
-                <TableUsuarios usuarios={filteredUsuariosData} onUsuarioSelected={handleUsuarioSelected} />
+
+                <TableUsuarios2 usuarios={usuarios} perfil_acessos={perfilAcessos}/>
+
+
+
+
 
                 <div className='flex justify-center items-center rounded w-full h-fit'>
                     <div className='flex justify-between rounded-lg mt-3 w-full'>
-                        {selectedUsuario ? (
+                        {/* {selectedUsuario ? (
                             <button
                                 onClick={() => abrirPopupExcluirUsuario(selectedUsuario ? selectedUsuario.id : 0)}
                                 className={`group relative items-center w-full flex justify-center py-2 px-2 border border-transparent text-sm font-medium rounded-md ${selectedUsuario && selectedUsuario.name === session?.user?.name ? 'bg-slate-200 text-gray-500 cursor-not-allowed' : 'bg-red-700 hover:bg-red-400 text-white hover:scale-[1.01] duration-200'
                                     } `}
-                                disabled={selectedUsuario && selectedUsuario.name === session?.user?.name}
+                                // disabled={selectedUsuario && selectedUsuario.name === session?.user?.name}
                             >
                                 Excluir
                             </button>
@@ -125,17 +98,17 @@ export default function Usuarios() {
                             >
                                 Excluir
                             </button>
-                        )}
+                        )} */}
 
-                        {selectedUsuario && (
+                        {/* {selectedUsuario && (
                             <PopupExcluirUsuario
                                 open={popupAbertoExcluirUsuario}
                                 onClose={fecharPopupExcluirUsuario}
                                 userId={selectedUsuario.id}
                                 userName={selectedUsuario.name}
-                                reloadUsers={getUsers}
+                                reloadUsers={getData}
                             />
-                        )}
+                        )} */}
 
                     </div>
                 </div>
@@ -145,7 +118,7 @@ export default function Usuarios() {
                 <div className='group relative flex-1'>
                     <div className='absolute -inset-1 rounded-lg bg-gradient-to-r from-lime-500 via-gray-200 to-gray-400 opacity-30 blur transition duration-500 group-hover:opacity-100'></div>
                     <button
-                        onClick={abrirPopupCriarUsuario}
+                        // onClick={abrirPopupCriarUsuario}
                         className='shadow-lg w-full relative bg-lime-300 rounded-lg  px-7 py-3 text-black select-none outline-none'
                     >
                         Cadastrar
@@ -153,11 +126,11 @@ export default function Usuarios() {
                 </div>
             </div>
 
-            <PopupCriarUsuario
+            {/* <PopupCriarUsuario
                 open={popupAbertoCriarUsuario}
                 onClose={fecharPopupCriarUsuario}
-                reloadUsers={getUsers}
-            />
+                reloadUsers={getData}
+            /> */}
 
         </main>
     )
