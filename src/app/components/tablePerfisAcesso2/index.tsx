@@ -87,7 +87,6 @@ const TablePerfisAcesso2: React.FC<TablePerfisAcessosProps> = ({ perfisAcessos }
                 onClose={fecharPopupExcluirPerfilAcesso}
                 id_perfil_acesso={itemToBeRemoved ? itemToBeRemoved.id_perfil_acesso : 0}
                 nome_perfil_acesso={itemToBeRemoved ? itemToBeRemoved.nome_perfil_acesso : ''}
-                // getPerfilAcessos={getPerfilAcesso}
             />
         </div>
     );

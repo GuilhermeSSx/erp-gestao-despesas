@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Dialog } from '@headlessui/react';
 import { ArrowUturnLeftIcon, XMarkIcon } from '@heroicons/react/20/solid';
 import { useRouter } from 'next/navigation';
@@ -12,7 +12,6 @@ interface PopupProps {
     onClose: () => void;
     id_perfil_acesso: number;
     nome_perfil_acesso: string;
-    // getPerfilAcessos: () => void;
 }
 
 const PopupExcluirPerfilAcesso: React.FC<PopupProps> = ({ open, onClose, id_perfil_acesso, nome_perfil_acesso }) => {
@@ -74,7 +73,7 @@ const PopupExcluirPerfilAcesso: React.FC<PopupProps> = ({ open, onClose, id_perf
         <Dialog
             open={open}
             onClose={onClose}
-            className="relative inset-0 z-10 overflow-y-auto "
+            className="absolute inset-0 z-10 top-16 overflow-y-auto"
             onKeyDown={handleKeyDown}
         >
             <div className="flex flex-col items-center justify-center h-[calc(100vh-60px)] p-4">
