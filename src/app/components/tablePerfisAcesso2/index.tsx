@@ -1,3 +1,4 @@
+"use client"
 import Link from 'next/link';
 import React, { useState, useRef } from 'react';
 import PopupExcluirPerfilAcesso from '../popupExclurPerfilAcesso';
@@ -10,11 +11,10 @@ interface PerfilAcesso {
 
 interface TablePerfisAcessosProps {
     perfisAcessos: PerfilAcesso[];
-    onPefilAcessoSelected: (perfilAcesso: PerfilAcesso) => void;
-    getPerfilAcessos: () => void;
+    // getPerfilAcesso: () => void;
 }
 
-const TablePerfisAcesso: React.FC<TablePerfisAcessosProps> = ({ perfisAcessos, onPefilAcessoSelected, getPerfilAcessos }) => {
+const TablePerfisAcesso2: React.FC<TablePerfisAcessosProps> = ({ perfisAcessos }) => {
     const [selectedItemIndex, setSelectedItemIndex] = useState<number | null>(null);
     const [selectedItem, setSelectedItem] = useState<PerfilAcesso | null>(null);
     const [itemToBeRemoved, setItemToBeRemoved] = useState<PerfilAcesso | null>(null);
@@ -87,10 +87,10 @@ const TablePerfisAcesso: React.FC<TablePerfisAcessosProps> = ({ perfisAcessos, o
                 onClose={fecharPopupExcluirPerfilAcesso}
                 id_perfil_acesso={itemToBeRemoved ? itemToBeRemoved.id_perfil_acesso : 0}
                 nome_perfil_acesso={itemToBeRemoved ? itemToBeRemoved.nome_perfil_acesso : ''}
-                // getPerfilAcessos={getPerfilAcessos}
+                // getPerfilAcessos={getPerfilAcesso}
             />
         </div>
     );
 };
 
-export default TablePerfisAcesso;
+export default TablePerfisAcesso2;

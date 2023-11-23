@@ -1,19 +1,25 @@
 import { toast } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 
-export const excluirPerfilAcesso = async (id_perfil_acesso: number) => {
+export const excluirPerfilAcesso = async (id_perfil_acesso: number, ) => {
 
     try {
+        
         const response = await fetch('https://jpnr-gestao-sqlserver.vercel.app/user/excluir-perfil-acesso', {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({ id_perfil_acesso }),
-        });
 
+            
+        });
+        
+        
         if (response.ok) {
-            toast.success('Perfil de acesso deletado com sucesso!', {
+
+            
+            toast.success('Perfil de acesso ID: ' + id_perfil_acesso + ' deletado com sucesso!', {
                 position: "bottom-left",
                 autoClose: 3800,
                 hideProgressBar: false,
@@ -23,6 +29,8 @@ export const excluirPerfilAcesso = async (id_perfil_acesso: number) => {
                 progress: undefined,
                 theme: "light",
             });
+
+            
         } else {
             toast.error('Erro ao deletar o perfil de acesso!', {
                 position: "bottom-left",
@@ -51,6 +59,7 @@ export const excluirPerfilAcesso = async (id_perfil_acesso: number) => {
         });
         // Handle error if necessary
     }
+
 };
 
 export const carregarSelecaoPerfilAcesso = async () => {

@@ -1,3 +1,4 @@
+"use client"
 import React, { useState, useEffect, useRef } from 'react';
 import TablePerfisAcesso from '@/app/components/tablePerfisAcesso';
 import { UserPlusIcon } from '@heroicons/react/20/solid';
@@ -15,7 +16,6 @@ const CriarSelecionarPerfilAcesso = () => {
     const [loading, setLoading] = useState(false);
     const [formData, setFormData] = useState({ nome_perfil_acesso: '' });
     const [selectedPefilAcesso, setSelectedPerfilAcesso] = useState<PerfilAcesso | null>(null);
-    const cacheAcessos = useRef<{ data: PerfilAcesso[] | null }>({ data: null });
 
     useEffect(() => {
         if (!acessoDataFetched) {
@@ -24,11 +24,10 @@ const CriarSelecionarPerfilAcesso = () => {
     }, []);
 
     const getPerfilAcessos = async () => {
-        if (cacheAcessos.current.data) {
-            setPerfilAcessosData(cacheAcessos.current.data);
-            setAcessoDataFetched(true);
-            return;
-        }
+
+        setPerfilAcessosData(perfilAcessosData);
+        setAcessoDataFetched(true);
+
 
         try {
             const response = await fetch('https://jpnr-gestao-sqlserver.vercel.app/user/get-perfil-acessos', {
@@ -40,7 +39,6 @@ const CriarSelecionarPerfilAcesso = () => {
 
             if (response.ok) {
                 const data = await response.json();
-                cacheAcessos.current.data = data.perfil_acessos;
                 setPerfilAcessosData(data.perfil_acessos);
             } else {
                 throw new Error('Erro ao buscar os perfis de acessos.');
@@ -71,7 +69,6 @@ const CriarSelecionarPerfilAcesso = () => {
             });
 
             if (response.ok) {
-                cacheAcessos.current.data = null;
                 getPerfilAcessos();
 
                 toast.success('Cadastro Realizado com sucesso', {

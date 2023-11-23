@@ -1,9 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Dialog } from '@headlessui/react';
 import { ArrowUturnLeftIcon, XMarkIcon } from '@heroicons/react/20/solid';
-import "react-toastify/dist/ReactToastify.css";
-import { excluirPerfilAcesso } from '../../lib/apiRequests';
 import { useRouter } from 'next/navigation';
+import { excluirPerfilAcesso } from '@/app/lib/actions';
+import { toast } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
 
 
 interface PopupProps {
@@ -11,10 +12,10 @@ interface PopupProps {
     onClose: () => void;
     id_perfil_acesso: number;
     nome_perfil_acesso: string;
-    getPerfilAcessos: () => void;
+    // getPerfilAcessos: () => void;
 }
 
-const PopupExcluirPerfilAcesso: React.FC<PopupProps> = ({ open, onClose, id_perfil_acesso, nome_perfil_acesso, getPerfilAcessos }) => {
+const PopupExcluirPerfilAcesso: React.FC<PopupProps> = ({ open, onClose, id_perfil_acesso, nome_perfil_acesso }) => {
     const cancelButtonRef = useRef<HTMLButtonElement | null>(null);
     const deleteButtonRef = useRef<HTMLButtonElement | null>(null);
 
@@ -23,14 +24,35 @@ const PopupExcluirPerfilAcesso: React.FC<PopupProps> = ({ open, onClose, id_perf
     const handleDelete = async () => {
         try {
             await excluirPerfilAcesso(id_perfil_acesso);
-            getPerfilAcessos(); // Chame a função para atualizar a lista
+            // getPerfilAcessos(); // Chame a função para atualizar a lista
             onClose();
 
             // Use o router para navegar para a mesma página sem o parâmetro 'id'
-            router.replace('/usuarios/perfil-acesso');
+            router.replace('/configuracoes/perfil-acesso');
+
+            toast.success('Perfil de acesso deletado com sucesso!', {
+                position: "bottom-left",
+                autoClose: 3800,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            });
 
         } catch (error) {
             console.log(error);
+            toast.error('Erro ao deletar o perfil de acesso!', {
+                position: "bottom-left",
+                autoClose: 4200,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            });
         }
     };
 

@@ -148,14 +148,14 @@ function DrawerOpenClose() {
                                                     <Link
                                                         onClick={toggleDrawer}
                                                         className={"font-semibold group flex w-full items-center rounded-md p-4 text-sm hover:bg-selecaoLinha"}
-                                                        href={"/usuarios"}
+                                                        href={"/configuracoes/usuarios"}
                                                     >
                                                         Usuarios
                                                     </Link>
                                                     <Link
                                                         onClick={toggleDrawer}
                                                         className={"font-semibold group flex w-full items-center rounded-md p-4 text-sm hover:bg-selecaoLinha"}
-                                                        href={"/usuarios/perfil-acesso"}
+                                                        href={"/configuracoes/perfil-acesso"}
                                                     >
                                                         Perfil de Acesso
                                                     </Link>
