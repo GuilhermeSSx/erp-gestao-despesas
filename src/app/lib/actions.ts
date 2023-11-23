@@ -68,12 +68,14 @@ export const criarPerfilAcesso = async (nome_perfil_acesso: string ) => {
         if (response.ok) {
             revalidatePath('/configuracoes/perfis-acessos');            
         } else {
-            throw new Error('Failed to fetch data');
+            const errorBody = await response.json(); // Supondo que o corpo da resposta contém detalhes do erro
+            console.log(errorBody);
+            throw new Error('Erro contate o administrador.');
         }
 
     } catch (error) {
         console.error('Erro:', error);
-
+        throw error;
         // Handle error if necessary
     }
 
