@@ -30,7 +30,7 @@ const PopupExcluirPerfilAcesso: React.FC<PopupProps> = ({ open, onClose, id_perf
             // Use o router para navegar para a mesma página sem o parâmetro 'id'
             router.replace('/configuracoes/perfil-acesso');
 
-            toast.success('Perfil de acesso deletado com sucesso!', {
+            toast.success('Perfil de acesso: ' + nome_perfil_acesso + ' deletado com sucesso!', {
                 position: "bottom-left",
                 autoClose: 3800,
                 hideProgressBar: false,
@@ -43,7 +43,7 @@ const PopupExcluirPerfilAcesso: React.FC<PopupProps> = ({ open, onClose, id_perf
 
         } catch (error) {
             console.log(error);
-            toast.error('Erro ao deletar o perfil de acesso!', {
+            toast.error('Erro ao deletar o perfil de acesso: ' + nome_perfil_acesso, {
                 position: "bottom-left",
                 autoClose: 4200,
                 hideProgressBar: false,
