@@ -22,7 +22,7 @@ const CadastrarPerfilAcesso = () => {
         try {
             await criarPerfilAcesso(nome_perfil_acesso);
 
-            toast.success('Perfil de acesso deletado com sucesso!', {
+            toast.success('Perfil de acesso: ' + nome_perfil_acesso + ' criado com sucesso!', {
                 position: "bottom-left",
                 autoClose: 3800,
                 hideProgressBar: false,
@@ -35,7 +35,7 @@ const CadastrarPerfilAcesso = () => {
 
         } catch (error) {
             console.log(error);
-            toast.error('Erro ao deletar o perfil de acesso!', {
+            toast.error('Erro ao criar o perfil de acesso: ' + nome_perfil_acesso, {
                 position: "bottom-left",
                 autoClose: 4200,
                 hideProgressBar: false,
