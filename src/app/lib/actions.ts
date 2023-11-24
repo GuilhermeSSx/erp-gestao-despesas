@@ -10,7 +10,7 @@ interface PerfilAcesso {
 
 export async function getPerfilAcessos(): Promise<{ perfil_acessos: PerfilAcesso[] }> {
     // Configurando fetch para não armazenar cache
-    const res = await fetch('https://jpnr-gestao-sqlserver.vercel.app/user/get-perfil-acessos', {
+    const res = await fetch(`${process.env.API_ENDPOINT}/user/get-perfil-acessos`, {
         cache: 'no-store'
     });
 
@@ -27,7 +27,7 @@ export const excluirPerfilAcesso = async (id_perfil_acesso: number ) => {
 
     try {
         
-        const response = await fetch('https://jpnr-gestao-sqlserver.vercel.app/user/excluir-perfil-acesso', {
+        const response = await fetch(`${process.env.API_ENDPOINT}/user/excluir-perfil-acesso`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
@@ -55,7 +55,7 @@ export const criarPerfilAcesso = async (nome_perfil_acesso: string ) => {
 
     try {
         
-        const response = await fetch('https://jpnr-gestao-sqlserver.vercel.app/user/criar-perfil-acesso', {
+        const response = await fetch(`${process.env.API_ENDPOINT}/user/criar-perfil-acesso`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

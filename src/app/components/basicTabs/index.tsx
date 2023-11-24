@@ -2,7 +2,6 @@
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import React, { useState, useEffect } from 'react';
-import { ArrowLeftIcon } from '@heroicons/react/20/solid';
 import { motion } from 'framer-motion';
 
 
@@ -23,7 +22,12 @@ export default function BasicTabs() {
 
     return (
         <div className='border-b border-gray-300 flex w-full justify-center box-content md-web:text-sm text-[10px] font-extrabold select-none pt-2'>
-            <Link href="/configuracoes/perfil-acesso">
+                        <Link href={{
+                pathname: "/configuracoes/perfil-acesso",
+                query: {
+                    id: id_perfil_acesso,
+                },
+            }}>
                 <motion.button
                     onClick={() => setValue(0)}
                     className={`tab-button p-4 hover:bg-slate-100 ${value === 0 ? 'active' : ''}`}
@@ -35,7 +39,12 @@ export default function BasicTabs() {
                     Perfil de Acesso
                 </motion.button>
             </Link>
-            <Link href="/configuracoes/modulos">
+            <Link href={{
+                pathname: "/configuracoes/modulos",
+                query: {
+                    id: id_perfil_acesso,
+                },
+            }}>
                 <motion.button
                     onClick={() => isPerfilAcessoAvailable && setValue(1)}
                     className={`tab-button p-4 hover:bg-slate-100 ${!isPerfilAcessoAvailable ? ' cursor-not-allowed text-gray-400' : ''} ${value === 1 ? 'active' : ''}`}
@@ -48,7 +57,12 @@ export default function BasicTabs() {
                     Modulos
                 </motion.button>
             </Link>
-            <Link href="/configuracoes/funcionalidades">
+            <Link href={{
+                pathname: "/configuracoes/funcionalidades",
+                query: {
+                    id: id_perfil_acesso,
+                },
+            }}>
                 <motion.button
                     onClick={() => isPerfilAcessoAvailable && setValue(2)}
                     className={`tab-button p-4 hover:bg-slate-100 ${!isPerfilAcessoAvailable ? ' cursor-not-allowed text-gray-400' : ''} ${value === 2 ? 'active' : ''}`}
