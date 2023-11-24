@@ -21,7 +21,7 @@ export default function BasicTabs() {
 
 
     return (
-        <div className='border-b border-gray-300 flex w-full justify-center box-content md-web:text-sm text-[10px] font-extrabold select-none pt-2'>
+        <div className='border-b border-gray-300 flex w-full justify-center box-content md-web:text-sm text-[10px] font-extrabold select-none pt-4'>
                         <Link href={{
                 pathname: "/configuracoes/perfil-acesso",
                 query: {
