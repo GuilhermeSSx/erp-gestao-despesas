@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React, { useState, useEffect, useRef } from 'react';
 import { toast } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
@@ -12,10 +12,9 @@ interface Modulo {
 
 interface TableUsuariosProps {
     modulos: Modulo[];
-    onModuloSelected: (modulos: Modulo[]) => void;
 }
 
-const TableModulos: React.FC<TableUsuariosProps> = ({ modulos, onModuloSelected }) => {
+const TableModulos2: React.FC<TableUsuariosProps> = ({ modulos }) => {
     const [selectedItemIndex, setSelectedItemIndex] = useState<number | null>(null);
     const [originalModulos, setOriginalModulos] = useState<Modulo[]>([]); // Estado para o array original
     const [isSelectionChanged, setIsSelectionChanged] = useState(false); // Estado para controlar se as seleções foram alteradas
@@ -89,12 +88,10 @@ const TableModulos: React.FC<TableUsuariosProps> = ({ modulos, onModuloSelected 
     useEffect(() => {
         if (selectedItemIndex === null) {
             setSelectedItemIndex(0);
-            onModuloSelected(modulos);
             setOriginalModulos([...modulos]); // Salve o array original
         } else {
             if (modulos[selectedItemIndex] === undefined) {
                 setSelectedItemIndex(0);
-                onModuloSelected(modulos);
             }
         }
 
@@ -121,12 +118,11 @@ const TableModulos: React.FC<TableUsuariosProps> = ({ modulos, onModuloSelected 
         return () => {
             window.removeEventListener('keydown', handleKeyDown);
         };
-    }, [selectedItemIndex, onModuloSelected, modulos]);
+    }, [selectedItemIndex, modulos]);
 
     const handleSelectChange = (index: number, newAcesso: string) => {
         const updatedModulos = [...modulos];
         updatedModulos[index].acesso = newAcesso;
-        onModuloSelected(updatedModulos);
         setIsSelectionChanged(true); // Marque que as seleções foram alteradas
     };
 
@@ -196,4 +192,4 @@ const TableModulos: React.FC<TableUsuariosProps> = ({ modulos, onModuloSelected 
     );
 };
 
-export default TableModulos;
+export default TableModulos2;

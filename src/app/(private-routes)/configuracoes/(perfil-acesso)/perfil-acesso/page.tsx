@@ -11,8 +11,6 @@ export default async function PerfilDeAcesso() {
 
     const dataPerfilAcessos = await getPerfilAcessos();
     const perfilAcessos = dataPerfilAcessos.perfil_acessos;  // Extraia apenas o array
-    console.log(perfilAcessos)
-
 
     return (
         <div className="fixed w-full h-[calc(100vh-136px)] flex justify-center items-center rounded-lg bg-slate-50">
