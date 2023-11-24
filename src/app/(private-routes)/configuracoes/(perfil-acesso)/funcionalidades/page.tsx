@@ -1,59 +1,50 @@
-"use client";
-import TableFuncionalidades from '@/app/components/tableFuncionalidades';
-import { useSearchParams } from 'next/navigation';
+import TableFuncionalidades2 from '@/app/components/tableFuncionalidades2';
 import { Metadata } from 'next';
-import { useEffect, useState } from 'react';
 
-// export const metadata: Metadata = {
-//     title: 'Funcionalidades Acesso',
-// };
 
-interface Funcionalidade {
-    id_funcionalidade: number;
-    nome_funcionalidade: string;
-    acesso: string;
-}
+export const metadata: Metadata = {
+    title: 'Funcionalidades Acesso',
+};
 
-export default function Funcionalidades() {
+const getFuncionalidadesAcesso = async (id_perfil_acesso: number) => {
 
-    const usuarioParams = useSearchParams();
-    const id_perfil_acesso = usuarioParams.get('id');
+    try {
 
-    const [funcionalidadesAcessoData, setFuncionalidadesAcessoData] = useState<Funcionalidade[]>([]);
+        const response = await fetch(`${process.env.API_ENDPOINT}/user/get-perfil-acesso`, {
+            method: 'POST',
+            cache: 'no-store',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ id_perfil_acesso: id_perfil_acesso }),
 
-    const getAcessos = async () => {
-        try {
-            const response = await fetch('https://jpnr-gestao-sqlserver.vercel.app/user/get-perfil-acesso', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ id_perfil_acesso: id_perfil_acesso })
-            });
+        });
 
-            if (response.ok) {
-                const data = await response.json();
-                setFuncionalidadesAcessoData(data.funcionalidades_acessos);
-            } else {
-                throw new Error('Erro em carregar o perfil de acesso!');
-            }
-        } catch (error) {
-            console.error('Erro:', error);
+        if (!response.ok) {
+            throw new Error('Failed to fetch data');
         }
-    };
 
-    useEffect(() => {
-        getAcessos();
-    }, [id_perfil_acesso]);
+        return response.json();
 
-    const handleFuncionalidadeSelected = (funcionalidade: Funcionalidade[]) => {
-        setFuncionalidadesAcessoData(funcionalidade);
-    };
+    } catch (error) {
+        console.error('Erro:', error);
+        throw error;
+        // Handle error if necessary
+    }
+
+};
+
+export default async function Funcionalidades( {searchParams}: {searchParams: {id: number} }) {
+
+    const id_perfil_acesso = searchParams.id;
+
+    const dataFuncionalidadesAcessos = await getFuncionalidadesAcesso(id_perfil_acesso);
+    const funcionalidadesAcessos = dataFuncionalidadesAcessos.funcionalidades_acessos;  // Extraia apenas o array
 
     return (
         <div className="fixed w-full h-[calc(100vh-136px)] flex justify-center items-center bg-slate-50 rounded-lg">
             <div className="w-full h-full md-1190:mx-[22rem] mx-1 py-8">
-                <TableFuncionalidades funcionalidades={funcionalidadesAcessoData} onFuncionalidadeSelected={handleFuncionalidadeSelected} />
+                <TableFuncionalidades2 funcionalidades={funcionalidadesAcessos} />
             </div>
         </div>
 

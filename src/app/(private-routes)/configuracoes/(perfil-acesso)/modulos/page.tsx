@@ -1,11 +1,9 @@
 import { Metadata } from 'next';
 import TableModulos2 from '@/app/components/tableModulos2';
 
-
 export const metadata: Metadata = {
     title: 'Modulos Acesso',
 };
-
 
 const getModulosAcesso = async (id_perfil_acesso: number) => {
 
@@ -35,13 +33,14 @@ const getModulosAcesso = async (id_perfil_acesso: number) => {
 
 };
 
-let id_perfil_acesso = 485;
 
-export default async function Modulos() {
+
+export default async function Modulos( {searchParams}: {searchParams: {id: number}} ) {
+
+    const id_perfil_acesso = searchParams.id;
 
     const dataModulosAcessos = await getModulosAcesso(id_perfil_acesso);
     const modulosAcessos = dataModulosAcessos.modulos_acessos;  // Extraia apenas o array
-
 
     return (
         <div className="fixed w-full h-[calc(100vh-136px)] flex justify-center items-center bg-slate-50 rounded-lg">

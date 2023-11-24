@@ -3,46 +3,46 @@ import React, { useState, useEffect, useRef } from 'react';
 import { toast } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 
-interface Modulo {
-    id_modulo: number;
-    nome_modulo: string;
+interface Funcionalidade {
+    id_funcionalidade: number;
+    nome_funcionalidade: string;
     acesso: string;
-    id_modulo_acesso?: number;
+    id_funcionalidade_acesso?: number;
 }
 
-interface TableUsuariosProps {
-    modulos: Modulo[];
+interface TableFuncionalidadesProps {
+    funcionalidades: Funcionalidade[];
 }
 
-const TableModulos2: React.FC<TableUsuariosProps> = ({ modulos }) => {
-    const [modulosEstado, setModulosEstado] = useState<Modulo[]>(modulos);
+const TableFuncionalidades2: React.FC<TableFuncionalidadesProps> = ({ funcionalidades }) => {
+    const [funcionalidadesEstado, setFuncionalidadesEstado] = useState<Funcionalidade[]>(funcionalidades);
     const [selectedItemIndex, setSelectedItemIndex] = useState<number | null>(null);
     const tableRef = useRef<HTMLTableElement | null>(null);
 
-    const extractAcessoData = (modulos: Modulo[]) => {
-        const idModuloAcessoList = modulos.map((modulo) => modulo.id_modulo_acesso);
-        const acessoList = modulos.map((modulo) => modulo.acesso);
-        const idModuloAcessoString = idModuloAcessoList.join(',');
+    const extractAcessoData = (funcionalidades: Funcionalidade[]) => {
+        const idFuncionalidadeAcessoList = funcionalidades.map((funcionalidade) => funcionalidade.id_funcionalidade_acesso);
+        const acessoList = funcionalidades.map((funcionalidade) => funcionalidade.acesso);
+        const idFuncionalidadeAcessoString = idFuncionalidadeAcessoList.join(', ');
         const acessoString = acessoList.join(',');
-        return { idModuloAcessoList: idModuloAcessoString, acessoList: acessoString };
+        return { idFuncionalidadeAcessoList: idFuncionalidadeAcessoString, acessoList: acessoString };
     };
 
-    const updateModulosAcesso = async () => {
+    const updateFuncionalidadesAcesso = async () => {
         try {
-            const { idModuloAcessoList, acessoList } = extractAcessoData(modulosEstado);
+            const { idFuncionalidadeAcessoList, acessoList } = extractAcessoData(funcionalidadesEstado);
 
-            console.log(idModuloAcessoList, acessoList);
-
-            const response = await fetch('https://jpnr-gestao-sqlserver.vercel.app/user/update-acesso-modulo', {
+            const response = await fetch('https://jpnr-gestao-sqlserver.vercel.app/user/update-acesso-funcionalidade', {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    ID_MODULO_ACESSO_LIST: idModuloAcessoList,
+                    ID_FUNCIONALIDADE_ACESSO_LIST: idFuncionalidadeAcessoList,
                     ACESSO_LIST: acessoList,
                 }),
             });
+            
+            console.log(idFuncionalidadeAcessoList, acessoList);
 
             if (response.ok) {
                 toast.success('Acessos atualizados com sucesso', {
@@ -85,7 +85,7 @@ const TableModulos2: React.FC<TableUsuariosProps> = ({ modulos }) => {
         if (selectedItemIndex === null) {
             setSelectedItemIndex(0);
         } else {
-            if (modulosEstado[selectedItemIndex] === undefined) {
+            if (funcionalidadesEstado[selectedItemIndex] === undefined) {
                 setSelectedItemIndex(0);
             }
         }
@@ -113,61 +113,58 @@ const TableModulos2: React.FC<TableUsuariosProps> = ({ modulos }) => {
         return () => {
             window.removeEventListener('keydown', handleKeyDown);
         };
-    }, [selectedItemIndex, modulosEstado]);
+    }, [selectedItemIndex, funcionalidadesEstado]);
 
     const handleSelectChange = (index: number, newAcesso: string) => {
-        const updatedModulos = modulosEstado.map((func, idx) =>
+        const updatedFuncionalidades = funcionalidadesEstado.map((func, idx) =>
             idx === index ? { ...func, acesso: newAcesso } : func
         );
-        setModulosEstado(updatedModulos);
+        setFuncionalidadesEstado(updatedFuncionalidades);
     };
 
     const handleSave = () => {
-        updateModulosAcesso();
+        updateFuncionalidadesAcesso();
     };
 
     return (
         <div className='flex flex-col h-full w-full justify-center items-center'>
             <button
                 onClick={handleSave}
-                className={`${modulosEstado.some((f) => f.acesso !== modulos.find(func => func.id_modulo === f.id_modulo)?.acesso) ? 'flex' : 'hidden'
+                className={`${funcionalidadesEstado.some((f) => f.acesso !== funcionalidades.find(func => func.id_funcionalidade === f.id_funcionalidade)?.acesso) ? 'flex' : 'hidden'
                     } bg-blue-500 text-white p-2 rounded-md w-full cursor-pointer mb-4 flex h-fit justify-center`}
             >
                 Salvar
             </button>
             <div className='rounded-lg border h-full w-[100%] overflow-y-scroll bg-white'>
-
                 <table className="w-full h-fit select-none " ref={tableRef}>
                     <thead className="bg-gray-50 border-b-2 border-gray-200 sticky top-0">
                         <tr className='divide-x divide-gray-300'>
                             <th className="p-3 text-sm font-bold tracking-wide text-left">ID</th>
-                            <th className="p-3 text-sm font-bold tracking-wide text-left">Modulo</th>
+                            <th className="p-3 text-sm font-bold tracking-wide text-left">Funcionalidade</th>
                             <th className="p-3 text-sm font-bold tracking-wide text-left">Acesso</th>
                         </tr>
                     </thead>
                     <tbody className="divide-y-2 divide-blue-100">
-                        {modulosEstado.map((modulo, index) => (
+                        {funcionalidadesEstado.map((funcionalidade, index) => (
                             <tr
-                                key={modulo.id_modulo}
-                                className={` hover:bg-slate-100 cursor-pointer ${selectedItemIndex === index ? 'bg-slate-50' : 'bg-white'}`}
+                                key={funcionalidade.id_funcionalidade}
+                                className={`hover:bg-slate-100 cursor-pointer ${selectedItemIndex === index ? 'bg-slate-50' : 'bg-white'}`}
                             >
                                 <td className="w-12 p-3 px-4 text-xs font-semibold text-gray-700 whitespace-nowrap">
                                     <div>
-                                        <h1 className='font-bold text-sm'>{modulo.id_modulo}</h1>
+                                        <h1 className='font-bold text-sm'>{funcionalidade.id_funcionalidade}</h1>
                                     </div>
                                 </td>
-
                                 <td className='w-[50%] p-3 px-4 text-xs font-semibold text-gray-700 whitespace-nowrap'>
                                     <div>
-                                        <h2 className='font-semibold text-gray-500'>{modulo.nome_modulo}</h2>
+                                        <h2 className='font-semibold text-gray-500'>{funcionalidade.nome_funcionalidade}</h2>
                                     </div>
                                 </td>
-
                                 <td className='flex items-center justify-center text-gray-700 w-full'>
                                     <div className="flex justify-center items-center w-full p-2 border-l border-blue-500">
                                         <select
                                             className='w-full h-full p-3 text-sm flex items-center'
-                                            value={modulo.acesso} // Use o estado 'acesso' do módulo para o valor do select
+                                            value={funcionalidade.acesso}
                                             onChange={(e) => handleSelectChange(index, e.target.value)}
                                         >
                                             <option value="Sem acesso">Sem acesso</option>
@@ -185,4 +182,4 @@ const TableModulos2: React.FC<TableUsuariosProps> = ({ modulos }) => {
     );
 };
 
-export default TableModulos2;
+export default TableFuncionalidades2;
