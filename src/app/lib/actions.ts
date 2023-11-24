@@ -2,6 +2,13 @@
 
 import { revalidatePath } from 'next/cache';
 
+interface Usuario {
+    id: number;
+    name: string;
+    email: string;
+    role: string;
+}
+
 interface PerfilAcesso {
     id_perfil_acesso: number;
     nome_perfil_acesso: string;
@@ -80,3 +87,17 @@ export const criarPerfilAcesso = async (nome_perfil_acesso: string ) => {
     }
 
 };
+
+export async function getUsuarios(): Promise<{ usuarios: Usuario[] }> {
+    // Configurando fetch para não armazenar cache
+    const res = await fetch(`${process.env.API_ENDPOINT}/user/get-users`, {
+        cache: 'no-store'
+    });
+
+    if (!res.ok) {
+        throw new Error('Failed to fetch data');
+    }
+
+    return res.json();
+}
+

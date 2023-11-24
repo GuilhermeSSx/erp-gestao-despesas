@@ -1,46 +1,7 @@
 import Link from 'next/link';
 import { ArrowLeftIcon } from '@heroicons/react/20/solid';
 import TableUsuarios2 from '@/app/components/tableUsuarios2';
-
-interface Usuario {
-    id: number;
-    name: string;
-    email: string;
-    role: string;
-}
-
-interface PerfilAcesso {
-    id_perfil_acesso: number;
-    nome_perfil_acesso: string;
-}
-
-async function getUsuarios(): Promise<{ usuarios: Usuario[] }> {
-    // Configurando fetch para não armazenar cache
-    const res = await fetch('https://jpnr-gestao-sqlserver.vercel.app/user/get-users', {
-        cache: 'no-store'
-    });
-
-    if (!res.ok) {
-        throw new Error('Failed to fetch data');
-    }
-
-    return res.json();
-}
-
-async function getPerfilAcessos(): Promise<{ perfil_acessos: PerfilAcesso[] }> {
-    // Configurando fetch para não armazenar cache
-    const res = await fetch('https://jpnr-gestao-sqlserver.vercel.app/user/get-perfil-acessos', {
-        cache: 'no-store'
-    });
-
-    if (!res.ok) {
-        throw new Error('Failed to fetch data');
-    }
-
-    const data = await res.json();
-
-    return { perfil_acessos: data.perfil_acessos };
-}
+import { getUsuarios, getPerfilAcessos } from '@/app/lib/actions';
 
 export default async function Usuarios() {
 

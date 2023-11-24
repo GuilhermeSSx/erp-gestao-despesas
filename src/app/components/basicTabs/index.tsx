@@ -36,7 +36,7 @@ export default function BasicTabs() {
                     variants={buttonVariants}
                     transition={{ duration: 0.2 }}
                 >
-                    Perfil de Acesso
+                    PERFIL DE ACESSO
                 </motion.button>
             </Link>
             <Link href={{
@@ -54,7 +54,7 @@ export default function BasicTabs() {
                     transition={{ duration: 0.2 }}
                     disabled={!isPerfilAcessoAvailable}
                 >
-                    Modulos
+                    MODULOS
                 </motion.button>
             </Link>
             <Link href={{
@@ -72,7 +72,7 @@ export default function BasicTabs() {
                     transition={{ duration: 0.2 }}
                     disabled={!isPerfilAcessoAvailable}
                 >
-                    Funcionalidades
+                    FUNCIONALIDADES
                 </motion.button>
             </Link>
 

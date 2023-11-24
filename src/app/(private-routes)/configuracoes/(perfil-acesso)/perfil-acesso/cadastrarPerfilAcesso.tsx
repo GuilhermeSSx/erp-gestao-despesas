@@ -1,7 +1,7 @@
 "use client";
 import { criarPerfilAcesso } from '@/app/lib/actions';
 import { UserPlusIcon } from '@heroicons/react/20/solid';
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState } from 'react';
 import { toast } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 
