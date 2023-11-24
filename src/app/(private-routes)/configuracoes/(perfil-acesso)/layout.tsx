@@ -7,7 +7,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             <div className="w-full h-fit">
                 <BasicTabs />
             </div>
-            <div className="w-full h-full flex-none">
+            <div className="w-full h-full flex-none bg-slate-50">
                 {children}
             </div>
             
