@@ -21,6 +21,12 @@ interface Modulo {
     id_modulo_acesso?: number;
 }
 
+interface Funcionalidade {
+    id_funcionalidade: number;
+    nome_funcionalidade: string;
+    acesso: string;
+    id_funcionalidade_acesso?: number;
+}
 
 export async function getPerfilAcessos(): Promise<{ perfil_acessos: PerfilAcesso[] }> {
     // Configurando fetch para não armazenar cache
@@ -37,10 +43,10 @@ export async function getPerfilAcessos(): Promise<{ perfil_acessos: PerfilAcesso
     return { perfil_acessos: data.perfil_acessos };
 }
 
-export const excluirPerfilAcesso = async (id_perfil_acesso: number ) => {
+export const excluirPerfilAcesso = async (id_perfil_acesso: number) => {
 
     try {
-        
+
         const response = await fetch(`${process.env.API_ENDPOINT}/user/excluir-perfil-acesso`, {
             method: 'DELETE',
             headers: {
@@ -48,11 +54,10 @@ export const excluirPerfilAcesso = async (id_perfil_acesso: number ) => {
             },
             body: JSON.stringify({ id_perfil_acesso }),
 
-            
         });
-        
+
         if (response.ok) {
-            revalidatePath('/configuracoes/perfis-acessos');            
+            revalidatePath('/configuracoes/perfis-acessos');
         } else {
             throw new Error('Failed to fetch data');
         }
@@ -65,10 +70,10 @@ export const excluirPerfilAcesso = async (id_perfil_acesso: number ) => {
 
 };
 
-export const criarPerfilAcesso = async (nome_perfil_acesso: string ) => {
+export const criarPerfilAcesso = async (nome_perfil_acesso: string) => {
 
     try {
-        
+
         const response = await fetch(`${process.env.API_ENDPOINT}/user/criar-perfil-acesso`, {
             method: 'POST',
             headers: {
@@ -76,11 +81,11 @@ export const criarPerfilAcesso = async (nome_perfil_acesso: string ) => {
             },
             body: JSON.stringify({ nome_perfil_acesso }),
 
-            
+
         });
-        
+
         if (response.ok) {
-            revalidatePath('/configuracoes/perfis-acessos');            
+            revalidatePath('/configuracoes/perfis-acessos');
         } else {
             const errorBody = await response.json(); // Supondo que o corpo da resposta contém detalhes do erro
             console.log(errorBody);
@@ -182,6 +187,33 @@ export const updateModulosAcesso = async (modulos: Modulo[]) => {
 
         if (response.ok) {
             revalidatePath('/configuracoes/modulos');
+        } else {
+            throw new Error('Failed to fetch data');
+        }
+    } catch (error) {
+        console.error('Erro ao atualizar os acessos:', error);
+    }
+};
+
+export const updateFuncionalidadesAcesso = async (funcionalidades: Funcionalidade[]) => {
+    try {
+
+        const idFuncionalidadeAcessoList = funcionalidades.map((funcionalidade) => funcionalidade.id_funcionalidade_acesso).join(',');
+        const acessoList = funcionalidades.map((funcionalidade) => funcionalidade.acesso).join(',');
+
+        const response = await fetch('https://jpnr-gestao-sqlserver.vercel.app/user/update-acesso-funcionalidade', {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                ID_FUNCIONALIDADE_ACESSO_LIST: idFuncionalidadeAcessoList,
+                ACESSO_LIST: acessoList,
+            }),
+        });
+
+        if (response.ok) {
+            revalidatePath('/configuracoes/funcionalidades');
         } else {
             throw new Error('Failed to fetch data');
         }
