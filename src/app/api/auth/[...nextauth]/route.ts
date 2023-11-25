@@ -1,64 +1,6 @@
-import NextAuth, { NextAuthOptions } from "next-auth"
-import CredentialsProvider from "next-auth/providers/credentials"
-
-const nextAuthOptions: NextAuthOptions = {
-	providers: [
-		CredentialsProvider({
-			name: 'credentials',
-			credentials: {
-				email: { label: 'email', type: 'text' },
-				password: { label: 'password', type: 'password' }
-			},
-
-			async authorize(credentials, req) {
-				const response = await fetch('https://jpnr-gestao-sqlserver.vercel.app/user/sign-in', {
-					method: 'POST',
-					headers: {
-						'Content-type': 'application/json'
-					},
-					body: JSON.stringify({
-						email: credentials?.email,
-						password: credentials?.password
-					})
-				})
-
-				if (response.ok) {
-					const user = await response.json();
-					if (user) {
-						return user;
-					}
-				}
-
-				return null;
-			},
-		})
-	],
-	pages: {
-		signIn: '/'
-	},
-	callbacks: {
-		async jwt({ token, user }) {
-			if (user) {
-				token.user = user;
-			}
-			return token;
-		},
-		
-		async session({ session, token }) {
-			// Aqui você pode personalizar o que é armazenado na sessão.
-
-			// @ts-ignore
-			session.user = token.user;
-			
-			return session;
-		},
-	},
-	session: {
-		// Defina a duração da sessão em segundos (por exemplo, 1 hora)
-		maxAge: 28800,
-	},
-}
+import { nextAuthOptions } from "@/app/api/auth/[...nextauth]/nextAuthOptions"
+import NextAuth from "next-auth"
 
 const handler = NextAuth(nextAuthOptions)
 
-export { handler as GET, handler as POST, nextAuthOptions }
+export { handler as GET, handler as POST }
