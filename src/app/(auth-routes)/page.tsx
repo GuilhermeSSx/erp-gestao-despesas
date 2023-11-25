@@ -6,7 +6,7 @@ import LoginLogo from "../../../public/jpnr-login.png";
 import Image from "next/image";
 import { Slide, toast } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
-import { enc, AES } from 'crypto-js'; // Importa as funções necessárias do crypto-js
+// import { enc, AES } from 'crypto-js'; // Importa as funções necessárias do crypto-js
 
 export default function Login() {
   const [email, setEmail] = useState<string>('');
@@ -22,14 +22,14 @@ export default function Login() {
     if (rememberMe === 'true') {
       // Se "Lembrar-me" estiver marcado, carregue o email e senha criptografados do armazenamento local
       const storedEmail = localStorage.getItem('email');
-      const storedPassword = localStorage.getItem('password');
-
-      if (storedEmail && storedPassword) {
+      // const storedPassword = localStorage.getItem('password');
+      // && storedPassword
+      if (storedEmail) {
         setEmail(storedEmail);
 
         // Descriptografa a senha ao recuperá-la do armazenamento local
-        const decryptedPassword = AES.decrypt(storedPassword, 'sua-chave-secreta').toString(enc.Utf8);
-        setPassword(decryptedPassword);
+        // const decryptedPassword = AES.decrypt(storedPassword, 'sua-chave-secreta').toString(enc.Utf8);
+        // setPassword(storedPassword);
       }
 
       // Verifica se a caixa de seleção "Lembrar-me" está marcada
@@ -73,12 +73,12 @@ export default function Login() {
         localStorage.setItem('email', email);
 
         // Criptografa a senha antes de armazená-la
-        const encryptedPassword = AES.encrypt(password, 'sua-chave-secreta').toString();
-        localStorage.setItem('password', encryptedPassword);
+        // const encryptedPassword = AES.encrypt(password, 'sua-chave-secreta').toString();
+        // localStorage.setItem('password', password);
       } else {
         localStorage.removeItem('rememberMe');
         localStorage.removeItem('email');
-        localStorage.removeItem('password');
+        // localStorage.removeItem('password');
       }
 
       router.replace('/modulos');
