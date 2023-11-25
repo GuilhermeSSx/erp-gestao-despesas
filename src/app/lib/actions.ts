@@ -14,6 +14,13 @@ interface PerfilAcesso {
     nome_perfil_acesso: string;
 }
 
+interface Modulo {
+    id_modulo: number;
+    nome_modulo: string;
+    acesso: string;
+    id_modulo_acesso?: number;
+}
+
 
 export async function getPerfilAcessos(): Promise<{ perfil_acessos: PerfilAcesso[] }> {
     // Configurando fetch para não armazenar cache
@@ -101,4 +108,85 @@ export async function getUsuarios(): Promise<{ usuarios: Usuario[] }> {
     return res.json();
 }
 
+export const getFuncionalidadesAcesso = async (id_perfil_acesso: number) => {
+
+    try {
+
+        const response = await fetch(`${process.env.API_ENDPOINT}/user/get-perfil-acesso`, {
+            method: 'POST',
+            cache: 'no-store',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ id_perfil_acesso: id_perfil_acesso }),
+
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to fetch data');
+        }
+
+        return response.json();
+
+    } catch (error) {
+        console.error('Erro:', error);
+        throw error;
+        // Handle error if necessary
+    }
+
+};
+
+export const getModulosAcesso = async (id_perfil_acesso: number) => {
+
+    try {
+
+        const response = await fetch(`${process.env.API_ENDPOINT}/user/get-perfil-acesso`, {
+            method: 'POST',
+            cache: 'no-store',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ id_perfil_acesso: id_perfil_acesso }),
+
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to fetch data');
+        }
+
+        return response.json();
+
+    } catch (error) {
+        console.error('Erro:', error);
+        throw error;
+        // Handle error if necessary
+    }
+
+};
+
+export const updateModulosAcesso = async (modulos: Modulo[]) => {
+    try {
+        const idModuloAcessoList = modulos.map((modulo) => modulo.id_modulo_acesso).join(',');
+        const acessoList = modulos.map((modulo) => modulo.acesso).join(',');
+
+        const response = await fetch('https://jpnr-gestao-sqlserver.vercel.app/user/update-acesso-modulo', {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                ID_MODULO_ACESSO_LIST: idModuloAcessoList,
+                ACESSO_LIST: acessoList,
+            }),
+        });
+
+        if (response.ok) {
+            revalidatePath('/configuracoes/modulos');
+        } else {
+            throw new Error('Failed to fetch data');
+        }
+    } catch (error) {
+        console.error('Erro ao atualizar os acessos:', error);
+    }
+};
 
