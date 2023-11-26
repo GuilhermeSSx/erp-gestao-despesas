@@ -128,7 +128,7 @@ export default function Login() {
               onChange={(event) => setEmail(event.target.value)}
             />
           </div>
-          <div className="relative">
+          <div className="relative select-none">
             <input
               id='password'
               type={isPasswordVisible ? 'text' : 'password'}
@@ -140,7 +140,7 @@ export default function Login() {
               onChange={(event) => setPassword(event.target.value)}
             />
             {password && (
-              <button type="button" onClick={togglePasswordVisibility} className="absolute inset-y-0 top-4 right-4 flex items-center text-slate-400">
+              <button type="button" onClick={togglePasswordVisibility} className="select-none absolute inset-y-0 top-4 right-4 flex items-center text-slate-400">
                 {isPasswordVisible ? <FaEyeSlash size={20} /> : <FaEye size={20} />}
               </button>
             )}

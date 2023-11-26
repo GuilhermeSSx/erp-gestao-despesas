@@ -5,17 +5,17 @@ export default function EsqueceuSenha() {
   return (
     <main className=' fixed h-screen w-screen bg-slate-400 flex flex-col justify-center items-center px-4'>
       
-      <div className='border-s-indigo-500 sm:w-[26.5rem] sm:p-3 p-3 w-[100%] h-[7rem] bg-white rounded-xl flex flex-col items-center '>
+      <div className='w-full max-w-[460px] lg-1920:w-[24%] md-1190:w-[40%] md:w-[60%] md-web:w-[90%] h-fit bg-[#ffffff] rounded-xl flex flex-col items-center justify-center sm:p-8 p-4'>
         <p className='flex '>
           Por favor, digite seu endereço de e-mail. 
           Você receberá uma mensagem de email com instruções sobre como redefinir sua senha.
         </p>
       </div>
 
-      <div className='mt-4 px-24 max-w-[100%] h-[16rem] bg-[#ffffff] rounded-xl flex flex-col items-center'>
-        <h2 className='text-[1.2rem] font-extrabold mt-8 text-center'>Esqueceu a senha ?</h2>
+      <div className='mt-4 w-full max-w-[460px] lg-1920:w-[24%] md-1190:w-[40%] md:w-[60%] md-web:w-[90%] h-fit bg-[#ffffff] rounded-xl flex flex-col items-center justify-center sm:p-4 p-4'>
+        <h2 className='text-[1.2rem] font-extrabold mt-4 text-center'>Esqueceu a senha ?</h2>
 
-        <form className='w-[150%] flex flex-col justify-center'>
+        <form className='w-full flex flex-col justify-center'>
           <div className=''>
             <input id='email' type='email' autoComplete='none' required className='appearance-none rounded-none relative
             block border w-full px-1 py-2 mt-8 rounded-t-md' placeholder='Email' />
