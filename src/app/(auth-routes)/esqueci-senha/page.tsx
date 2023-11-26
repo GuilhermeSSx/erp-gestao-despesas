@@ -12,7 +12,7 @@ export default function EsqueceuSenha() {
         </p>
       </div>
 
-      <div className='mt-4 w-full max-w-[460px] lg-1920:w-[24%] md-1190:w-[40%] md:w-[60%] md-web:w-[90%] h-fit bg-[#ffffff] rounded-xl flex flex-col items-center justify-center sm:p-4 p-4'>
+      <div className='mt-4 w-full max-w-[460px] lg-1920:w-[24%] md-1190:w-[40%] md:w-[60%] md-web:w-[90%] h-fit bg-[#ffffff] rounded-xl flex flex-col items-center justify-center sm:p-8 p-4'>
         <h2 className='text-[1.2rem] font-extrabold mt-4 text-center'>Esqueceu a senha ?</h2>
 
         <form className='w-full flex flex-col justify-center'>
