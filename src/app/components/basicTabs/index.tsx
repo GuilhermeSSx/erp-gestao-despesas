@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from 'react';
+import React, { useState, useLayoutEffect } from 'react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { motion } from 'framer-motion';
@@ -17,7 +17,7 @@ export default function BasicTabs() {
 
     const isPerfilAcessoAvailable = !!id_perfil_acesso;
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         // Definindo o valor com base no parâmetro 'tab' da URL
         switch (tab) {
             case 'perfil-acesso':
