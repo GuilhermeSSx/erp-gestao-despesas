@@ -6,6 +6,7 @@ import LoginLogo from "../../../public/jpnr-login.png";
 import Image from "next/image";
 import { Slide, toast } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 // import { enc, AES } from 'crypto-js'; // Importa as funções necessárias do crypto-js
 
 export default function Login() {
@@ -14,6 +15,11 @@ export default function Login() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [isAuthorized, setIsAuthorized] = useState<boolean>(false);
+
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+  const togglePasswordVisibility = () => {
+    setIsPasswordVisible(!isPasswordVisible);
+  };
 
   const rememberMeCheckboxRef = useRef<HTMLInputElement | null>(null);
 
@@ -122,18 +128,21 @@ export default function Login() {
               onChange={(event) => setEmail(event.target.value)}
             />
           </div>
-          <div>
+          <div className="relative">
             <input
+              alt="Senha"
               id='password'
-              type='password'
+              type={isPasswordVisible ? 'text' : 'password'}
               autoComplete='login-password'
               required
-              className='appearance-none rounded-none relative
-              block border w-full px-2 py-2 mt-4 rounded-t-md'
+              className='appearance-none rounded-none relative block border w-full px-2 py-2 mt-4 rounded-t-md'
               placeholder='Senha'
               value={password}
               onChange={(event) => setPassword(event.target.value)}
             />
+            <button type="button" onClick={togglePasswordVisibility} className="absolute inset-y-0 top-4 right-4 flex items-center">
+              {isPasswordVisible ? <FaEyeSlash size={20} /> : <FaEye size={20} />}
+            </button>
           </div>
           <div className='flex items-center mt-3 justify-between'>
             <div className='flex items-center'>
