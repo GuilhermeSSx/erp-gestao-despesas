@@ -104,8 +104,8 @@ export default function Login() {
   }
 
   return (
-    <main className='h-screen w-full bg-slate-400 flex justify-center items-center overflow-auto sm:p-10 sm-mobile:p-4 p-2'>
-      <div className='w-full max-w-[460px] lg-1920:w-[24%] md-1190:w-[40%] md:w-[60%] md-web:w-[90%] h-fit bg-[#ffffff] rounded-xl flex flex-col items-center justify-center sm-mobile:p-4 p-2'>
+    <main className='h-screen w-full bg-slate-400 flex justify-center items-center overflow-auto sm:p-10 sm-mobile:p-2 p-2'>
+      <div className='w-full max-w-[460px] lg-1920:w-[24%] md-1190:w-[40%] md:w-[60%] md-web:w-[90%] h-fit bg-[#ffffff] rounded-xl flex flex-col items-center justify-center sm-mobile:p-2 p-2'>
         <Image
           className='flex relative justify-center items-center my-2'
           priority={true}
@@ -114,7 +114,7 @@ export default function Login() {
           width={240}
         />
         <h1 className='font-extrabold my-2 text-center text-black'>Entrar na sua conta</h1>
-        <form className='w-[100%] flex flex-col justify-center sm:px-14 px-4' onSubmit={handleSubmit}>
+        <form className='w-[100%] flex flex-col justify-center sm:px-14 sm-mobile:px-4 px-1' onSubmit={handleSubmit}>
           <div>
             <input
               id='email'
