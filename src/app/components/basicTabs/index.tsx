@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useLayoutEffect } from 'react';
+import React, { useState, useLayoutEffect, useEffect } from 'react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { motion } from 'framer-motion';
@@ -35,10 +35,28 @@ export default function BasicTabs() {
         }
     }, [tab]);
 
+    useEffect(() => {
+        const handleKeyDown = (event: KeyboardEvent) => {
+            // Detecta se Shift e Tab estão sendo pressionados simultaneamente
+            if (event.shiftKey && event.key === 'Tab') {
+                // Impede a ação padrão do navegador
+                event.preventDefault();
+            }
+        };
+
+        // Adiciona o evento ao documento
+        document.addEventListener('keydown', handleKeyDown);
+
+        // Limpa o evento ao desmontar o componente
+        return () => {
+            document.removeEventListener('keydown', handleKeyDown);
+        };
+    }, []);
+
 
     return (
         <div className='border-b border-gray-300 flex w-full justify-center box-content md-web:text-sm text-[10px] font-extrabold select-none pt-4'>
-            <Link href={{ pathname: "/configuracoes/perfil-acesso", query: { id: id_perfil_acesso, tab: 'perfil-acesso' } }}>
+            <Link draggable={false} href={{ pathname: "/configuracoes/perfil-acesso", query: { id: id_perfil_acesso, tab: 'perfil-acesso' } }}>
                 <motion.button
                     onClick={() => setValue(0)}
                     className={`select-none tab-button p-4 hover:bg-slate-100 ${value === 0 ? 'active' : ''}`}
@@ -50,8 +68,9 @@ export default function BasicTabs() {
                     PERFIL DE ACESSO
                 </motion.button>
             </Link>
-            <Link href={{ pathname: "/configuracoes/modulos", query: { id: id_perfil_acesso, tab: 'modulos' } }}>
+            <Link draggable={false} href={{ pathname: "/configuracoes/modulos", query: { id: id_perfil_acesso, tab: 'modulos' } }}>
                 <motion.button
+                    onSelect={() => setValue(1)}
                     onClick={() => isPerfilAcessoAvailable && setValue(1)}
                     className={`select-none tab-button p-4 hover:bg-slate-100 ${!isPerfilAcessoAvailable ? ' cursor-not-allowed text-gray-400' : ''} ${value === 1 ? 'active' : ''}`}
                     initial="initial"
@@ -63,7 +82,7 @@ export default function BasicTabs() {
                     MODULOS
                 </motion.button>
             </Link>
-            <Link href={{ pathname: "/configuracoes/funcionalidades", query: { id: id_perfil_acesso, tab: 'funcionalidades' } }}>
+            <Link draggable={false} href={{ pathname: "/configuracoes/funcionalidades", query: { id: id_perfil_acesso, tab: 'funcionalidades' } }}>
                 <motion.button
                     onClick={() => isPerfilAcessoAvailable && setValue(2)}
                     className={`select-none tab-button p-4 hover:bg-slate-100 ${!isPerfilAcessoAvailable ? ' cursor-not-allowed text-gray-400' : ''} ${value === 2 ? 'active' : ''}`}

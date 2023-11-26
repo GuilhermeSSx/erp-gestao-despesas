@@ -70,6 +70,19 @@ export const excluirPerfilAcesso = async (id_perfil_acesso: number) => {
 
 };
 
+export async function getUsuarios(): Promise<{ usuarios: Usuario[] }> {
+    // Configurando fetch para não armazenar cache
+    const res = await fetch(`${process.env.API_ENDPOINT}/user/get-users`, {
+        cache: 'no-store'
+    });
+
+    if (!res.ok) {
+        throw new Error('Failed to fetch data');
+    }
+
+    return res.json();
+}
+
 export const criarPerfilAcesso = async (nome_perfil_acesso: string) => {
 
     try {
@@ -100,46 +113,7 @@ export const criarPerfilAcesso = async (nome_perfil_acesso: string) => {
 
 };
 
-export async function getUsuarios(): Promise<{ usuarios: Usuario[] }> {
-    // Configurando fetch para não armazenar cache
-    const res = await fetch(`${process.env.API_ENDPOINT}/user/get-users`, {
-        cache: 'no-store'
-    });
 
-    if (!res.ok) {
-        throw new Error('Failed to fetch data');
-    }
-
-    return res.json();
-}
-
-export const getFuncionalidadesAcesso = async (id_perfil_acesso: number) => {
-
-    try {
-
-        const response = await fetch(`${process.env.API_ENDPOINT}/user/get-perfil-acesso`, {
-            method: 'POST',
-            cache: 'no-store',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ id_perfil_acesso: id_perfil_acesso }),
-
-        });
-
-        if (!response.ok) {
-            throw new Error('Failed to fetch data');
-        }
-
-        return response.json();
-
-    } catch (error) {
-        console.error('Erro:', error);
-        throw error;
-        // Handle error if necessary
-    }
-
-};
 
 export const getModulosAcesso = async (id_perfil_acesso: number) => {
 
@@ -156,7 +130,35 @@ export const getModulosAcesso = async (id_perfil_acesso: number) => {
         });
 
         if (!response.ok) {
-            throw new Error('Failed to fetch data');
+            throw new Error('Não foi encontrado o id de modulos.');
+        }
+
+        return response.json();
+
+    } catch (error) {
+        console.error('Erro:', error);
+        throw error;
+        // Handle error if necessary
+    }
+
+};
+
+export const getFuncionalidadesAcesso = async (id_perfil_acesso: number) => {
+
+    try {
+
+        const response = await fetch(`${process.env.API_ENDPOINT}/user/get-perfil-acesso`, {
+            method: 'POST',
+            cache: 'no-store',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ id_perfil_acesso: id_perfil_acesso }),
+
+        });
+
+        if (!response.ok) {
+            throw new Error('Não foi encontrado o id de funcionalidades.');
         }
 
         return response.json();

@@ -17,7 +17,7 @@ export default async function Usuarios() {
             <Link href={'/modulos'} title="voltar">
                 <div className='absolute top-[13px] z-10 left-3 group flex justify-center items-center py-8 px-4 border border-transparent text-base rounded-md hover:bg-slate-200 text-slate-400'>
                     <ArrowLeftIcon className="mr-4 h-7 w-5 text-center" aria-hidden="true" />
-                    <span className='hidden md:block'>Voltar</span>
+                    <span className='hidden md:block select-none'>Voltar</span>
                 </div>
             </Link>
 

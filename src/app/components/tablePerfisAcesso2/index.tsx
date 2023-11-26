@@ -55,6 +55,7 @@ const TablePerfisAcesso2: React.FC<TablePerfisAcessosProps> = ({ perfisAcessos }
                             <td className='text-sm text-gray-700 whitespace-nowrap h-[46px] px-1 justify-evenly items-center select-none'>
                                 <div className='flex justify-evenly items-center'>
                                     <Link
+                                        draggable={false}
                                         href={{
                                             pathname: "/configuracoes/perfil-acesso",
                                             query: {

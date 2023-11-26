@@ -62,7 +62,7 @@ const Modulos: React.FC = () => {
           <ul className=' w-full px-2 '>
             {filteredModules.map((module) => (
               <li key={module.rota} className='w-full mt-2'>
-                <Link href={`/modulos/${module.rota}`} legacyBehavior>
+                <Link draggable={false} href={`/modulos/${module.rota}`} legacyBehavior>
 
                   <button className="w-full relative inline-flex items-center justify-center p-[1px] mb-[3.5px] overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-gray-800 to-blue-500 group-hover:from-purple-600 group-hover:to-white hover:text-white dark:text-white focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-gray-600 hover:scale-[1.01] duration-200">
                     <span className="w-full relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-black rounded-md group-hover:bg-opacity-0">

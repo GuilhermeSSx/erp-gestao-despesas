@@ -45,12 +45,12 @@ export default function Header() {
                     <div className="flex items-center mx-4">
 
                         {session ? (
-                            <Link href={"/modulos"}>
-                                <Image priority={true} alt="" src={Logo} width={60} />
+                            <Link draggable={false} href={"/modulos"}>
+                                <Image draggable={false} priority={true} alt="" src={Logo} width={60} />
                             </Link>
                         ) : (
-                            <Link href={"/"}>
-                                <Image priority={true} alt="" src={Logo} width={60} />
+                            <Link draggable={false} href={"/"}>
+                                <Image draggable={false} priority={true} alt="" src={Logo} width={60} />
                             </Link>
                         )}
 

@@ -85,6 +85,7 @@ function DrawerOpenClose() {
                                     <Menu.Items className="right-0 mt-2 w-full origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                                         <Menu.Item as="div">
                                             <Link
+                                                draggable={false}
                                                 onClick={toggleDrawer}
                                                 className={linkClassName("/modulos/cadastros")}
                                                 href="/modulos/cadastros"
@@ -94,6 +95,7 @@ function DrawerOpenClose() {
                                         </Menu.Item>
                                         <Menu.Item as="div" >
                                             <Link
+                                                draggable={false}
                                                 onClick={toggleDrawer}
                                                 className={linkClassName("/modulos/lancamentos")} 
                                                 href="/modulos/lancamentos"
@@ -113,6 +115,7 @@ function DrawerOpenClose() {
                                     <Menu.Items className="right-0 mt-2 w-full origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                                         <Menu.Item as="div">
                                             <Link
+                                                draggable={false}
                                                 onClick={toggleDrawer}
                                                 className={linkClassName("/configuracoes/usuarios")}
                                                 href="/configuracoes/usuarios"
@@ -122,6 +125,7 @@ function DrawerOpenClose() {
                                         </Menu.Item>
                                         <Menu.Item as="div" >
                                             <Link
+                                                draggable={false}
                                                 onClick={toggleDrawer}
                                                 className={linkClassName("/configuracoes/perfil-acesso")}
                                                 href="/configuracoes/perfil-acesso"
