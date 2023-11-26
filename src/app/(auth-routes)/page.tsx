@@ -105,7 +105,7 @@ export default function Login() {
 
   return (
     <main className='h-screen w-full bg-slate-400 flex justify-center items-center overflow-auto sm:p-10 sm-mobile:p-4 p-2'>
-      <div className='w-full max-w-[460px] lg-1920:w-[25%] md-1190:w-[40%] md:w-[60%] md-web:w-[90%] h-fit bg-[#ffffff] rounded-xl flex flex-col items-center justify-center sm-mobile:p-4 p-2'>
+      <div className='w-full max-w-[460px] lg-1920:w-[24%] md-1190:w-[40%] md:w-[60%] md-web:w-[90%] h-fit bg-[#ffffff] rounded-xl flex flex-col items-center justify-center sm-mobile:p-4 p-2'>
         <Image
           className='flex relative justify-center items-center my-2'
           priority={true}
@@ -130,7 +130,6 @@ export default function Login() {
           </div>
           <div className="relative">
             <input
-              alt="Senha"
               id='password'
               type={isPasswordVisible ? 'text' : 'password'}
               autoComplete='login-password'
@@ -140,9 +139,11 @@ export default function Login() {
               value={password}
               onChange={(event) => setPassword(event.target.value)}
             />
-            <button type="button" onClick={togglePasswordVisibility} className="absolute inset-y-0 top-4 right-4 flex items-center">
-              {isPasswordVisible ? <FaEyeSlash size={20} /> : <FaEye size={20} />}
-            </button>
+            {password && (
+              <button type="button" onClick={togglePasswordVisibility} className="absolute inset-y-0 top-4 right-4 flex items-center text-slate-400">
+                {isPasswordVisible ? <FaEyeSlash size={20} /> : <FaEye size={20} />}
+              </button>
+            )}
           </div>
           <div className='flex items-center mt-3 justify-between'>
             <div className='flex items-center'>
