@@ -3,7 +3,7 @@ import Image from 'next/image';
 import saidaIcon from "../../../../../public/saida.svg";
 import { motion } from "framer-motion";
 import Link from 'next/link';
-import { VoltarButton } from '@/app/components/voltarButton';
+import { ArrowLeftIcon } from '@heroicons/react/20/solid';
 
 
 export default function Cadastros() {
@@ -15,10 +15,18 @@ export default function Cadastros() {
       exit={{ opacity: 0, y: 120 }}
 
       className="w-full md-web:min-h-[calc(100dvh-60px)] h-[calc(100dvh-60px)] flex flex-col bg-slate-100 items-center select-none fixed">
-      <div className='relative w-full'>
-        <VoltarButton />
-        <div className="border-b border-gray-300 flex w-full justify-center md-web:text-sm text-[10px] font-extrabold pt-11 bg-white">
-          <h2 className='text-3xl font-bold bg-gradient-to-br from-green-400 to-blue-600 bg-clip-text text-transparent pb-10'>Cadastros</h2>
+      <div className='relative w-full '>
+
+        <div className="border-b border-gray-300 flex w-full justify-center items-center md-web:text-sm text-[10px] font-extrabold bg-white md:h-[120px] h-[60px]">
+
+          <Link href={'/modulos'} title="voltar">
+            <div className='absolute left-0 top-3 group flex items-center md:py-8 py-1 md:px-4 px-4 mx-4 border border-transparent text-base font-medium rounded-md hover:bg-slate-200 text-slate-400'>
+              <ArrowLeftIcon className=" h-7 w-5 text-center mx-4" aria-hidden="true" />
+              <span className='hidden md:block'>Voltar</span>
+            </div>
+          </Link>
+
+          <h2 className='text-3xl font-bold bg-gradient-to-br from-green-400 to-blue-600 bg-clip-text text-transparent'>Cadastros</h2>
         </div>
 
       </div>
