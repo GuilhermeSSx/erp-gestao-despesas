@@ -49,9 +49,8 @@ const CadastrarPerfilAcesso = () => {
     };
 
     return (
-        <form className='w-full h-fit flex flex-col items-center rounded-xl mt-4' onSubmit={handleSubmit}>
+        <form className='w-full h-fit flex flex-col items-center rounded-xl' onSubmit={handleSubmit}>
             <div className='rounded-lg w-full'>
-                <div className="border mt-2" />
                 <input
                     id='nome-perfil-acesso'
                     name='nome_perfil_acesso'

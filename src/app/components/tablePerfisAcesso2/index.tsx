@@ -36,7 +36,7 @@ const TablePerfisAcesso2: React.FC<TablePerfisAcessosProps> = ({ perfisAcessos }
     };
 
     return (
-        <div className='rounded-lg border h-full w-[100%] overflow-y-scroll mt-2 bg-white'>
+        <div className='rounded-lg border h-full w-[100%] overflow-y-scroll mt-4 bg-white'>
             <table className="w-full h-fit select-none" ref={tableRef}>
                 <thead className="bg-gray-50 border-b-2 border-gray-200 sticky top-0">
                     <tr className='divide-x divide-gray-300'>
