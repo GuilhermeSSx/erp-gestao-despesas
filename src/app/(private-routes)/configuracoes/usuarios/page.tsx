@@ -13,16 +13,10 @@ export default async function Usuarios() {
     
 
     return (
-        <main className='fixed md-web:w-screen md-web:h-[calc(100vh-60px)] flex justify-center items-center p-2 flex-col'>
-            <Link href={'/modulos'} title="voltar">
-                <div className='absolute top-[13px] z-10 left-3 group flex justify-center items-center py-8 px-4 border border-transparent text-base rounded-md hover:bg-slate-200 text-slate-400'>
-                    <ArrowLeftIcon className="mr-4 h-7 w-5 text-center" aria-hidden="true" />
-                    <span className='hidden md:block select-none'>Voltar</span>
-                </div>
-            </Link>
+        <main className='flex md-web:min-h-[calc(100vh-60px)] h-[calc(100vh-60px)] flex-col justify-center items-center md:p-4 p-1'>
 
             {/* Selecionar Usuario, remover, Permissoes */}
-            <div className='flex flex-col w-full h-screen md:h-[80%] md:w-[32%] bg-slate-300 md:min-w-[500px] p-2 md:p-4 rounded-lg mt-24 md:mt-0'>
+            <div className='flex flex-col w-full h-full md:w-[32%] bg-slate-300 md:min-w-[500px] p-2 md:p-4 rounded-lg mt-2'>
                 <h1 className='font-extrabold  text-center mt-4 select-none'>Selecionar Usuarios</h1>
                 <div className='flex justify-center mt-4 text-black w-full'>
                     <input
@@ -37,9 +31,6 @@ export default async function Usuarios() {
 
 
                 <TableUsuarios2 usuarios={usuarios} perfil_acessos={perfilAcessos}/>
-
-
-
 
 
                 <div className='flex justify-center items-center rounded w-full h-fit'>

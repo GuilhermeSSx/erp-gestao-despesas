@@ -65,7 +65,7 @@ const TableUsuarios2: React.FC<TableUsuariosProps> = React.memo(({ usuarios, per
                                 </div>
 
                             </td>
-                            <td className='flex items-center justify-center text-gray-700 md-web:w-48 w-32'>
+                            <td className='flex items-center justify-center text-gray-700 md-web:w-48 w-[150px]'>
                                 <div className="flex justify-center items-center w-full p-2 border-l border-blue-500">
                                     <select
                                         className='w-full h-full p-2 text-sm flex items-center'
