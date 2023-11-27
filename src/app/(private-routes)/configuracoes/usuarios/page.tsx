@@ -16,7 +16,7 @@ export default async function Usuarios() {
         <main className='flex md-web:min-h-[calc(100vh-60px)] h-[calc(100vh-60px)] flex-col justify-center items-center md:p-4 p-1'>
 
             {/* Selecionar Usuario, remover, Permissoes */}
-            <div className='flex flex-col w-full h-full md:w-[32%] bg-slate-300 md:min-w-[500px] p-2 md:p-4 rounded-lg mt-2'>
+            <div className='flex flex-col w-full h-full md:w-[32%] bg-slate-300 md:min-w-[500px] p-2 md:p-4 rounded-lg md:mt-2'>
                 <h1 className='font-extrabold  text-center mt-4 select-none'>Selecionar Usuarios</h1>
                 <div className='flex justify-center mt-4 text-black w-full'>
                     <input
@@ -66,7 +66,7 @@ export default async function Usuarios() {
                 </div>
 
             </div>
-            <div className='flex justify-between rounded-lg my-4 w-full md:w-[32%] md:min-w-[490px]'>
+            <div className='flex justify-between rounded-lg md:my-4 mt-2 w-full md:w-[32%] md:min-w-[490px]'>
                 <div className='group relative flex-1'>
                     <div className='absolute -inset-1 rounded-lg bg-gradient-to-r from-lime-500 via-gray-200 to-gray-400 opacity-30 blur transition duration-500 group-hover:opacity-100'></div>
                     <button
