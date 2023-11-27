@@ -55,8 +55,8 @@ export default function BasicTabs() {
 
 
     return (
-        <div className='border-b border-gray-300 flex w-full justify-center box-content md-web:text-sm text-[10px] font-extrabold select-none pt-4'>
-            <Link draggable={false} href={{ pathname: "/configuracoes/perfil-acesso", query: { id: id_perfil_acesso, tab: 'perfil-acesso' } }}>
+        <div className='border-b border-gray-300 flex w-full justify-center box-content md-web:text-sm text-[10px] font-extrabold select-none mt-4'>
+            <Link className='h-fit' draggable={false} href={{ pathname: "/configuracoes/perfil-acesso", query: { id: id_perfil_acesso, tab: 'perfil-acesso' } }}>
                 <motion.button
                     onClick={() => setValue(0)}
                     className={`select-none tab-button p-4 hover:bg-slate-100 ${value === 0 ? 'active' : ''}`}
@@ -68,7 +68,7 @@ export default function BasicTabs() {
                     PERFIL DE ACESSO
                 </motion.button>
             </Link>
-            <Link draggable={false} href={{ pathname: "/configuracoes/modulos", query: { id: id_perfil_acesso, tab: 'modulos' } }}>
+            <Link className='h-fit' draggable={false} href={{ pathname: "/configuracoes/modulos", query: { id: id_perfil_acesso, tab: 'modulos' } }}>
                 <motion.button
                     onSelect={() => setValue(1)}
                     onClick={() => isPerfilAcessoAvailable && setValue(1)}
@@ -82,7 +82,7 @@ export default function BasicTabs() {
                     MODULOS
                 </motion.button>
             </Link>
-            <Link draggable={false} href={{ pathname: "/configuracoes/funcionalidades", query: { id: id_perfil_acesso, tab: 'funcionalidades' } }}>
+            <Link className='h-fit' draggable={false} href={{ pathname: "/configuracoes/funcionalidades", query: { id: id_perfil_acesso, tab: 'funcionalidades' } }}>
                 <motion.button
                     onClick={() => isPerfilAcessoAvailable && setValue(2)}
                     className={`select-none tab-button p-4 hover:bg-slate-100 ${!isPerfilAcessoAvailable ? ' cursor-not-allowed text-gray-400' : ''} ${value === 2 ? 'active' : ''}`}

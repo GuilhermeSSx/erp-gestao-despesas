@@ -13,15 +13,11 @@ export default async function PerfilDeAcesso() {
     const perfilAcessos = dataPerfilAcessos.perfil_acessos;  // Extraia apenas o array
 
     return (
-        <div className="fixed w-full h-[calc(100vh-136px)] flex justify-center items-center rounded-lg bg-slate-50">
-            <div className='flex w-full h-full justify-center'>
-                <div className='w-full md:w-[32%] md:min-w-[490px] px-2'>
-                    <h2 className="text-xl font-bold text-center mt-8">Selecione um Perfil de Acesso</h2>
-                    <div className='mt-4 rounded-xl flex h-[calc(100vh-380px)]'>
-                        <TablePerfisAcesso2 perfisAcessos={perfilAcessos} />
-                    </div>
-                    <CadastrarPerfilAcesso />
-                </div>
+        <div className="flex md-web:min-h-[calc(100dvh-131px)] h-[calc(100dvh-131px)] flex-col justify-center items-center">
+            <div className='flex flex-col w-full h-full md:w-[32%] bg-slate-50 md:min-w-[500px] p-2 md:p-4 rounded-lg md:my-2'>
+                <h2 className="text-xl font-bold text-center mt-8">Selecione um Perfil de Acesso</h2>
+                <TablePerfisAcesso2 perfisAcessos={perfilAcessos} />
+                <CadastrarPerfilAcesso />
             </div>
         </div>
     )

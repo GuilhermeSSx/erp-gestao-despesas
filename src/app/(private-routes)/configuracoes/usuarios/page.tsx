@@ -16,7 +16,7 @@ export default async function Usuarios() {
         <main className='flex md-web:min-h-[calc(100dvh-60px)] h-[calc(100dvh-60px)] flex-col justify-center items-center md:p-4 p-1'>
 
             {/* Selecionar Usuario, remover, Permissoes */}
-            <div className='flex flex-col w-full h-full md:w-[32%] bg-slate-300 md:min-w-[500px] p-2 md:p-4 rounded-lg md:mt-2'>
+            <div className='flex flex-col w-full h-full md:w-[32%] bg-slate-200 md:min-w-[500px] p-2 md:p-4 rounded-lg md:mt-2'>
                 <h1 className='font-extrabold  text-center mt-4 select-none'>Selecionar Usuarios</h1>
                 <div className='flex justify-center mt-4 text-black w-full'>
                     <input
