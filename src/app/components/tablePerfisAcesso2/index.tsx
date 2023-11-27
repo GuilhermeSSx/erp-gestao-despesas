@@ -63,13 +63,13 @@ const TablePerfisAcesso2: React.FC<TablePerfisAcessosProps> = ({ perfisAcessos }
                                             },
                                         }}
                                         className={`w-[50%] h-[38px] flex items-center justify-center border border-transparent
-                                        text-sm rounded-md ${id_perfil_acessoNumber === perfilAcesso.id_perfil_acesso ? 'bg-green-400' : 'bg-blue-400'} hover:bg-blue-300`}
+                                        text-sm rounded-md ${id_perfil_acessoNumber === perfilAcesso.id_perfil_acesso ? 'bg-green-400' : 'bg-blue-300'} hover:bg-green-500`}
                                     >
                                         {id_perfil_acessoNumber === perfilAcesso.id_perfil_acesso ? 'Selecionado' : 'Selecionar'}
                                     </Link>
                                     <button
                                         className='w-[48%] h-[38px] flex items-center justify-center border border-transparent
-                                        text-sm rounded-md bg-red-300 hover-bg-red-400'
+                                        text-sm rounded-md bg-red-300 hover:bg-red-400'
                                         onClick={(e) => {
                                             e.stopPropagation();
                                             abrirPopupExcluirPerfilAcesso(perfilAcesso);

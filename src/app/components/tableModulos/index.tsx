@@ -75,7 +75,7 @@ const TableModulos: React.FC<TableUsuariosProps> = ({ modulos, onModulosChange }
                         {modulosEstado.map((modulo, index) => (
                             <tr
                                 key={modulo.id_modulo}
-                                className={`hover:bg-slate-100 cursor-pointer ${selectedItemIndex === index ? 'bg-slate-50' : 'bg-white'}`}
+                                className={`hover:bg-slate-100 ${selectedItemIndex === index ? 'bg-slate-50' : 'bg-white'}`}
                             >
                                 <td className="w-12 p-3 px-4 text-xs font-semibold text-gray-700 whitespace-nowrap">
                                     <h1 className='font-bold text-sm'>{modulo.id_modulo}</h1>
@@ -88,7 +88,7 @@ const TableModulos: React.FC<TableUsuariosProps> = ({ modulos, onModulosChange }
                                 <td className='flex items-center justify-center text-gray-700 w-full'>
                                     <div className="flex justify-center items-center w-full p-2 border-l border-blue-500">
                                         <select
-                                            className='w-full h-full p-3 text-sm flex items-center'
+                                            className='w-full h-full p-3 text-sm flex items-center cursor-pointer'
                                             value={modulo.acesso}
                                             onChange={(e) => handleSelectChange(index, e.target.value)}
                                         >

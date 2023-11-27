@@ -14,7 +14,7 @@ export default function Cadastros() {
       animate={{ opacity: 1, y: 0, transition: { delay: 0.2 } }}
       exit={{ opacity: 0, y: 120 }}
 
-      className="w-full h-[calc(100vh-60px)] flex flex-col bg-slate-100 items-center select-none fixed">
+      className="w-full md-web:min-h-[calc(100dvh-60px)] h-[calc(100dvh-60px)] flex flex-col bg-slate-100 items-center select-none fixed">
       <div className='relative w-full'>
         <VoltarButton />
         <div className="border-b border-gray-300 flex w-full justify-center md-web:text-sm text-[10px] font-extrabold pt-11 bg-white">

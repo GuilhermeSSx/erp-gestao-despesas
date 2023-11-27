@@ -32,18 +32,18 @@ const Modulos: React.FC = () => {
     setFilteredModules(filtered);
   };
 
-  useEffect(() => {
-    if (searchInputRef.current) {
-      searchInputRef.current.focus();
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (searchInputRef.current) {
+  //     searchInputRef.current.focus();
+  //   }
+  // }, []);
 
   return (
 
     <div
-      className="w-full h-[calc(100vh-60px)] flex flex-col justify-center items-center text-white md:px-6 px-1 overflow-hidden">
+      className="w-full md-web:min-h-[calc(100dvh-60px)] h-[calc(100dvh-60px)] flex flex-col justify-center items-center text-white md:px-6 px-1 overflow-hidden">
       <div
-        className='md:p-8 py-4 px-3 md:min-w-[500px] lg-1920:w-[30%] md:w-[40%] w-full h-full md:h-[80%] my-8 bg-[#4b4b4b2d] rounded-xl flex flex-col items-center shadow-2xl'
+        className='md:p-8 py-4 px-3 md:min-w-[500px] lg-1920:w-[30%] md:w-[40%] w-full h-full md:h-[80%] md-web:my-8 my-2 bg-[#4b4b4b2d] rounded-xl flex flex-col items-center shadow-2xl'
       >
         <h1 className='text-[1.5rem] font-extrabold text-black select-none'>Lista de Módulos</h1>
         <div className='flex justify-center mt-[0.7rem] text-black w-full'>

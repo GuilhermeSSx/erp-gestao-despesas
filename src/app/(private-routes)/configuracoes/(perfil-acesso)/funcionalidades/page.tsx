@@ -15,7 +15,7 @@ export default async function Funcionalidades( {searchParams}: {searchParams: {i
     const funcionalidadesAcessos = dataFuncionalidadesAcessos.funcionalidades_acessos;  // Extraia apenas o array
 
     return (
-        <div className="fixed w-full h-[calc(100vh-136px)] flex justify-center items-center bg-slate-50 rounded-lg">
+        <div className="w-full flex md-web:min-h-[calc(100dvh-131px)] h-[calc(100dvh-131px)] justify-center items-center bg-slate-50 rounded-lg">
             <div className="w-full h-full md-1190:mx-[22rem] mx-1 py-8">
                 <TableFuncionalidades funcionalidades={funcionalidadesAcessos} onFuncionalidadesChange={updateFuncionalidadesAcesso} />
             </div>

@@ -89,8 +89,8 @@ const PopupCriarLancamento: React.FC<PopupProps> = ({ open, onClose, LancId, Lan
     let CentroCustoId: number | null;
 
     return (
-        <Dialog open={open} onClose={onClose} className="relative inset-0 z-10 overflow-y-auto ">
-            <div className="flex flex-col items-center justify-center h-[calc(100vh-60px)] p-4">
+        <Dialog open={open} onClose={onClose} className="absolute inset-0 z-10 top-[60px] overflow-y-auto ">
+            <div className="flex flex-col items-center justify-center h-full p-4">
                 <Dialog.Overlay className="fixed inset-0 bg-black opacity-30 " />
 
                 <motion.div

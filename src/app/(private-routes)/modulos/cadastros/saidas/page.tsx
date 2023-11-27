@@ -31,7 +31,7 @@ export default function Saidas() {
     }, []);
 
     return (
-        <div className="fixed w-screen h-[calc(100vh-60px)] flex flex-col justify-center items-center">
+        <div className="w-screen md-web:min-h-[calc(100dvh-60px)] h-[calc(100dvh-60px)] flex flex-col justify-center items-center">
             <VoltarButton />
 
             <div className='flex flex-col w-full h-full md:h-[80%] items-center mt-24 md:mt-0'>

@@ -151,7 +151,7 @@ export default function Favorecidos() {
     );
 
     return (
-        <div className="fixed w-screen h-[calc(100vh-60px)] flex bg-slate-50 ">
+        <div className="w-screen md-web:min-h-[calc(100dvh-60px)] h-[calc(100dvh-60px)] flex bg-slate-50 ">
 
             <div className='ml-1 mt-4 w-[12%] min-w-[210px] h-[96%] flex flex-col bg-gradient-to-bl from-[#86868600] via-[#eb090900] to-[#8ed15acb] rounded-xl'>
 

@@ -73,11 +73,11 @@ const PopupExcluirPerfilAcesso: React.FC<PopupProps> = ({ open, onClose, id_perf
         <Dialog
             open={open}
             onClose={onClose}
-            className="absolute inset-0 z-10 top-16 overflow-y-auto"
+            className="absolute inset-0 z-10 top-[60px] overflow-y-auto"
             onKeyDown={handleKeyDown}
         >
-            <div className="flex flex-col items-center justify-center h-[calc(100vh-60px)] p-4">
-                <Dialog.Overlay className="fixed inset-0 bg-black opacity-30 " />
+            <div className="flex flex-col items-center justify-center h-full p-4">
+                <Dialog.Overlay className="fixed inset-0 bg-black opacity-40 " />
 
                 <div className='sm:w-[60%] md:w-[30%] w-full h-76 items-center bg-white z-20 p-3 rounded-xl'>
                     <div className='rounded-lg w-full p-1 '>
