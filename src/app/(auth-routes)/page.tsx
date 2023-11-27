@@ -104,7 +104,7 @@ export default function Login() {
   }
 
   return (
-    <main className='h-screen w-full bg-slate-400 flex justify-center items-center overflow-auto sm:p-10 sm-mobile:p-2 p-2'>
+    <main className='h-[100dvh] w-full bg-slate-400 flex justify-center items-center overflow-auto sm:p-10 sm-mobile:p-2 p-2'>
       <div className='w-full max-w-[460px] lg-1920:w-[24%] md-1190:w-[40%] md:w-[60%] md-web:w-[90%] h-fit bg-[#ffffff] rounded-xl flex flex-col items-center justify-center sm-mobile:p-2 p-2'>
         <Image
           className='flex relative justify-center items-center my-2'
@@ -140,7 +140,7 @@ export default function Login() {
               onChange={(event) => setPassword(event.target.value)}
             />
             {password && (
-              <button type="button" onClick={togglePasswordVisibility} className="select-none absolute inset-y-0 top-4 right-4 flex items-center text-slate-400">
+              <button title={isPasswordVisible ? 'Ocultar senha' : 'Mostrar senha'} type="button" onClick={togglePasswordVisibility} className="select-none absolute inset-y-0 top-4 right-4 flex items-center text-slate-400">
                 {isPasswordVisible ? <FaEyeSlash size={20} /> : <FaEye size={20} />}
               </button>
             )}
