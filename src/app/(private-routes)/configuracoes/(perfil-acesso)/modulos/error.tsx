@@ -4,7 +4,7 @@ import Link from 'next/link';
 export default function Error() {
 
     return (
-        <main className=" flex h-[calc(100vh-131px)] flex-col items-center justify-center">
+        <main className="flex md-web:min-h-[calc(100dvh-131px)] h-[calc(100dvh-131px)] flex-col items-center justify-center pb-[6px]">
             <h2 className="text-center">Não é possivel realizar essa ação sem um ID valido, volte e tente novamente.</h2>
             <Link
                 href="/configuracoes/perfil-acesso"
