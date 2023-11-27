@@ -13,7 +13,7 @@ export default async function Usuarios() {
     
 
     return (
-        <main className='flex md-web:min-h-[calc(100vh-60px)] h-[calc(100vh-60px)] flex-col justify-center items-center md:p-4 p-1'>
+        <main className='flex md-web:min-h-[calc(100dvh-60px)] h-[calc(100vh-60px)] flex-col justify-center items-center md:p-4 p-1'>
 
             {/* Selecionar Usuario, remover, Permissoes */}
             <div className='flex flex-col w-full h-full md:w-[32%] bg-slate-300 md:min-w-[500px] p-2 md:p-4 rounded-lg md:mt-2'>
