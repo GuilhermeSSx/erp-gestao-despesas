@@ -140,8 +140,13 @@ export default function Login() {
               onChange={(event) => setPassword(event.target.value)}
             />
             {password && (
-              <button title={isPasswordVisible ? 'Ocultar senha' : 'Mostrar senha'} type="button" onClick={togglePasswordVisibility} className="select-none absolute inset-y-0 top-4 right-4 flex items-center text-slate-400">
-                {isPasswordVisible ? <FaEyeSlash size={20} /> : <FaEye size={20} />}
+              <button 
+                title={isPasswordVisible ? 'Ocultar senha' : 'Mostrar senha'}
+                type="button" onClick={togglePasswordVisibility}
+                className="select-none absolute inset-y-0 top-4 right-2 flex items-center text-slate-400 px-2"
+                style={{ WebkitTapHighlightColor: 'transparent' }}
+              >
+                  {isPasswordVisible ? <FaEyeSlash size={20} /> : <FaEye size={20} />}
               </button>
             )}
           </div>

@@ -64,6 +64,7 @@ const TablePerfisAcesso2: React.FC<TablePerfisAcessosProps> = ({ perfisAcessos }
                                         }}
                                         className={`w-[50%] h-[38px] flex items-center justify-center border border-transparent
                                         text-sm rounded-md ${id_perfil_acessoNumber === perfilAcesso.id_perfil_acesso ? 'bg-green-400' : 'bg-blue-300'} hover:bg-green-500`}
+                                        style={{ WebkitTapHighlightColor: 'transparent' }}
                                     >
                                         {id_perfil_acessoNumber === perfilAcesso.id_perfil_acesso ? 'Selecionado' : 'Selecionar'}
                                     </Link>
