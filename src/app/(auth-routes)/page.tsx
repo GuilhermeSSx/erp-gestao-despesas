@@ -143,13 +143,7 @@ export default function Login() {
               <button 
                 title={isPasswordVisible ? 'Ocultar senha' : 'Mostrar senha'}
                 type="button" 
-                onClick={(e) => {
-                    togglePasswordVisibility
-                    e.stopPropagation()
-                    e.stopPropagation
-                    setIsPasswordVisible(!isPasswordVisible)
-                  }
-                }
+                onClick={togglePasswordVisibility}
                 className="select-none absolute inset-y-0 top-4 right-2 flex items-center text-slate-400 px-2"
                 style={{ WebkitTapHighlightColor: 'transparent' }}
 

@@ -21,7 +21,7 @@ export default function Cadastros() {
 
           <Link href={'/modulos'} title="voltar">
             <div className='absolute left-0 top-3 group flex items-center md:py-8 py-1 md:px-4 px-4 mx-4 border border-transparent text-base font-medium rounded-md hover:bg-slate-200 text-slate-400'>
-              <ArrowLeftIcon className=" h-7 w-5 text-center mx-4" aria-hidden="true" />
+              <ArrowLeftIcon className=" h-7 w-5 text-center mx-3" aria-hidden="true" />
               <span className='hidden md:block'>Voltar</span>
             </div>
           </Link>
