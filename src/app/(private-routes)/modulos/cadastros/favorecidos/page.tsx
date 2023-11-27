@@ -151,9 +151,9 @@ export default function Favorecidos() {
     );
 
     return (
-        <div className="w-screen md-web:min-h-[calc(100dvh-60px)] h-[calc(100dvh-60px)] flex bg-slate-50 ">
+        <div className="w-screen md-web:min-h-[calc(100dvh-60px)] h-[calc(100dvh-60px)] flex md:flex-row flex-col bg-slate-50 ">
 
-            <div className='ml-1 mt-4 w-[12%] min-w-[210px] h-[96%] flex flex-col bg-gradient-to-bl from-[#86868600] via-[#eb090900] to-[#8ed15acb] rounded-xl'>
+            <div className='md:ml-1 mt-4 md:w-[12%] md:min-w-[210px] w-full h-[96%] flex flex-col bg-gradient-to-bl from-[#86868600] via-[#eb090900] to-[#8ed15acb] rounded-xl'>
 
                 <Link href={'/modulos/cadastros'} title="voltar">
                     <div className='group flex justify-evenly items-center py-2 md:px-4 mx-2 border border-transparent text-base rounded-md hover:bg-slate-200 text-slate-400'>
