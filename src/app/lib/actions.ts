@@ -89,26 +89,25 @@ export const criarPerfilAcesso = async (nome_perfil_acesso: string) => {
 
         const response = await fetch(`${process.env.API_ENDPOINT}/user/criar-perfil-acesso`, {
             method: 'POST',
+            cache: 'no-store',
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({ nome_perfil_acesso }),
 
-
         });
 
-        if (response.ok) {
+        if (response.status === 200) {
             revalidatePath('/configuracoes/perfis-acessos');
+        } else if(response.status === 400) {
+            throw new Error('Ja existe um perfil de acesso com este nome.');
         } else {
-            const errorBody = await response.json(); // Supondo que o corpo da resposta contém detalhes do erro
-            console.log(errorBody);
-            throw new Error('Erro contate o administrador.');
+            throw new Error('Contate o administrador do sistema.');
         }
 
     } catch (error) {
-        console.error('Erro:', error);
+        console.error(error);
         throw error;
-        // Handle error if necessary
     }
 
 };

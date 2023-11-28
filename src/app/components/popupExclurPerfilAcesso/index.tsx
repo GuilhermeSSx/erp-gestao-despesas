@@ -31,7 +31,7 @@ const PopupExcluirPerfilAcesso: React.FC<PopupProps> = ({ open, onClose, id_perf
 
             toast.success('Perfil de acesso: ' + nome_perfil_acesso + ' deletado com sucesso!', {
                 position: "bottom-left",
-                autoClose: 3800,
+                autoClose: 2600,
                 hideProgressBar: false,
                 closeOnClick: true,
                 pauseOnHover: true,
@@ -44,7 +44,7 @@ const PopupExcluirPerfilAcesso: React.FC<PopupProps> = ({ open, onClose, id_perf
             console.log(error);
             toast.error('Erro ao deletar o perfil de acesso: ' + nome_perfil_acesso, {
                 position: "bottom-left",
-                autoClose: 4200,
+                autoClose: 3600,
                 hideProgressBar: false,
                 closeOnClick: true,
                 pauseOnHover: true,

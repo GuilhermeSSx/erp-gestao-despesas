@@ -8,6 +8,7 @@ import "react-toastify/dist/ReactToastify.css";
 const CadastrarPerfilAcesso = () => {
 
     const [formData, setFormData] = useState({ nome_perfil_acesso: '' });
+    const [loading, setLoading] = useState(false); // Adicionado para controlar o estado de carregamento
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
@@ -18,13 +19,14 @@ const CadastrarPerfilAcesso = () => {
         e.preventDefault();
 
         const nome_perfil_acesso = formData.nome_perfil_acesso;
+        setLoading(true); // Iniciar carregamento
 
         try {
             await criarPerfilAcesso(nome_perfil_acesso);
 
             toast.success('Perfil de acesso: ' + nome_perfil_acesso + ' criado com sucesso!', {
                 position: "bottom-left",
-                autoClose: 3800,
+                autoClose: 2600,
                 hideProgressBar: false,
                 closeOnClick: true,
                 pauseOnHover: true,
@@ -34,10 +36,9 @@ const CadastrarPerfilAcesso = () => {
             });
 
         } catch (error) {
-            console.log(error);
-            toast.error('Erro ao criar o perfil de acesso: ' + nome_perfil_acesso, {
+            toast.error('' + error, {
                 position: "bottom-left",
-                autoClose: 4200,
+                autoClose: 3200,
                 hideProgressBar: false,
                 closeOnClick: true,
                 pauseOnHover: true,
@@ -45,6 +46,8 @@ const CadastrarPerfilAcesso = () => {
                 progress: undefined,
                 theme: "light",
             });
+        } finally {
+            setLoading(false); // Finalizar carregamento
         }
     };
 
@@ -67,10 +70,11 @@ const CadastrarPerfilAcesso = () => {
             <div className='flex justify-between w-full'>
                 <button
                     title="Cadastrar Perfil de Acesso"
-                    className='mt-2 group relative w-full flex justify-center items-center py-1 px-4 border border-transparent
-            text-base rounded-md bg-emerald-400 hover:bg-lime-500'
+                    className={`mt-2 group relative w-full flex justify-center items-center py-1 px-4 border border-transparent
+                        text-base rounded-md ${loading ? 'bg-gray-400' : 'bg-emerald-400 hover:bg-lime-500'}`}
+                    disabled={loading} // Desabilitar enquanto carrega
                 >
-                    Cadastrar
+                    {loading ? 'Processando...' : 'Cadastrar'}
                     <UserPlusIcon
                         className="ml-2 h-7 w-5 text-center"
                         aria-hidden="true"
