@@ -34,6 +34,11 @@ export default function Login() {
     }
   };
 
+  // Função para limpar a área de transferência
+  const handlePasswordFocus = () => {
+    navigator.clipboard.writeText('');
+  };
+
 
   const rememberMeCheckboxRef = useRef<HTMLInputElement | null>(null);
 
@@ -153,17 +158,18 @@ export default function Login() {
               value={password}
               onChange={(event) => setPassword(event.target.value)}
               ref={passwordInputRef}
+              onFocus={handlePasswordFocus}
             />
             {password && (
-              <button 
+              <button
                 title={isPasswordVisible ? 'Ocultar senha' : 'Mostrar senha'}
-                type="button" 
-                onClick={ togglePasswordVisibility }
+                type="button"
+                onClick={togglePasswordVisibility}
                 className="select-none absolute inset-y-0 top-4 right-2 flex items-center text-slate-400 px-2"
                 style={{ WebkitTapHighlightColor: 'transparent' }}
 
               >
-                  {isPasswordVisible ? <FaEyeSlash size={20} /> : <FaEye size={20} />}
+                {isPasswordVisible ? <FaEyeSlash size={20} /> : <FaEye size={20} />}
               </button>
             )}
           </div>
