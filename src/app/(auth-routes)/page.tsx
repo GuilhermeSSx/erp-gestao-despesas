@@ -16,10 +16,24 @@ export default function Login() {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [isAuthorized, setIsAuthorized] = useState<boolean>(false);
 
+  const passwordInputRef = useRef<HTMLInputElement | null>(null);
+
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const togglePasswordVisibility = () => {
     setIsPasswordVisible(!isPasswordVisible);
+    passwordInputRef.current?.focus();
+    setTimeout(focusAndMoveCursorToEnd, 0);
   };
+
+  const focusAndMoveCursorToEnd = () => {
+    const input = passwordInputRef.current;
+    if (input) {
+      input.focus();
+      const length = input.value.length;
+      input.setSelectionRange(length, length);
+    }
+  };
+
 
   const rememberMeCheckboxRef = useRef<HTMLInputElement | null>(null);
 
@@ -138,12 +152,13 @@ export default function Login() {
               placeholder='Senha'
               value={password}
               onChange={(event) => setPassword(event.target.value)}
+              ref={passwordInputRef}
             />
             {password && (
               <button 
                 title={isPasswordVisible ? 'Ocultar senha' : 'Mostrar senha'}
                 type="button" 
-                onClick={togglePasswordVisibility}
+                onClick={ togglePasswordVisibility }
                 className="select-none absolute inset-y-0 top-4 right-2 flex items-center text-slate-400 px-2"
                 style={{ WebkitTapHighlightColor: 'transparent' }}
 
