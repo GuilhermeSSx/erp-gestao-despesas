@@ -2,6 +2,8 @@ import Link from 'next/link';
 import { ArrowLeftIcon } from '@heroicons/react/20/solid';
 import TableUsuarios2 from '@/app/components/tableUsuarios2';
 import { getUsuarios, getPerfilAcessos } from '@/app/lib/actions';
+import CadastrarUsuario from './cadastrarUsuario';
+import { UsuarioProvider } from '@/app/contexts/UsuarioContext';
 
 export default async function Usuarios() {
 
@@ -14,7 +16,7 @@ export default async function Usuarios() {
 
     return (
         <main className='flex md-web:min-h-[calc(100dvh-60px)] h-[calc(100dvh-60px)] flex-col justify-center items-center md:p-4 p-1'>
-            <Link className='z-10'  href={'/modulos'} title="voltar">
+            <Link className='z-10' href={'/modulos'} title="voltar">
                 <div className='absolute left-0 md:top-16 top-[74px] group flex items-center md:py-8 py-1 md:px-4 px-4 mx-4 border border-transparent text-base font-medium rounded-md hover:bg-slate-400 md:hover:bg-slate-200 md:text-slate-400 text-black-400'>
                     <ArrowLeftIcon className=" h-7 w-5 text-center mx-3" aria-hidden="true" />
                     <span className='hidden md:block'>Voltar</span>
@@ -35,60 +37,15 @@ export default async function Usuarios() {
                     />
                 </div>
 
-
-                <TableUsuarios2 usuarios={usuarios} perfil_acessos={perfilAcessos} />
-
-
-                <div className='flex justify-center items-center rounded w-full h-fit'>
-                    <div className='flex justify-between rounded-lg mt-3 w-full'>
-                        {/* {selectedUsuario ? (
-                            <button
-                                onClick={() => abrirPopupExcluirUsuario(selectedUsuario ? selectedUsuario.id : 0)}
-                                className={`group relative items-center w-full flex justify-center py-2 px-2 border border-transparent text-sm font-medium rounded-md ${selectedUsuario && selectedUsuario.name === session?.user?.name ? 'bg-slate-200 text-gray-500 cursor-not-allowed' : 'bg-red-700 hover:bg-red-400 text-white hover:scale-[1.01] duration-200'
-                                    } `}
-                                // disabled={selectedUsuario && selectedUsuario.name === session?.user?.name}
-                            >
-                                Excluir
-                            </button>
-                        ) : (
-                            <button
-                                className='group relative items-center w-full flex justify-center py-2 px-2 border border-transparent text-sm font-medium rounded-md bg-red-500 text-gray-500 hover:scale-[1.02] duration-200 cursor-not-allowed select-none outline-none'
-                            >
-                                Excluir
-                            </button>
-                        )} */}
-
-                        {/* {selectedUsuario && (
-                            <PopupExcluirUsuario
-                                open={popupAbertoExcluirUsuario}
-                                onClose={fecharPopupExcluirUsuario}
-                                userId={selectedUsuario.id}
-                                userName={selectedUsuario.name}
-                                reloadUsers={getData}
-                            />
-                        )} */}
-
-                    </div>
-                </div>
+                <UsuarioProvider>
+                    <TableUsuarios2 usuarios={usuarios} perfil_acessos={perfilAcessos} />
+                    <CadastrarUsuario />
+                </UsuarioProvider>
 
             </div>
-            <div className='flex justify-between rounded-lg md:my-4 mt-2 w-full md:w-[32%] md:min-w-[490px]'>
-                <div className='group relative flex-1'>
-                    <div className='absolute -inset-1 rounded-lg bg-gradient-to-r from-lime-500 via-gray-200 to-gray-400 opacity-30 blur transition duration-500 group-hover:opacity-100'></div>
-                    <button
-                        // onClick={abrirPopupCriarUsuario}
-                        className='shadow-lg w-full relative bg-lime-300 rounded-lg  px-7 py-3 text-black select-none outline-none'
-                    >
-                        Cadastrar
-                    </button>
-                </div>
-            </div>
 
-            {/* <PopupCriarUsuario
-                open={popupAbertoCriarUsuario}
-                onClose={fecharPopupCriarUsuario}
-                reloadUsers={getData}
-            /> */}
+
+
 
         </main>
     )

@@ -1,70 +1,51 @@
+"use client";
 import React, { useEffect, useRef, useState } from 'react';
 import { Dialog } from '@headlessui/react';
 import { ArrowUturnLeftIcon, XMarkIcon } from '@heroicons/react/20/solid';
 import { toast } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
+import { excluirUsuario } from '@/app/lib/actions';
 
 interface PopupProps {
     open: boolean;
     onClose: () => void;
     userName: string;
     userId: number;
-    reloadUsers: () => void;
 }
 
-const PopupExcluirUsuario: React.FC<PopupProps> = ({ open, onClose, userName, userId, reloadUsers }) => {
+const PopupExcluirUsuario: React.FC<PopupProps> = ({ open, onClose, userName, userId }) => {
     const cancelButtonRef = useRef<HTMLButtonElement | null>(null);
     const deleteButtonRef = useRef<HTMLButtonElement | null>(null);
 
-    const deleteUser = async (id: number) => {
+    const handleDelete = async (id: number) => {
         try {
-            const response = await fetch(`https://jpnr-gestao-sqlserver.vercel.app/user/delete-user/${id}`, {
-                method: 'DELETE',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            });
+            await excluirUsuario(id);
 
-            if (response.ok) {
-                toast.success('Usuário deletado com sucesso!', {
-                    position: "bottom-left",
-                    autoClose: 2200,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "light",
-                });
-                reloadUsers();
-            } else {
-                reloadUsers();
-                toast.error('Erro ao deletar o usuário!', {
-                    position: "bottom-left",
-                    autoClose: 3600,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "light",
-                });
-                // Handle error if necessary
-            }
-
-        } catch (error) {
-            console.error('Erro:', error);
-            toast.error('Erro ao deletar o usuário! admin', {
+            toast.success('Usuário deletado com sucesso!', {
                 position: "bottom-left",
-                autoClose: 3600,
+                autoClose: 2600,
                 hideProgressBar: false,
                 closeOnClick: true,
                 pauseOnHover: true,
-                draggable: true,
+                draggable: false,
                 progress: undefined,
                 theme: "light",
             });
-            // Handle error if necessary
+
+            onClose();
+
+        } catch (error) {
+            console.error('Erro:', error);
+            toast.error('Erro ao deletar o usuário!', {
+                position: "bottom-left",
+                autoClose: 3200,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: false,
+                progress: undefined,
+                theme: "light",
+            });
         }
     };
 
@@ -117,8 +98,7 @@ const PopupExcluirUsuario: React.FC<PopupProps> = ({ open, onClose, userName, us
                             onClick={() => {
                                 // Lógica para excluir o USER com o ID: userId
                                 try {
-                                    deleteUser(userId)
-                                    onClose();
+                                    handleDelete(userId);
                                 } catch (error) {
                                     console.log(error);
                                 }

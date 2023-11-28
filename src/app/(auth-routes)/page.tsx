@@ -135,7 +135,7 @@ export default function Login() {
             <input
               id='email'
               type='email'
-              autoComplete='login-email'
+              autoComplete='email'
               required
               className='appearance-none rounded-none relative
               block border w-full px-2 py-2 mt-6 rounded-t-md'
@@ -148,7 +148,7 @@ export default function Login() {
             <input
               id='password'
               type={isPasswordVisible ? 'text' : 'password'}
-              autoComplete='login-password'
+              autoComplete='current-password'
               required
               className='appearance-none rounded-none relative block border w-full px-2 py-2 mt-4 rounded-t-md'
               placeholder='Senha'

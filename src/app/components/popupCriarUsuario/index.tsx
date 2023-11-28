@@ -5,6 +5,8 @@ import { toast } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 import { carregarSelecaoPerfilAcesso } from '../../lib/apiRequests';
 
+import { criarUsuario } from '@/app/lib/actions';
+
 interface PerfilAcesso {
     id_perfil_acesso: number;
     nome_perfil_acesso: string;
@@ -15,10 +17,9 @@ interface PopupProps {
     onClose: () => void;
     LancId?: number | null;
     LancClassificacao?: string;
-    reloadUsers: () => void;
 }
 
-const PopupCriarUsuario: React.FC<PopupProps> = ({ open, onClose, reloadUsers }) => {
+const PopupCriarUsuario: React.FC<PopupProps> = ({ open, onClose }) => {
 
     const [perfilAcessos, setPerfilAcessos] = useState<PerfilAcesso[]>([]);
 
@@ -56,66 +57,59 @@ const PopupCriarUsuario: React.FC<PopupProps> = ({ open, onClose, reloadUsers })
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        setLoading(true);
-        let response; // Declaramos a variável response fora do bloco try
+
+        setLoading(true); // Iniciar carregamento
 
         try {
-            response = await fetch('https://jpnr-gestao-sqlserver.vercel.app/user/sign-up', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(formData),
-            });
-            console.log(formData)
+            await criarUsuario(formData.name, formData.email, formData.password, formData.role);
 
-            if (response.ok) {
-                toast.success('Cadastro Realizado com sucesso', {
-                    position: "bottom-left",
-                    autoClose: 2200,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "light",
-                });
-                reloadUsers();
-            } else {
-                toast.error('Erro em cadastrar o usuário', {
-                    position: "bottom-left",
-                    autoClose: 3600,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "light",
-                });
-            }
-        } catch (error) {
-            toast.error('Erro contate o administrador!', {
+            toast.success('Usuario: ' + formData.name + ' criado com sucesso!', {
                 position: "bottom-left",
-                autoClose: 3600,
+                autoClose: 2600,
                 hideProgressBar: false,
                 closeOnClick: true,
                 pauseOnHover: true,
-                draggable: true,
+                draggable: false,
                 progress: undefined,
                 theme: "light",
             });
-        } finally {
-            setLoading(false);
-            if (response && response.ok) {
-                onClose();
+
+        } catch (error) {
+            if (error instanceof Error) {
+                toast.error('' + error.message, {
+                    position: "bottom-left",
+                    autoClose: 3200,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: false,
+                    progress: undefined,
+                    theme: "light",
+                });
+            } else {
+                toast.error('Erro Desconhecido: Contate o administrador do sistema.', {
+                    position: "bottom-left",
+                    autoClose: 3200,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: false,
+                    progress: undefined,
+                    theme: "light",
+                });
             }
+
+        } finally {
+            setLoading(false); // Finalizar carregamento
         }
+
     };
 
     return (
         <Dialog open={open} onClose={onClose} className="absolute inset-0 z-10 top-[60px] overflow-y-auto ">
             <div className="flex flex-col items-center justify-center h-full p-4">
                 <Dialog.Overlay className="fixed inset-0 bg-black opacity-70" />
+
 
                 <motion.div
                     key="modal"
@@ -127,9 +121,13 @@ const PopupCriarUsuario: React.FC<PopupProps> = ({ open, onClose, reloadUsers })
                         ease: [0, 0.71, 0.2, 1.01]
                     }}
                     exit={{ opacity: 0, x: -80 }}
-                    className='flex flex-col w-full md:w-[30%] md:min-w-[440px] rounded-lg z-50'>
+                    className='relative flex flex-col w-full md:w-[30%] md:min-w-[440px] rounded-lg z-50'>
+                    <button className='absolute flex bg-slate-200 w-fit rounded-lg text-black top-3 right-3 px-4 py-3' onClick={onClose}>X</button>
+
 
                     <div className='bg-slate-100 w-full h-full rounded-lg md:p-12 p-2'>
+                        
+
                         <h1 className='font-extrabold mt-4 select-none text-center text-xl'>Cadastrar novo Usuario</h1>
                         <form className='w-full h-full flex flex-col md:justify-center' onSubmit={handleSubmit}>
                             <div className=''>

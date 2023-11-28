@@ -28,6 +28,13 @@ interface Funcionalidade {
     id_funcionalidade_acesso?: number;
 }
 
+interface formData{
+    name: '',
+    email: '',
+    password: '',
+    role: 'convidado'
+};
+
 export async function getPerfilAcessos(): Promise<{ perfil_acessos: PerfilAcesso[] }> {
     // Configurando fetch para não armazenar cache
     const res = await fetch(`${process.env.API_ENDPOINT}/user/get-perfil-acessos`, {
@@ -42,6 +49,27 @@ export async function getPerfilAcessos(): Promise<{ perfil_acessos: PerfilAcesso
 
     return { perfil_acessos: data.perfil_acessos };
 }
+
+export const excluirUsuario = async (id: number) => {
+    try {
+        const response = await fetch(`https://jpnr-gestao-sqlserver.vercel.app/user/delete-user/${id}`, {
+            method: 'DELETE',
+            cache: 'no-store',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+
+        if (response.ok) {
+            revalidatePath('/configuracoes/usuarios');
+        } else {
+            throw new Error('Erro em deletar usuario');
+        }
+
+    } catch (error) {
+        console.error('Erro:', error);
+    }
+};
 
 export const excluirPerfilAcesso = async (id_perfil_acesso: number) => {
 
@@ -59,7 +87,7 @@ export const excluirPerfilAcesso = async (id_perfil_acesso: number) => {
         if (response.ok) {
             revalidatePath('/configuracoes/perfis-acessos');
         } else {
-            throw new Error('Failed to fetch data');
+            throw new Error('Erro em deletar perfil de acesso.');
         }
 
     } catch (error) {
@@ -82,6 +110,34 @@ export async function getUsuarios(): Promise<{ usuarios: Usuario[] }> {
 
     return res.json();
 }
+
+export const criarUsuario = async (name: string, email: string, password: string, role: string) => {
+
+    try {
+        const response = await fetch(`${process.env.API_ENDPOINT}/user/sign-up`, {
+            method: 'POST',
+            cache: 'no-store',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ name, email, password, role }),
+
+        });
+
+        if (response.status === 200) {
+            revalidatePath('/configuracoes/usuarios');
+        } else if(response.status === 400) {
+            throw new Error('Ja existe um usuario com este nome.');
+        } else {
+            throw new Error('Contate o administrador do sistema.');
+        }
+
+    } catch (error) {
+        console.error(error);
+        throw error;
+    }
+
+};
 
 export const criarPerfilAcesso = async (nome_perfil_acesso: string) => {
 
@@ -221,4 +277,6 @@ export const updateFuncionalidadesAcesso = async (funcionalidades: Funcionalidad
         console.error('Erro ao atualizar os acessos:', error);
     }
 };
+
+
 

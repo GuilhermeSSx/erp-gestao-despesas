@@ -1,6 +1,8 @@
 "use client";
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 
+import { useUsuario } from '@/app/contexts/UsuarioContext';
+
 interface Usuario {
     id: number;
     name: string;
@@ -20,10 +22,13 @@ interface TableUsuariosProps {
 
 const TableUsuarios2: React.FC<TableUsuariosProps> = React.memo(({ usuarios, perfil_acessos }) => {
 
+    const { setSelectedUsuario } = useUsuario();
+
     const [selectedItemIndex, setSelectedItemIndex] = useState<number | null>(null);
 
     const handleRowClick = useCallback((usuario: Usuario, index: number) => {
         setSelectedItemIndex(index);
+        setSelectedUsuario(usuario);
         // console.log('Row clicked:', usuario);
     }, []);
 
@@ -68,6 +73,7 @@ const TableUsuarios2: React.FC<TableUsuariosProps> = React.memo(({ usuarios, per
                             <td className='flex items-center justify-center text-gray-700 md-web:w-48 w-[150px]'>
                                 <div className="flex justify-center items-center w-full p-2 border-l border-blue-500">
                                     <select
+                                        name='select-perfil'
                                         className='w-full h-full p-2 text-sm flex items-center'
                                         value={selectedPerfisAcesso[index]}  // Use o valor do estado local
                                         onChange={(e) => handleSelectChange(index, e.target.value)}

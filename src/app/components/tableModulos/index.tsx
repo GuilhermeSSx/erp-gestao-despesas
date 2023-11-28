@@ -88,6 +88,7 @@ const TableModulos: React.FC<TableUsuariosProps> = ({ modulos, onModulosChange }
                                 <td className='flex items-center justify-center text-gray-700 w-full'>
                                     <div className="flex justify-center items-center w-full p-2 border-l border-blue-500">
                                         <select
+                                            name='modulo-acesso'
                                             className='w-full h-full p-3 text-sm flex items-center cursor-pointer'
                                             value={modulo.acesso}
                                             onChange={(e) => handleSelectChange(index, e.target.value)}
