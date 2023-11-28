@@ -1,6 +1,7 @@
-import { PlusIcon } from '@heroicons/react/20/solid';
+import { ArrowLeftIcon, PlusIcon } from '@heroicons/react/20/solid';
 import TableCentroDeCustos from '@/app/components/tableCentroDeCustos';
 import { VoltarButton } from '@/app/components/voltarButton';
+import Link from 'next/link';
 
 interface CentroCusto {
     id: number;
@@ -15,8 +16,13 @@ const centroCustos: CentroCusto[] = [
 export default function CentroDeCusto() {
     return (
         <div className="w-screen md-web:min-h-[calc(100dvh-60px)] h-[calc(100dvh-60px)] flex flex-col justify-center items-center ">
-            <VoltarButton />
-            <div className='flex flex-col w-full md:w-[40%] md:min-w-[500px] h-[80%] items-center bg-slate-100 rounded-md p-2 mt-12 md:mt-0'>
+            <Link href={'/modulos/cadastros'} title="voltar">
+                <div className='absolute left-0 md:top-16 top-20 group flex items-center md:py-8 py-1 md:px-4 px-4 mx-4 border border-transparent text-base font-medium rounded-md hover:bg-slate-200 text-slate-400'>
+                    <ArrowLeftIcon className=" h-7 w-5 text-center mx-3" aria-hidden="true" />
+                    <span className='hidden md:block'>Voltar</span>
+                </div>
+            </Link>
+            <div className='flex flex-col w-full md:w-[40%] md:min-w-[500px] h-[85%] md:h-[80%] items-center bg-slate-100 rounded-md p-2 mt-12 md:mt-0'>
                 <div className='flex flex-col w-full rounded-lg'>
                     <form className='flex justify-center'>
                         <input id='cadastrar' className='appearance-none rounded-none relative

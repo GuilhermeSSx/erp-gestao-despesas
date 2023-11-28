@@ -55,7 +55,7 @@ export default function BasicTabs() {
 
 
     return (
-        <div className='border-b border-gray-300 flex w-full justify-center box-content md-web:text-sm text-[10px] font-extrabold select-none mt-4'>
+        <div className='border-b border-gray-300 flex w-full justify-center box-content md:text-sm text-[10px] font-extrabold select-none mt-4'>
             <Link className='h-fit' draggable={false} href={{ pathname: "/configuracoes/perfil-acesso", query: { id: id_perfil_acesso, tab: 'perfil-acesso' } }}>
                 <motion.button
                     onClick={() => setValue(0)}

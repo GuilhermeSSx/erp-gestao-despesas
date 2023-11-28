@@ -3,6 +3,8 @@ import React, { useState, useRef, useEffect } from 'react';
 import TableSaida from '@/app/components/tableSaidas';
 import { motion, AnimatePresence } from "framer-motion";
 import { VoltarButton } from '@/app/components/voltarButton';
+import Link from 'next/link';
+import { ArrowLeftIcon } from '@heroicons/react/20/solid';
 
 
 interface Saida {
@@ -32,9 +34,14 @@ export default function Saidas() {
 
     return (
         <div className="w-screen md-web:min-h-[calc(100dvh-60px)] h-[calc(100dvh-60px)] flex flex-col justify-center items-center">
-            <VoltarButton />
+            <Link href={'/modulos/cadastros'} title="voltar">
+                <div className='absolute left-0 md:top-16 top-20 group flex items-center md:py-8 py-1 md:px-4 px-4 mx-4 border border-transparent text-base font-medium rounded-md hover:bg-slate-200 text-slate-400'>
+                    <ArrowLeftIcon className=" h-7 w-5 text-center mx-3" aria-hidden="true" />
+                    <span className='hidden md:block'>Voltar</span>
+                </div>
+            </Link>
 
-            <div className='flex flex-col w-full h-full md:h-[80%] items-center mt-24 md:mt-0'>
+            <div className='flex flex-col w-full h-full md:h-[80%] items-center mt-12 md:mt-0'>
                 <AnimatePresence>
                     <motion.div
                         className='flex flex-col w-full md:w-[30%] md:min-w-[500px] rounded-lg'
