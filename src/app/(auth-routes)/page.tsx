@@ -7,6 +7,8 @@ import Image from "next/image";
 import { Slide, toast } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { FcOk } from "react-icons/fc";
+import { motion } from "framer-motion";
 // import { enc, AES } from 'crypto-js'; // Importa as funções necessárias do crypto-js
 
 export default function Login() {
@@ -17,6 +19,10 @@ export default function Login() {
   const [isAuthorized, setIsAuthorized] = useState<boolean>(false);
 
   const passwordInputRef = useRef<HTMLInputElement | null>(null);
+
+  useEffect(() => {
+    console.log(isAuthorized);
+  }, [isAuthorized]);
 
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const togglePasswordVisibility = () => {
@@ -33,12 +39,6 @@ export default function Login() {
       input.setSelectionRange(length, length);
     }
   };
-
-  // Função para limpar a área de transferência
-  const handlePasswordFocus = () => {
-    navigator.clipboard.writeText('');
-  };
-
 
   const rememberMeCheckboxRef = useRef<HTMLInputElement | null>(null);
 
@@ -92,6 +92,7 @@ export default function Login() {
         theme: "light",
       });
     } else {
+      setIsAuthorized(true);
       // Se a caixa "Lembrar-me" estiver marcada, criptografa a senha e armazena no armazenamento local
       if (rememberMeCheckboxRef.current && rememberMeCheckboxRef.current.checked) {
         localStorage.setItem('rememberMe', 'true');
@@ -158,7 +159,6 @@ export default function Login() {
               value={password}
               onChange={(event) => setPassword(event.target.value)}
               ref={passwordInputRef}
-              onFocus={handlePasswordFocus}
             />
             {password && (
               <button
@@ -201,7 +201,19 @@ export default function Login() {
                   </div>
                 </div>
               ) : isAuthorized ? (
-                <span>OK</span> // Exibe OK quando autorizado
+                <motion.div 
+                  className="flex items-center"
+                  initial={{ opacity: 0, x: -60 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -20 }}
+                >
+                  <span className="text-sm text-slate-500 px-2">Autenticado</span>
+                  <div className="w-full text-center">
+                    <FcOk size={22}/>
+                    
+                    
+                  </div>
+                </motion.div>
               ) : (
                 'Entrar'
               )}
