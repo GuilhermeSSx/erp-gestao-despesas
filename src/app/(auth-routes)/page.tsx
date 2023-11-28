@@ -20,10 +20,6 @@ export default function Login() {
 
   const passwordInputRef = useRef<HTMLInputElement | null>(null);
 
-  useEffect(() => {
-    console.log(isAuthorized);
-  }, [isAuthorized]);
-
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const togglePasswordVisibility = () => {
     setIsPasswordVisible(!isPasswordVisible);
