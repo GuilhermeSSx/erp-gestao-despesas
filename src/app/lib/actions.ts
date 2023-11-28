@@ -86,7 +86,6 @@ export async function getUsuarios(): Promise<{ usuarios: Usuario[] }> {
 export const criarPerfilAcesso = async (nome_perfil_acesso: string) => {
 
     try {
-
         const response = await fetch(`${process.env.API_ENDPOINT}/user/criar-perfil-acesso`, {
             method: 'POST',
             cache: 'no-store',
