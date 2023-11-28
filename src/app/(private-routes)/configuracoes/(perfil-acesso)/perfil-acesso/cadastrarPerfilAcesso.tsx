@@ -30,22 +30,36 @@ const CadastrarPerfilAcesso = () => {
                 hideProgressBar: false,
                 closeOnClick: true,
                 pauseOnHover: true,
-                draggable: true,
+                draggable: false,
                 progress: undefined,
                 theme: "light",
             });
 
         } catch (error) {
-            toast.error('' + error, {
-                position: "bottom-left",
-                autoClose: 3200,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "light",
-            });
+            if (error instanceof Error) {
+                toast.error('' + error.message, {
+                    position: "bottom-left",
+                    autoClose: 3200,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: false,
+                    progress: undefined,
+                    theme: "light",
+                });
+            } else {
+                toast.error('Erro Desconhecido: Contate o administrador do sistema.', {
+                    position: "bottom-left",
+                    autoClose: 3200,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: false,
+                    progress: undefined,
+                    theme: "light",
+                });
+            }
+
         } finally {
             setLoading(false); // Finalizar carregamento
         }
