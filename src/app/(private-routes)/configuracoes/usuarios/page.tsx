@@ -25,7 +25,7 @@ export default async function Usuarios() {
 
             {/* Selecionar Usuario, remover, Permissoes */}
             <div className='flex flex-col w-full h-full md:w-[32%] bg-slate-200 md:min-w-[500px] p-2 md:p-3 rounded-lg md:mt-2'>
-                <h1 className='font-bold  text-center mt-2 select-none'>Selecionar Usuarios</h1>
+                <h1 className='font-bold  text-center mt-2 select-none'>Usuarios e Permissões</h1>
                 <div className='flex justify-center mt-4 text-black w-full'>
                     <input
                         // ref={searchInputRef}

@@ -59,7 +59,7 @@ const CadastrarUsuario = () => {
                         </button>
                     ) : (
                         <button
-                            className='group relative items-center w-full flex justify-center py-2 px-2 border border-transparent text-sm font-medium rounded-md bg-red-500 text-gray-500 hover:scale-[1.02] duration-200 cursor-not-allowed select-none outline-none'
+                            className='group relative items-center w-full flex justify-center py-2 px-2 border border-transparent text-sm font-medium rounded-md bg-slate-100 text-gray-500 hover:scale-[1.02] duration-200 cursor-not-allowed select-none outline-none'
                         >
                             Excluir
                         </button>
