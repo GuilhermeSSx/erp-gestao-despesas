@@ -47,7 +47,7 @@ const CadastrarUsuario = () => {
     return (
         <>
             <div className='flex justify-center items-center rounded w-full h-fit'>
-                <div className='flex justify-between rounded-lg my-2 w-full'>
+                <div className='flex justify-between rounded-lg my-[6px] w-full'>
                     {selectedUsuario ? (
                         <button
                             onClick={() => abrirPopupExcluirUsuario(selectedUsuario ? selectedUsuario.id : 0)}
@@ -76,12 +76,12 @@ const CadastrarUsuario = () => {
 
                 </div>
             </div>
-            <div className='flex justify-between rounded-lg md:my-1 my-1 w-full md:w-full'>
+            <div className='flex justify-between rounded-lg w-full md:w-full'>
                 <div className='group relative flex-1'>
                     <div className='absolute -inset-1 rounded-lg bg-gradient-to-r from-lime-500 via-gray-200 to-gray-400 opacity-30 blur transition duration-500 group-hover:opacity-100'></div>
                     <button
                         onClick={abrirPopupCriarUsuario}
-                        className='shadow-lg w-full relative bg-lime-300 rounded-lg  px-7 py-3 text-black select-none outline-none'
+                        className='shadow-lg w-full relative bg-lime-300 rounded-lg  px-7 py-2 text-black select-none outline-none'
                     >
                         Cadastrar
                     </button>
