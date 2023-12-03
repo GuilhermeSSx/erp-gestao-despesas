@@ -101,7 +101,25 @@ export const excluirPerfilAcesso = async (id_perfil_acesso: number) => {
 export async function getUsuarios(): Promise<{ usuarios: Usuario[] }> {
     // Configurando fetch para não armazenar cache
     const res = await fetch(`${process.env.API_ENDPOINT}/user/get-users`, {
-        cache: 'no-store'
+        cache: 'no-store',
+    });
+
+    if (!res.ok) {
+        throw new Error('Failed to fetch data');
+    }
+
+    return res.json();
+}
+
+export async function getUsuariosFiltrados(search: string): Promise<{ usuarios_filtrados: Usuario[] }> {
+    // Configurando fetch para não armazenar cache
+    const res = await fetch(`${process.env.API_ENDPOINT}/user/get-usuario-filtrado`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        cache: 'no-store',
+        body: JSON.stringify({ search }),
     });
 
     if (!res.ok) {

@@ -170,7 +170,7 @@ export default function Favorecidos() {
                             onClick={abrirPopupCriarTipoFav}
                             title="Criar Favorecido" className='mt-2 group relative w-full flex justify-center py-2 px-4 border border-transparent
                                     text-base rounded-md bg-emerald-500 hover:bg-emerald-600 text-lime-100 items-center '>
-                            Cadastrar tipo de Favorecido
+                            Novo tipo de Favorecido
                             <PlusIcon
                                 className="h-8 w-6 text-center"
                                 aria-hidden="true"

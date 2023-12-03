@@ -2,6 +2,7 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 
 import { useUsuario } from '@/app/contexts/UsuarioContext';
+import { getUsuariosFiltrados } from '@/app/lib/actions';
 
 interface Usuario {
     id: number;
