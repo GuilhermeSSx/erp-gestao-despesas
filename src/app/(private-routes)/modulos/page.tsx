@@ -1,6 +1,7 @@
 "use client"
 import Link from 'next/link';
 import React, { useState, useEffect, useRef } from 'react';
+import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
 
 interface Option {
   nome: string;
@@ -45,17 +46,18 @@ const Modulos: React.FC = () => {
       <div
         className='md:p-8 py-4 px-3 md:min-w-[500px] lg-1920:w-[30%] md:w-[40%] w-full h-full md:h-[80%] md-web:my-8 my-2 bg-[#4b4b4b2d] rounded-xl flex flex-col items-center shadow-2xl'
       >
-        <h1 className='text-[1.5rem] font-extrabold text-black select-none'>Lista de Módulos</h1>
-        <div className='flex justify-center mt-[0.7rem] text-black w-full'>
+        <h1 className='text-lg md:text-[1.2rem] font-extrabold text-black select-none'>Lista de Módulos</h1>
+        <div className='relative flex flex-1 flex-shrink-0 mt-[0.8rem] w-full'>
           <input
             id='pesquisar'
             ref={searchInputRef}
-            className='appearance-none rounded-none relative block border w-full px-4 py-2 rounded-t-md'
+            className='peer block w-full rounded-md border border-gray-200 py-[9px] pl-10 text-sm outline-2 placeholder:text-gray-500 text-black'
             type='text'
             placeholder='Pesquisar Módulos'
             value={searchInput}
             onChange={handleSearchChange}
           />
+          <MagnifyingGlassIcon className="absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
         </div>
         <div className="border mt-2 w-full " />
         <div className='mt-4 w-full h-full overflow-y-scroll flex justify-center my-2 divide-y bg-[#69646410] rounded-lg'>

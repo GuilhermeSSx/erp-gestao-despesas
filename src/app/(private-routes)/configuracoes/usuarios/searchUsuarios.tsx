@@ -25,7 +25,7 @@ export default function SearchUsuarios({ placeholder }: { placeholder: string })
     }, 600);
 
     return (
-        <div className="relative flex flex-1 flex-shrink-0 mt-3 select-none">
+        <div className="relative flex flex-1 flex-shrink-0 mt-4 select-none">
 
             <input
                 id='search'
@@ -37,6 +37,7 @@ export default function SearchUsuarios({ placeholder }: { placeholder: string })
                 }}
                 defaultValue={searchParams.get('search')?.toString()}
                 maxLength={40}
+                autoComplete="off"
             />
             <MagnifyingGlassIcon className="absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
         </div>

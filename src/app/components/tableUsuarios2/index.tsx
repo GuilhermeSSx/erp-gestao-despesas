@@ -51,8 +51,8 @@ const TableUsuarios2: React.FC<TableUsuariosProps> = React.memo(({ usuarios, per
             <table className="w-full h-fit select-none">
                 <thead className="bg-gray-50 border-b-2 border-gray-200 sticky top-0">
                     <tr className='divide-x divide-gray-300'>
-                        <th className="p-3 text-sm font-bold tracking-wide text-left">Usuário</th>
-                        <th className="p-3 text-sm font-bold tracking-wide text-left">Perfil de Acesso</th>
+                        <th className="p-3 text-xs font-bold tracking-wide text-left">Usuário</th>
+                        <th className="p-3 text-xs font-bold tracking-wide text-left">Perfil de Acesso</th>
                     </tr>
                 </thead>
                 <tbody className="divide-y-2 divide-blue-100">
@@ -62,20 +62,20 @@ const TableUsuarios2: React.FC<TableUsuariosProps> = React.memo(({ usuarios, per
                             className={` hover:bg-slate-300 cursor-pointer ${selectedItemIndex === index ? 'bg-selecaoLinha' : 'bg-white'}`}
                             onClick={() => handleRowClick(usuario, index)}
                         >
-                            <td className="w-full p-2 px-4 text-xs font-semibold text-gray-700 whitespace-nowrap">
+                            <td className="w-full p-2 px-4 text-gray-700 whitespace-nowrap">
                                 <div>
                                     <h1 className='font-bold text-sm'>{usuario.name}</h1>
                                 </div>
                                 <div>
-                                    <h2 className='font-semibold text-gray-500'>{usuario.email}</h2>
+                                    <h2 className='font-semibold text-gray-500 text-xs'>{usuario.email}</h2>
                                 </div>
 
                             </td>
-                            <td className='flex items-center justify-center text-gray-700 md-web:w-48 w-[150px]'>
+                            <td className='flex items-center justify-center text-gray-700 md-web:w-48 w-[132px]'>
                                 <div className="flex justify-center items-center w-full p-2 border-l border-blue-500">
                                     <select
                                         name='select-perfil'
-                                        className='w-full h-full p-2 text-sm flex items-center'
+                                        className='w-full p-2 text-xs md:text-sm flex items-center'
                                         value={selectedPerfisAcesso[index]}  // Use o valor do estado local
                                         onChange={(e) => handleSelectChange(index, e.target.value)}
                                     >
