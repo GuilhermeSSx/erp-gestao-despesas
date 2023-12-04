@@ -28,13 +28,6 @@ interface Funcionalidade {
     id_funcionalidade_acesso?: number;
 }
 
-interface formData{
-    name: '',
-    email: '',
-    password: '',
-    role: 'convidado'
-};
-
 export async function getPerfilAcessos(): Promise<{ perfil_acessos: PerfilAcesso[] }> {
     // Configurando fetch para não armazenar cache
     const res = await fetch(`${process.env.API_ENDPOINT}/user/get-perfil-acessos`, {
@@ -52,7 +45,7 @@ export async function getPerfilAcessos(): Promise<{ perfil_acessos: PerfilAcesso
 
 export const excluirUsuario = async (id: number) => {
     try {
-        const response = await fetch(`https://jpnr-gestao-sqlserver.vercel.app/user/delete-user/${id}`, {
+        const response = await fetch(`${process.env.API_ENDPOINT}/user/delete-user/${id}`, {
             method: 'DELETE',
             cache: 'no-store',
             headers: {
@@ -198,7 +191,6 @@ export const getModulosAcesso = async (id_perfil_acesso: number) => {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({ id_perfil_acesso: id_perfil_acesso }),
-
         });
 
         if (!response.ok) {
@@ -248,7 +240,7 @@ export const updateModulosAcesso = async (modulos: Modulo[]) => {
         const idModuloAcessoList = modulos.map((modulo) => modulo.id_modulo_acesso).join(',');
         const acessoList = modulos.map((modulo) => modulo.acesso).join(',');
 
-        const response = await fetch('https://jpnr-gestao-sqlserver.vercel.app/user/update-acesso-modulo', {
+        const response = await fetch(`${process.env.API_ENDPOINT}/user/update-acesso-modulo`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -275,7 +267,7 @@ export const updateFuncionalidadesAcesso = async (funcionalidades: Funcionalidad
         const idFuncionalidadeAcessoList = funcionalidades.map((funcionalidade) => funcionalidade.id_funcionalidade_acesso).join(',');
         const acessoList = funcionalidades.map((funcionalidade) => funcionalidade.acesso).join(',');
 
-        const response = await fetch('https://jpnr-gestao-sqlserver.vercel.app/user/update-acesso-funcionalidade', {
+        const response = await fetch(`${process.env.API_ENDPOINT}/user/update-acesso-funcionalidade`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -293,6 +285,30 @@ export const updateFuncionalidadesAcesso = async (funcionalidades: Funcionalidad
         }
     } catch (error) {
         console.error('Erro ao atualizar os acessos:', error);
+    }
+};
+
+export const carregarSelecaoPerfilAcesso = async () => {
+
+    try {
+        const response = await fetch(`${process.env.API_ENDPOINT}/user/get-perfil-acessos`, {
+            method: 'GET',
+            cache: 'no-store',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+
+        if (response.ok) {
+            const data = await response.json();
+
+            // console.log(data);
+            return data.perfil_acessos;
+
+        }
+
+    } catch (error) {
+        console.error('Erro:', error);
     }
 };
 

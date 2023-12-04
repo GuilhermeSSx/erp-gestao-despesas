@@ -10,8 +10,10 @@ export const nextAuthOptions: NextAuthOptions = {
 				password: { label: 'password', type: 'password' }
 			},
 
+
+
 			async authorize(credentials, req) {
-				const response = await fetch('https://jpnr-gestao-sqlserver.vercel.app/user/sign-in', {
+				const response = await fetch(`${process.env.API_ENDPOINT}/user/sign-in`, {
 					method: 'POST',
 					headers: {
 						'Content-type': 'application/json'

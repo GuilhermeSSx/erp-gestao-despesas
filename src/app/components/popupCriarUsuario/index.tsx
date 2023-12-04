@@ -3,9 +3,7 @@ import { Dialog } from '@headlessui/react';
 import { motion } from "framer-motion";
 import { toast } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
-import { carregarSelecaoPerfilAcesso } from '../../lib/apiRequests';
-
-import { criarUsuario } from '@/app/lib/actions';
+import { carregarSelecaoPerfilAcesso, criarUsuario } from '@/app/lib/actions';
 
 interface PerfilAcesso {
     id_perfil_acesso: number;
@@ -27,6 +25,7 @@ const PopupCriarUsuario: React.FC<PopupProps> = ({ open, onClose }) => {
         const fetchData = async () => {
             try {
                 const data = await carregarSelecaoPerfilAcesso();
+                console.log(data);
                 setPerfilAcessos(data);
             } catch (error) {
                 console.error(error);

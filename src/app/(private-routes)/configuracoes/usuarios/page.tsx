@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { ArrowLeftIcon } from '@heroicons/react/20/solid';
-import TableUsuarios2 from '@/app/components/tableUsuarios2';
-import { getUsuarios, getPerfilAcessos, getUsuariosFiltrados } from '@/app/lib/actions';
+import TableUsuarios from '@/app/components/tableUsuarios';
+import { getPerfilAcessos, getUsuariosFiltrados } from '@/app/lib/actions';
 import CadastrarUsuario from './cadastrarUsuario';
 import { UsuarioProvider } from '@/app/contexts/UsuarioContext';
 import SearchUsuarios from './searchUsuarios';
@@ -30,7 +30,7 @@ export default async function Usuarios( {searchParams}: {searchParams: {search: 
                 <SearchUsuarios placeholder='Pesquisar usuarios [nome e email]...' />
 
                 <UsuarioProvider>
-                    <TableUsuarios2 usuarios={usuarios} perfil_acessos={perfilAcessos} />
+                    <TableUsuarios usuarios={usuarios} perfil_acessos={perfilAcessos} />
                     <CadastrarUsuario />
                 </UsuarioProvider>
 
