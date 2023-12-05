@@ -1,18 +1,19 @@
 import Link from 'next/link';
 import { ArrowLeftIcon } from '@heroicons/react/20/solid';
 import TableUsuarios from '@/app/components/tableUsuarios';
-import { getPerfilAcessos, getUsuariosFiltrados } from '@/app/lib/actions';
+import { carregarSelecaoPerfilAcesso, getPerfilAcessos, getUsuariosFiltrados, updateUsuarioRoleId } from '@/app/lib/actions';
 import CadastrarUsuario from './cadastrarUsuario';
 import { UsuarioProvider } from '@/app/contexts/UsuarioContext';
 import SearchUsuarios from './searchUsuarios';
+
 
 export default async function Usuarios( {searchParams}: {searchParams: {search: string}} ) {
 
     const usuariosFiltrados = await getUsuariosFiltrados(searchParams.search? searchParams.search : '');
     const usuarios = usuariosFiltrados.usuarios_filtrados;
 
-    const dataPerfilAcessos = await getPerfilAcessos();
-    const perfilAcessos = dataPerfilAcessos.perfil_acessos;  // Extraia apenas o array
+    const dataPerfilAcessos = await carregarSelecaoPerfilAcesso();
+    const perfilAcessos = dataPerfilAcessos;
 
     return (
         <main className='flex md-web:min-h-[calc(100dvh-60px)] h-[calc(100dvh-60px)] flex-col justify-center items-center md:p-4 p-1'>

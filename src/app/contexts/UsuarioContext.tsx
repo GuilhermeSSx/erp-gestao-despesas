@@ -5,7 +5,7 @@ interface Usuario {
     id: number;
     name: string;
     email: string;
-    role: string;
+    role_id: string;
 }
 
 // Definindo a estrutura do contexto

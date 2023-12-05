@@ -6,7 +6,7 @@ interface Usuario {
     id: number;
     name: string;
     email: string;
-    role: string;
+    role_id: string;
 }
 
 interface PerfilAcesso {
@@ -122,8 +122,7 @@ export async function getUsuariosFiltrados(search: string): Promise<{ usuarios_f
     return res.json();
 }
 
-export const criarUsuario = async (name: string, email: string, password: string, role: string) => {
-
+export const criarUsuario = async (name: string, email: string, password: string, role_id: string) => {
     try {
         const response = await fetch(`${process.env.API_ENDPOINT}/user/sign-up`, {
             method: 'POST',
@@ -131,9 +130,11 @@ export const criarUsuario = async (name: string, email: string, password: string
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ name, email, password, role }),
+            body: JSON.stringify({ name, email, password, role_id }),
 
         });
+
+        
 
         if (response.status === 200) {
             revalidatePath('/configuracoes/usuarios');
@@ -165,6 +166,8 @@ export const criarPerfilAcesso = async (nome_perfil_acesso: string) => {
 
         if (response.status === 200) {
             revalidatePath('/configuracoes/perfis-acessos');
+        } else if(response.status === 403) {
+            throw new Error('Esse é um perfil de acesso padrão do sistema, escolha outro nome');
         } else if(response.status === 400) {
             throw new Error('Ja existe um perfil de acesso com este nome.');
         } else {
@@ -291,7 +294,7 @@ export const updateFuncionalidadesAcesso = async (funcionalidades: Funcionalidad
 export const carregarSelecaoPerfilAcesso = async () => {
 
     try {
-        const response = await fetch(`${process.env.API_ENDPOINT}/user/get-perfil-acessos`, {
+        const response = await fetch(`${process.env.API_ENDPOINT}/user/get-perfil-acessos-usuario`, {
             method: 'GET',
             cache: 'no-store',
             headers: {
@@ -312,5 +315,24 @@ export const carregarSelecaoPerfilAcesso = async () => {
     }
 };
 
+export const updateUsuarioRoleId = async (id_usuario: number, role_id: string) => {
+    try {
+        const response = await fetch(`${process.env.API_ENDPOINT}/user/update-usuario-role`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ id_usuario, role_id }),
+        });
+
+        if (response.ok) {
+            revalidatePath('/configuracoes/usuarios');
+        } else {
+            throw new Error('Failed to fetch data');
+        }
+    } catch (error) {
+        console.error('Erro ao atualizar os perfil de acesso ao usuario:', error);
+    }
+};
 
 

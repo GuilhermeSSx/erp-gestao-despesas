@@ -16,7 +16,7 @@ export default async function Funcionalidades( {searchParams}: {searchParams: {i
 
     return (
         <div className="w-full flex md-web:min-h-[calc(100dvh-131px)] h-[calc(100dvh-131px)] justify-center items-center bg-slate-50 rounded-lg">
-            <div className="w-full h-full md-1190:mx-[22rem] mx-1 py-8">
+            <div className="w-full h-full md:w-[40%] md:min-w-[500px] mx-1 py-8">
                 <TableFuncionalidades funcionalidades={funcionalidadesAcessos} onFuncionalidadesChange={updateFuncionalidadesAcesso} />
             </div>
         </div>

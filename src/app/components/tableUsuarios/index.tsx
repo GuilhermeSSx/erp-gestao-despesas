@@ -1,13 +1,14 @@
 "use client";
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 
 import { useUsuario } from '@/app/contexts/UsuarioContext';
+import { updateUsuarioRoleId } from '@/app/lib/actions';
 
 interface Usuario {
     id: number;
     name: string;
     email: string;
-    role: string;
+    role_id: string;
 }
 
 interface PerfilAcesso {
@@ -29,20 +30,24 @@ const TableUsuarios: React.FC<TableUsuariosProps> = React.memo(({ usuarios, perf
     const handleRowClick = useCallback((usuario: Usuario, index: number) => {
         setSelectedItemIndex(index);
         setSelectedUsuario(usuario);
-        // console.log('Row clicked:', usuario);
+        //console.log('Row clicked:', usuario);
     }, []);
 
     const [selectedPerfisAcesso, setSelectedPerfisAcesso] = useState<string[]>([]);
 
-    const handleSelectChange = (index: number, newPerfilAcesso: string) => {
+    const handleSelectChange = (index: number, newRoleId: string) => {
         const updatedSelectedPerfisAcesso = [...selectedPerfisAcesso];
-        updatedSelectedPerfisAcesso[index] = newPerfilAcesso;
+        updatedSelectedPerfisAcesso[index] = newRoleId;
         setSelectedPerfisAcesso(updatedSelectedPerfisAcesso); // Atualize o estado
+        // console.log(usuarios[index].id, newRoleId);
+        updateUsuarioRoleId(usuarios[index].id, newRoleId);
     };
 
     useEffect(() => {
         // Inicialize o estado selectedPerfisAcesso com os perfis de acesso atuais dos usuários
-        setSelectedPerfisAcesso(usuarios.map((usuario) => usuario.role));
+
+        setSelectedPerfisAcesso(usuarios.map((usuario) => usuario.role_id));
+        // console.log(selectedPerfisAcesso);
     }, [usuarios]);
 
     return (
@@ -75,13 +80,13 @@ const TableUsuarios: React.FC<TableUsuariosProps> = React.memo(({ usuarios, perf
                                     <select
                                         name='select-perfil'
                                         className='w-full p-2 text-xs md:text-sm flex items-center'
-                                        value={selectedPerfisAcesso[index]}  // Use o valor do estado local
+                                        value={usuario.role_id}  // Use o valor do estado local
                                         onChange={(e) => handleSelectChange(index, e.target.value)}
                                     >
                                         {perfil_acessos.map((perfil_acesso) => (
                                             <option
                                                 key={perfil_acesso.id_perfil_acesso}
-                                                value={perfil_acesso.nome_perfil_acesso}
+                                                value={perfil_acesso.id_perfil_acesso}
                                             >
                                                 {perfil_acesso.nome_perfil_acesso}
                                             </option>

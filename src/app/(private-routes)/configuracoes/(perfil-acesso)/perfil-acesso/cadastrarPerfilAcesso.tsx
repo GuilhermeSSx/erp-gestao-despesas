@@ -77,7 +77,7 @@ const CadastrarPerfilAcesso = () => {
                     required
                     onChange={handleChange}
                     maxLength={15}
-                    minLength={4}
+                    minLength={2}
                 />
             </div>
 

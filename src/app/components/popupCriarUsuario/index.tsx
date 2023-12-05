@@ -25,7 +25,6 @@ const PopupCriarUsuario: React.FC<PopupProps> = ({ open, onClose }) => {
         const fetchData = async () => {
             try {
                 const data = await carregarSelecaoPerfilAcesso();
-                console.log(data);
                 setPerfilAcessos(data);
             } catch (error) {
                 console.error(error);
@@ -41,7 +40,7 @@ const PopupCriarUsuario: React.FC<PopupProps> = ({ open, onClose }) => {
         name: '',
         email: '',
         password: '',
-        role: 'convidado'
+        role_id: '2'
     });
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -60,7 +59,7 @@ const PopupCriarUsuario: React.FC<PopupProps> = ({ open, onClose }) => {
         setLoading(true); // Iniciar carregamento
 
         try {
-            await criarUsuario(formData.name, formData.email, formData.password, formData.role);
+            await criarUsuario(formData.name, formData.email, formData.password, formData.role_id);
 
             toast.success('Usuario: ' + formData.name + ' criado com sucesso!', {
                 position: "bottom-left",
@@ -133,7 +132,7 @@ const PopupCriarUsuario: React.FC<PopupProps> = ({ open, onClose }) => {
                                 <input
                                     name='name'
                                     type='text'
-                                    autoComplete='new-name'
+                                    autoComplete='off'
                                     required
                                     className='appearance-none rounded-none relative block border w-full px-3 py-2 mt-6 rounded-t-md'
                                     placeholder='Nome'
@@ -169,16 +168,15 @@ const PopupCriarUsuario: React.FC<PopupProps> = ({ open, onClose }) => {
                             </div>
 
                             <select
-                                name='role'
+                                name='role_id'
                                 onChange={handleSelectChange}
-                                value={formData.role}
+                                value={formData.role_id}
                                 className='appearance-none rounded-none relative block border w-full px-3 py-2 mt-4 rounded-t-md'
                             >
-                                <option value="convidado">Convidado</option>
                                 {perfilAcessos.map((perfil_acesso) => (
                                     <option
                                         key={perfil_acesso.id_perfil_acesso}
-                                        value={perfil_acesso.nome_perfil_acesso}
+                                        value={perfil_acesso.id_perfil_acesso}
                                     >
                                         {perfil_acesso.nome_perfil_acesso}
                                     </option>

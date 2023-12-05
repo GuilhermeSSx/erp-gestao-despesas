@@ -56,7 +56,7 @@ export const nextAuthOptions: NextAuthOptions = {
 		},
 	},
 	session: {
-		// Defina a duração da sessão em segundos (por exemplo, 1 hora)
-		maxAge: 28800,
+		// Defina a duração da sessão em segundos
+		maxAge: 14400,
 	},
 }

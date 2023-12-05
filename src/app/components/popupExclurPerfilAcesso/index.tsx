@@ -82,9 +82,12 @@ const PopupExcluirPerfilAcesso: React.FC<PopupProps> = ({ open, onClose, id_perf
                 <div className='sm:w-[60%] md:w-[30%] w-full h-76 items-center bg-white z-20 p-3 rounded-xl'>
                     <div className='rounded-lg w-full p-1 '>
                         <h2 className="text-xl font-bold text-center">Deseja Excluir?</h2>
+                        
                         <div className="border mt-4" />
                         <h2 className="mt-3 text-base font-bold text-center">{nome_perfil_acesso}, {id_perfil_acesso}</h2>
                     </div>
+
+                    <span className='text-center text-sm flex p-3'>Aviso: caso tenha algum usuario que esteja utilizando este perfil de acesso, será atualizado para sem acesso!</span>
 
                     <div className='flex justify-between mt-4'>
                         <button

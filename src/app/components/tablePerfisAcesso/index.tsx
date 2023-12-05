@@ -1,3 +1,4 @@
+"use client"
 import Link from 'next/link';
 import React, { useState, useRef } from 'react';
 import PopupExcluirPerfilAcesso from '../popupExclurPerfilAcesso';
@@ -10,11 +11,10 @@ interface PerfilAcesso {
 
 interface TablePerfisAcessosProps {
     perfisAcessos: PerfilAcesso[];
-    onPefilAcessoSelected: (perfilAcesso: PerfilAcesso) => void;
-    getPerfilAcessos: () => void;
+    // getPerfilAcesso: () => void;
 }
 
-const TablePerfisAcesso: React.FC<TablePerfisAcessosProps> = ({ perfisAcessos, onPefilAcessoSelected, getPerfilAcessos }) => {
+const TablePerfisAcesso: React.FC<TablePerfisAcessosProps> = ({ perfisAcessos }) => {
     const [selectedItemIndex, setSelectedItemIndex] = useState<number | null>(null);
     const [selectedItem, setSelectedItem] = useState<PerfilAcesso | null>(null);
     const [itemToBeRemoved, setItemToBeRemoved] = useState<PerfilAcesso | null>(null);
@@ -36,7 +36,7 @@ const TablePerfisAcesso: React.FC<TablePerfisAcessosProps> = ({ perfisAcessos, o
     };
 
     return (
-        <div className='rounded-lg border h-full w-[100%] overflow-y-scroll mt-2 bg-white'>
+        <div className='rounded-lg border h-full w-[100%] overflow-y-scroll mt-4 bg-white'>
             <table className="w-full h-fit select-none" ref={tableRef}>
                 <thead className="bg-gray-50 border-b-2 border-gray-200 sticky top-0">
                     <tr className='divide-x divide-gray-300'>
@@ -55,6 +55,7 @@ const TablePerfisAcesso: React.FC<TablePerfisAcessosProps> = ({ perfisAcessos, o
                             <td className='text-sm text-gray-700 whitespace-nowrap h-[46px] px-1 justify-evenly items-center select-none'>
                                 <div className='flex justify-evenly items-center'>
                                     <Link
+                                        draggable={false}
                                         href={{
                                             pathname: "/configuracoes/perfil-acesso",
                                             query: {
@@ -62,13 +63,14 @@ const TablePerfisAcesso: React.FC<TablePerfisAcessosProps> = ({ perfisAcessos, o
                                             },
                                         }}
                                         className={`w-[50%] h-[38px] flex items-center justify-center border border-transparent
-                                        text-sm rounded-md ${id_perfil_acessoNumber === perfilAcesso.id_perfil_acesso ? 'bg-green-400' : 'bg-blue-400'} hover:bg-blue-300`}
+                                        text-xs rounded-md ${id_perfil_acessoNumber === perfilAcesso.id_perfil_acesso ? 'bg-green-400' : 'bg-blue-300'} hover:bg-green-500`}
+                                        style={{ WebkitTapHighlightColor: 'transparent' }}
                                     >
                                         {id_perfil_acessoNumber === perfilAcesso.id_perfil_acesso ? 'Selecionado' : 'Selecionar'}
                                     </Link>
                                     <button
                                         className='w-[48%] h-[38px] flex items-center justify-center border border-transparent
-                                        text-sm rounded-md bg-red-300 hover-bg-red-400'
+                                        text-xs rounded-md bg-red-300 hover:bg-red-400'
                                         onClick={(e) => {
                                             e.stopPropagation();
                                             abrirPopupExcluirPerfilAcesso(perfilAcesso);
@@ -87,7 +89,6 @@ const TablePerfisAcesso: React.FC<TablePerfisAcessosProps> = ({ perfisAcessos, o
                 onClose={fecharPopupExcluirPerfilAcesso}
                 id_perfil_acesso={itemToBeRemoved ? itemToBeRemoved.id_perfil_acesso : 0}
                 nome_perfil_acesso={itemToBeRemoved ? itemToBeRemoved.nome_perfil_acesso : ''}
-                // getPerfilAcessos={getPerfilAcessos}
             />
         </div>
     );
