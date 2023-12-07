@@ -39,7 +39,13 @@ export const nextAuthOptions: NextAuthOptions = {
 		signIn: '/'
 	},
 	callbacks: {
-		async jwt({ token, user }) {
+		async jwt({ token, user, trigger, session }) {
+
+			//QUERO ATUALIZAR A SESSÃO
+			if(trigger === 'update') {
+				return {...token, ...session.user}
+			}
+
 			if (user) {
 				token.user = user;
 			}

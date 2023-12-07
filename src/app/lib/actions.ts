@@ -108,10 +108,11 @@ export async function getUsuariosFiltrados(search: string): Promise<{ usuarios_f
     // Configurando fetch para não armazenar cache
     const res = await fetch(`${process.env.API_ENDPOINT}/user/get-usuario-filtrado`, {
         method: 'POST',
+        cache: 'no-store',
         headers: {
             'Content-Type': 'application/json'
         },
-        cache: 'no-store',
+        
         body: JSON.stringify({ search }),
     });
 
@@ -333,6 +334,34 @@ export const updateUsuarioRoleId = async (id_usuario: number, role_id: string) =
     } catch (error) {
         console.error('Erro ao atualizar os perfil de acesso ao usuario:', error);
     }
+};
+
+export const consultarRoleIdUsuario = async (user_id: number) => {
+
+    try {
+
+        const response = await fetch(`${process.env.API_ENDPOINT}/user/consultar-role-id`, {
+            method: 'POST',
+            cache: 'no-store',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ user_id }),
+
+        });
+
+        if (!response.ok) {
+            throw new Error('Não foi encontrado o id nenhum role id neste usuario.');
+        }
+
+        return response.json();
+
+    } catch (error) {
+        console.error('Erro:', error);
+        throw error;
+        // Handle error if necessary
+    }
+
 };
 
 

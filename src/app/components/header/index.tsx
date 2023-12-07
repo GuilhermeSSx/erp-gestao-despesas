@@ -41,7 +41,7 @@ export default function Header() {
                     className="flex bg-black w-full h-[60px] p-[10px] sticky top-0 z-50 select-none">
 
                     <DrawerOpenClose />
-                    
+
                     <div className="flex items-center mx-4">
 
                         {session ? (

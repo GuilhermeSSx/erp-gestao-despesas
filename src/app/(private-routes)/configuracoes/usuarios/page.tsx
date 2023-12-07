@@ -6,7 +6,6 @@ import CadastrarUsuario from './cadastrarUsuario';
 import { UsuarioProvider } from '@/app/contexts/UsuarioContext';
 import SearchUsuarios from './searchUsuarios';
 
-
 export default async function Usuarios( {searchParams}: {searchParams: {search: string}} ) {
 
     const usuariosFiltrados = await getUsuariosFiltrados(searchParams.search? searchParams.search : '');

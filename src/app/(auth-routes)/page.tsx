@@ -110,10 +110,11 @@ export default function Login() {
         autoClose: 1500,
         hideProgressBar: false,
         closeOnClick: true,
+        pauseOnHover: true,
         draggable: false,
         progress: undefined,
         theme: "dark",
-        className: "mt-[50px]"
+        className: "mt-[52px]"
       });
       setErrorMessage(null);
     }
