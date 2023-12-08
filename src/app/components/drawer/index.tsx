@@ -5,8 +5,14 @@ import { Menu } from "@headlessui/react";
 import Link from "next/link";
 import { usePathname } from 'next/navigation';
 import clsx from 'clsx';
+import { useSession } from "next-auth/react"
+
 
 function DrawerOpenClose() {
+    const { data: session } = useSession()
+
+    const role_id = session?.user?.role_id;
+
     const [isOpen, setIsOpen] = useState(false);
     const drawerRef = useRef<HTMLDivElement | null>(null);
     const pathname = usePathname();
@@ -97,7 +103,7 @@ function DrawerOpenClose() {
                                             <Link
                                                 draggable={false}
                                                 onClick={toggleDrawer}
-                                                className={linkClassName("/modulos/lancamentos")} 
+                                                className={linkClassName("/modulos/lancamentos")}
                                                 href="/modulos/lancamentos"
                                             >
                                                 Lançamentos
@@ -106,35 +112,43 @@ function DrawerOpenClose() {
                                     </Menu.Items>
                                 </Menu>
 
-                                <Menu as="div" className="relative p-3 bg-[#6964643d]">
-                                    <Menu.Button className="relative z-24 inline-flex w-full justify-between rounded-md bg-white bg-opacity-30 px-4 py-[10px] text-sm font-medium text-white hover:bg-opacity-80 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-90">
-                                        <span className="md-web:flex text-black font-bold text-base">Configurações</span>
-                                        <ChevronDownIcon className="ml-2 -mr-1 h-5 w-5 text-black hover:text-[#CE466F]" aria-hidden="true" />
-                                    </Menu.Button>
+                                {role_id === 1 ?
+                                    <Menu as="div" className="relative p-3 bg-[#6964643d]">
+                                        <Menu.Button className="relative z-24 inline-flex w-full justify-between rounded-md bg-white bg-opacity-30 px-4 py-[10px] text-sm font-medium text-white hover:bg-opacity-80 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-90">
+                                            <span className="md-web:flex text-black font-bold text-base">Configurações</span>
+                                            <ChevronDownIcon className="ml-2 -mr-1 h-5 w-5 text-black hover:text-[#CE466F]" aria-hidden="true" />
+                                        </Menu.Button>
 
-                                    <Menu.Items className="right-0 mt-2 w-full origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                                        <Menu.Item as="div">
-                                            <Link
-                                                draggable={false}
-                                                onClick={toggleDrawer}
-                                                className={linkClassName("/configuracoes/usuarios")}
-                                                href="/configuracoes/usuarios"
-                                            >
-                                                Usuários
-                                            </Link>
-                                        </Menu.Item>
-                                        <Menu.Item as="div" >
-                                            <Link
-                                                draggable={false}
-                                                onClick={toggleDrawer}
-                                                className={linkClassName("/configuracoes/perfil-acesso")}
-                                                href="/configuracoes/perfil-acesso"
-                                            >
-                                                Perfil de Acesso
-                                            </Link>
-                                        </Menu.Item>
-                                    </Menu.Items>
-                                </Menu>
+                                        <Menu.Items className="right-0 mt-2 w-full origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                                            <Menu.Item as="div">
+                                                <Link
+                                                    draggable={false}
+                                                    onClick={toggleDrawer}
+                                                    className={linkClassName("/configuracoes/usuarios")}
+                                                    href="/configuracoes/usuarios"
+                                                >
+                                                    Usuários
+                                                </Link>
+                                            </Menu.Item>
+                                            <Menu.Item as="div" >
+                                                <Link
+                                                    draggable={false}
+                                                    onClick={toggleDrawer}
+                                                    className={linkClassName("/configuracoes/perfil-acesso")}
+                                                    href="/configuracoes/perfil-acesso"
+                                                >
+                                                    Perfil de Acesso
+                                                </Link>
+                                            </Menu.Item>
+                                        </Menu.Items>
+                                    </Menu>
+
+
+                                    : null
+                                }
+
+
+
                             </div>
                         </motion.div>
                     </>

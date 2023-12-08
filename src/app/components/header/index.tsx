@@ -25,35 +25,26 @@ export default function Header() {
         window.location.reload(); // Recarrega a página após o redirecionamento
     }
 
+
     // @ts-ignore
     const user = session?.user?.name;
-
-
 
     return (
         <>
             <AnimatePresence>
                 <motion.header
-                    initial={{ opacity: 0, y: -50 }}
-                    transition={{ type: "tween", duration: 0.5 }}
-                    animate={{ opacity: 1, y: 0, }}
-                    exit={{ opacity: 0, y: -400 }}
+                    // initial={{ opacity: 0, y: -50 }}
+                    // transition={{ type: "tween", duration: 0.2 }}
+                    // animate={{ opacity: 1, y: 0, }}
+                    // exit={{ opacity: 0, y: -400 }}
                     className="flex bg-black w-full h-[60px] p-[10px] sticky top-0 z-50 select-none">
 
                     <DrawerOpenClose />
 
                     <div className="flex items-center mx-4">
-
-                        {session ? (
-                            <Link draggable={false} href={"/modulos"}>
-                                <Image draggable={false} priority={true} alt="" src={Logo} width={60} />
-                            </Link>
-                        ) : (
-                            <Link draggable={false} href={"/"}>
-                                <Image draggable={false} priority={true} alt="" src={Logo} width={60} />
-                            </Link>
-                        )}
-
+                        <button draggable={false} onClick={() => router.push("/modulos")}>
+                            <Image draggable={false} priority={true} alt="" src={Logo} width={60} />
+                        </button>
                     </div>
                     <div className="flex w-fit justify-end mx-4 absolute right-0">
                         {session ? (

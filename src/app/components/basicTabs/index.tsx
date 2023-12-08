@@ -3,6 +3,7 @@ import React, { useState, useLayoutEffect, useEffect } from 'react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { motion } from 'framer-motion';
+import { VoltarPerfilAcesso } from '../voltarPerfilAcesso';
 
 export default function BasicTabs() {
     const [value, setValue] = useState(0);
@@ -56,6 +57,7 @@ export default function BasicTabs() {
 
     return (
         <div className='border-b border-gray-300 flex w-full justify-center box-content md:text-sm text-[10px] font-extrabold select-none mt-4'>
+            <VoltarPerfilAcesso />
             <Link className='h-fit' draggable={false} href={{ pathname: "/configuracoes/perfil-acesso", query: { id: id_perfil_acesso, tab: 'perfil-acesso' } }}>
                 <motion.button
                     onClick={() => setValue(0)}

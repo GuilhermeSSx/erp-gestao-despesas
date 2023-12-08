@@ -1,4 +1,5 @@
-import { NextAuthOptions } from "next-auth"
+import { consultarRoleIdUsuario } from "@/app/lib/actions";
+import { User, NextAuthOptions } from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials"
 
 export const nextAuthOptions: NextAuthOptions = {
@@ -39,25 +40,30 @@ export const nextAuthOptions: NextAuthOptions = {
 		signIn: '/'
 	},
 	callbacks: {
-		async jwt({ token, user, trigger, session }) {
-
-			//QUERO ATUALIZAR A SESSÃO
-			if(trigger === 'update') {
-				return {...token, ...session.user}
-			}
-
+		async jwt({ token, user }) {
 			if (user) {
-				token.user = user;
+				// Adiciona informações do usuário ao token quando ele faz login
+				token.id = user.id;
+				token.name = user.name;
+				token.role_id = user.role_id;
+				token.token = user.token;
+			} else if (token.id) {
+				// Atualiza o roleId a cada vez que o token é acessado ou renovado
+				// console.log(token.id)
+				const updatedRoleId = await consultarRoleIdUsuario(token.id as number);
+				token.role_id = updatedRoleId;
 			}
 			return token;
 		},
-		
+	
 		async session({ session, token }) {
-			// Aqui você pode personalizar o que é armazenado na sessão.
-
-			// @ts-ignore
-			session.user = token.user;
-			
+			// Atualiza as informações da sessão com base no token
+			session.user = {
+				id: token.id as string,
+				name: token.name as string,
+				role_id: token.role_id as number,
+				token: token.token as string,
+			};
 			return session;
 		},
 	},

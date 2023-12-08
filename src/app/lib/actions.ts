@@ -320,6 +320,7 @@ export const updateUsuarioRoleId = async (id_usuario: number, role_id: string) =
     try {
         const response = await fetch(`${process.env.API_ENDPOINT}/user/update-usuario-role`, {
             method: 'PUT',
+            cache: 'no-store',
             headers: {
                 'Content-Type': 'application/json',
             },
@@ -352,9 +353,10 @@ export const consultarRoleIdUsuario = async (user_id: number) => {
 
         if (!response.ok) {
             throw new Error('Não foi encontrado o id nenhum role id neste usuario.');
+        } else {
+            const data = await response.json();
+            return data.role_id;
         }
-
-        return response.json();
 
     } catch (error) {
         console.error('Erro:', error);
