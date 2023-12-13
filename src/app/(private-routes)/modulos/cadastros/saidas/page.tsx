@@ -2,21 +2,20 @@
 import React, { useState, useRef, useEffect } from 'react';
 import TableSaida from '@/app/components/tableSaidas';
 import { motion, AnimatePresence } from "framer-motion";
-import { VoltarButton } from '@/app/components/voltarButton';
 import Link from 'next/link';
 import { ArrowLeftIcon } from '@heroicons/react/20/solid';
 
 
 interface Saida {
-    id: number;
-    nome_saida: string;
+    id_class_saida: number;
+    nome_class_saida: string;
 }
 
 const saidas: Saida[] = [
-    { id: 1, nome_saida: 'Bateria e refeições' },
-    { id: 2, nome_saida: 'Marmita' },
-    { id: 3, nome_saida: 'Aluguel Caminhão Muck' },
-    { id: 4, nome_saida: 'Pacote Adobe' },
+    { id_class_saida: 1, nome_class_saida: 'Bateria e refeições' },
+    { id_class_saida: 2, nome_class_saida: 'Marmita' },
+    { id_class_saida: 3, nome_class_saida: 'Aluguel Caminhão Muck' },
+    { id_class_saida: 4, nome_class_saida: 'Pacote Adobe' },
 ];
 
 

@@ -6,6 +6,12 @@ declare module 'next-auth' {
         name: string;
         role_id: number;
         token: string;
+        m_f_acessos: {
+            id_modulo: number;
+            modulo_acesso: string;
+            id_funcionalidade: number;
+            funcionalidade_acesso: string;
+        }
     }
 
     export interface Session {

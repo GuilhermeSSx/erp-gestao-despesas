@@ -2,7 +2,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 
 import { useUsuario } from '@/app/contexts/UsuarioContext';
-import { updateUsuarioRoleId } from '@/app/lib/actions';
+import { updateUsuarioRoleId } from '@/app/lib/userActions';
 
 interface Usuario {
     id: number;

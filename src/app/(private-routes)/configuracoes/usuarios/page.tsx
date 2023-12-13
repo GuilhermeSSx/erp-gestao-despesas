@@ -1,11 +1,14 @@
-import Link from 'next/link';
-import { ArrowLeftIcon } from '@heroicons/react/20/solid';
 import TableUsuarios from '@/app/components/tableUsuarios';
-import { carregarSelecaoPerfilAcesso, getPerfilAcessos, getUsuariosFiltrados, updateUsuarioRoleId } from '@/app/lib/actions';
+import { carregarSelecaoPerfilAcesso, getPerfilAcessos, getUsuariosFiltrados, updateUsuarioRoleId } from '@/app/lib/userActions';
 import CadastrarUsuario from './cadastrarUsuario';
 import { UsuarioProvider } from '@/app/contexts/UsuarioContext';
 import SearchUsuarios from './searchUsuarios';
 import { VoltarUsuarios } from '@/app/components/voltarUsuarios';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+    title: 'Gestão - Usuarios',
+};
 
 export default async function Usuarios( {searchParams}: {searchParams: {search: string}} ) {
 
@@ -31,8 +34,6 @@ export default async function Usuarios( {searchParams}: {searchParams: {search: 
                 </UsuarioProvider>
 
             </div>
-
-
 
 
         </main>

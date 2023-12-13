@@ -129,6 +129,7 @@ export default function Login() {
           alt=""
           src={LoginLogo}
           width={240}
+          draggable={false}
         />
         <h1 className='font-extrabold my-2 text-center text-black'>Entrar na sua conta</h1>
         <form className='w-[100%] flex flex-col justify-center sm:px-14 sm-mobile:px-4 px-1' onSubmit={handleSubmit}>

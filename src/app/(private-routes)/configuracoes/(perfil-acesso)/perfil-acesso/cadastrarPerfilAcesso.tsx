@@ -1,5 +1,5 @@
 "use client";
-import { criarPerfilAcesso } from '@/app/lib/actions';
+import { criarPerfilAcesso } from '@/app/lib/userActions';
 import { UserPlusIcon } from '@heroicons/react/20/solid';
 import React, { useState } from 'react';
 import { toast } from 'react-toastify';

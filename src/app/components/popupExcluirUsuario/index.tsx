@@ -4,7 +4,7 @@ import { Dialog } from '@headlessui/react';
 import { ArrowUturnLeftIcon, XMarkIcon } from '@heroicons/react/20/solid';
 import { toast } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
-import { excluirUsuario } from '@/app/lib/actions';
+import { excluirUsuario } from '@/app/lib/userActions';
 
 interface PopupProps {
     open: boolean;

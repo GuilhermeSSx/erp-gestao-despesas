@@ -1,6 +1,6 @@
 "use client";
 import { useSession } from "next-auth/react"
-import { consultarRoleIdUsuario } from "@/app/lib/actions";
+import { consultarRoleIdUsuario } from "@/app/lib/userActions";
 
 
 export default function DeniedPage() {

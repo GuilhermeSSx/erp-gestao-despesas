@@ -9,6 +9,7 @@ import { useRouter, } from "next/navigation";
 import { useSession } from "next-auth/react"
 import DrawerOpenClose from "../drawer";
 import { motion, AnimatePresence } from "framer-motion"
+import { Suspense } from "react";
 
 
 export default function Header() {
@@ -27,7 +28,7 @@ export default function Header() {
 
 
     // @ts-ignore
-    const user = session?.user?.name;
+    const user = session?.user?.name as any;
 
     return (
         <>
@@ -42,51 +43,63 @@ export default function Header() {
                     <DrawerOpenClose />
 
                     <div className="flex items-center mx-4">
-                        <button draggable={false} onClick={() => router.push("/modulos")}>
+                        <button draggable={false} onClick={() => window.location.href = "/modulos"}>
                             <Image draggable={false} priority={true} alt="" src={Logo} width={60} />
                         </button>
                     </div>
                     <div className="flex w-fit justify-end mx-4 absolute right-0">
-                        {session ? (
-                            <Menu
-                                as="div"
-                                id="MenuDiv"
-                                className="relative"
+
+                        <Menu
+                            as="div"
+                            id="MenuDiv"
+                            className="relative"
+                        >
+
+                            <Menu.Button
+                                id="MenuButton"
+                                className="z-24 inline-flex w-full justify-center rounded-md bg-white bg-opacity-20 px-4 py-[10px] text-sm font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-90"
                             >
+                                <Suspense fallback={<div>Carregando...</div>}>
+                                    {user ? (
+                                        <div>
+                                            <span className="md-web:flex hidden">{user}</span>
+                                            <span className="md-web:hidden">{user?.substring(0, 3)}...</span>
+                                        </div>
+                                    ) : (
+                                        <div className='flex space-x-1 justify-center items-center bg-transparent h-fit dark:invert mt-2'>
+                                            <div className='h-2 w-2 bg-black rounded-full animate-bounce [animation-delay:-0.3s]'></div>
+                                            <div className='h-2 w-2 bg-black rounded-full animate-bounce [animation-delay:-0.15s]'></div>
+                                            <div className='h-2 w-2 bg-black rounded-full animate-bounce'></div>
+                                        </div>
+                                    )}
+                                </Suspense>
 
-                                <Menu.Button
-                                    id="MenuButton"
-                                    className="z-24 inline-flex w-full justify-center rounded-md bg-white bg-opacity-20 px-4 py-[10px] text-sm font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-90"
-                                >
-                                    <span className=" md-web:flex hidden">{user}</span>
-                                    <span className=" md-web:hidden">{user?.substring(0, 3)}...</span>
+                                <ChevronDownIcon
+                                    className="ml-2 -mr-1 h-5 w-5 text-violet-200 hover:text-[#CE466F]"
+                                    aria-hidden="true"
+                                />
+                            </Menu.Button>
 
-                                    <ChevronDownIcon
-                                        className="ml-2 -mr-1 h-5 w-5 text-violet-200 hover:text-[#CE466F]"
-                                        aria-hidden="true"
-                                    />
-                                </Menu.Button>
+                            <Menu.Items className="right-0 mt-1 w-full origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                                <div className="px-1 py-1">
+                                    <Menu.Item>
+                                        {({ active }) => (
+                                            <>
+                                                <button
+                                                    onClick={logout}
+                                                    className={"font-semibold group flex w-full justify-center items-center rounded-md p-4 text-sm hover:bg-selecaoLinha"}
+                                                >
+                                                    Sair
+                                                </button>
 
-                                <Menu.Items className="right-0 mt-1 w-full origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                                    <div className="px-1 py-1">
-                                        <Menu.Item>
-                                            {({ active }) => (
-                                                <>
-                                                    <button
-                                                        onClick={logout}
-                                                        className={"font-semibold group flex w-full justify-center items-center rounded-md p-4 text-sm hover:bg-selecaoLinha"}
-                                                    >
-                                                        Sair
-                                                    </button>
+                                            </>
+                                        )}
 
-                                                </>
-                                            )}
+                                    </Menu.Item>
+                                </div>
+                            </Menu.Items>
+                        </Menu>
 
-                                        </Menu.Item>
-                                    </div>
-                                </Menu.Items>
-                            </Menu>
-                        ) : null}
 
                     </div>
 

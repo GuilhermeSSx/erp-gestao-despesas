@@ -1,4 +1,4 @@
-import { consultarRoleIdUsuario } from "@/app/lib/actions";
+import { consultarRoleIdUsuario } from "@/app/lib/userActions";
 import { User, NextAuthOptions } from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials"
 
@@ -47,6 +47,18 @@ export const nextAuthOptions: NextAuthOptions = {
 				token.name = user.name;
 				token.role_id = user.role_id;
 				token.token = user.token;
+
+				// Criando um objeto fixo para m_f_acessos
+				const acessoFixo = {
+					id_modulo: 1,
+					modulo_acesso: 'Acesso total',
+					id_funcionalidade: 1,
+					funcionalidade_acesso: 'Acesso total'
+				};
+
+				token.m_f_acessos = acessoFixo;
+
+
 			} else if (token.id) {
 				// Atualiza o roleId a cada vez que o token é acessado ou renovado
 				// console.log(token.id)
@@ -55,7 +67,7 @@ export const nextAuthOptions: NextAuthOptions = {
 			}
 			return token;
 		},
-	
+
 		async session({ session, token }) {
 			// Atualiza as informações da sessão com base no token
 			session.user = {
@@ -63,6 +75,7 @@ export const nextAuthOptions: NextAuthOptions = {
 				name: token.name as string,
 				role_id: token.role_id as number,
 				token: token.token as string,
+				m_f_acessos: token.m_f_acessos as any
 			};
 			return session;
 		},

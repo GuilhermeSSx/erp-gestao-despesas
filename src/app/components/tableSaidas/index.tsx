@@ -2,9 +2,8 @@ import React, { useState } from 'react';
 import PopupExcluirSaida from '../popupExcluirSaida';
 
 interface Saida {
-    id: number;
-    nome_saida: string;
-    // Outras propriedades do registro aqui...
+    id_class_saida: number;
+    nome_class_saida: string;
 }
 
 interface TableEntradaProps {
@@ -19,7 +18,7 @@ const TableSaida: React.FC<TableEntradaProps> = ({ saidas }) => {
 
     const handleRowClick = (saida: Saida) => {
         setSelectedEditarItem(saida);
-        setEditedSaidaValue(saida.nome_saida);
+        setEditedSaidaValue(saida.nome_class_saida);
     };
 
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -53,7 +52,7 @@ const TableSaida: React.FC<TableEntradaProps> = ({ saidas }) => {
                 <tbody className='divide-y divide-gray-100'>
                     {saidas.map((saida) => (
                         <tr
-                            key={saida.id}
+                            key={saida.id_class_saida}
                             className='hover:bg-slate-200 cursor-pointer divide-w' 
                         >
                             <td className='p-3 text-sm text-gray-700 whitespace-nowrap'>
@@ -66,7 +65,7 @@ const TableSaida: React.FC<TableEntradaProps> = ({ saidas }) => {
                                         onChange={handleInputChange}
                                     />
                                 ) : (
-                                    saida.nome_saida
+                                    saida.nome_class_saida
                                 )}
                             </td>
                             <td className='text-sm text-gray-700 whitespace-nowrap h-[46px] px-1 justify-evenly items-center select-none'>
@@ -107,8 +106,8 @@ const TableSaida: React.FC<TableEntradaProps> = ({ saidas }) => {
             <PopupExcluirSaida
                 open={popupAbertoExcluirSaida}
                 onClose={fecharPopupExcluirEntrada}
-                saidaId={selectedItem ? selectedItem.id : null}
-                saidaNome={selectedItem ? selectedItem.nome_saida : ''}
+                saidaId={selectedItem ? selectedItem.id_class_saida : null}
+                saidaNome={selectedItem ? selectedItem.nome_class_saida : ''}
             />
         </div>
     );

@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import { getModulosAcesso, updateModulosAcesso } from '@/app/lib/actions';
+import { getModulosAcesso, updateModulosAcesso } from '@/app/lib/userActions';
 import TableModulos from '@/app/components/tableModulos';
 
 export const metadata: Metadata = {

@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { withAuth, NextRequestWithAuth, NextAuthMiddlewareOptions } from 'next-auth/middleware';
-import { consultarRoleIdUsuario } from './app/lib/actions';
+import { consultarRoleIdUsuario } from './app/lib/userActions';
 
 interface UserToken {
     id: number | null;

@@ -1,5 +1,5 @@
 import TablePerfisAcesso from '@/app/components/tablePerfisAcesso';
-import { getPerfilAcessos } from '@/app/lib/actions';
+import { getPerfilAcessos } from '@/app/lib/userActions';
 import { Metadata } from 'next';
 import CadastrarPerfilAcesso from './cadastrarPerfilAcesso';
 

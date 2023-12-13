@@ -5,7 +5,7 @@ import { XCircleIcon } from '@heroicons/react/20/solid';
 import PopupExcluirCentroCusto from '../popupExcluirCentroCusto';
 
 interface CentroCusto {
-    id: number;
+    id_centro_custo: number;
     nome_centro_custo: string;
 }
 
@@ -44,7 +44,7 @@ const TableCentroDeCustos: React.FC<TableCentroCustosProps> = ({ centroCustos })
     };
 
     return (
-        <div className='rounded-lg h-full w-full overflow-y-scroll'>
+        <div className='rounded-lg h-full w-full overflow-y-scroll my-1'>
             <table className="w-full h-fit">
                 <thead className="bg-gray-50 border-b-2 border-gray-200 sticky top-0">
                     <tr>
@@ -55,9 +55,9 @@ const TableCentroDeCustos: React.FC<TableCentroCustosProps> = ({ centroCustos })
                 </thead>
                 <tbody className="divide-y divide-gray-100">
                     {centroCustos.map((centroCusto) => (
-                        <tr key={centroCusto.id} className="bg-white hover:bg-slate-50 divide-w">
+                        <tr key={centroCusto.id_centro_custo} className="bg-white hover:bg-slate-50 divide-w">
                             <td className="p-3 text-sm text-gray-700 whitespace-nowrap">
-                                {centroCusto.id}
+                                {centroCusto.id_centro_custo}
                             </td>
                             <td className="p-3 text-sm text-gray-700 whitespace-nowrap">
                                 {selectedEditarItem === centroCusto ? (
@@ -117,8 +117,8 @@ const TableCentroDeCustos: React.FC<TableCentroCustosProps> = ({ centroCustos })
             <PopupExcluirCentroCusto
                 open={popupAbertoExcluirCentroCusto}
                 onClose={fecharPopupExcluirCentroCusto}
-                centroCustoId={selectedItem ? selectedItem.id : null}
-                centroCustoNome={selectedItem ? selectedItem.nome_centro_custo : ''}
+                id_centro_custo={selectedItem ? selectedItem.id_centro_custo : 0}
+                nome_centro_custo={selectedItem ? selectedItem.nome_centro_custo : ''}
             />
         </div>
     );

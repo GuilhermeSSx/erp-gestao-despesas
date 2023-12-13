@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import { Dialog } from '@headlessui/react';
 import { ArrowUturnLeftIcon, XMarkIcon } from '@heroicons/react/20/solid';
 import { useRouter } from 'next/navigation';
-import { excluirPerfilAcesso } from '@/app/lib/actions';
+import { excluirPerfilAcesso } from '@/app/lib/userActions';
 import { toast } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 

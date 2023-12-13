@@ -3,7 +3,7 @@ import { Dialog } from '@headlessui/react';
 import { motion } from "framer-motion";
 import { toast } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
-import { carregarSelecaoPerfilAcesso, criarUsuario } from '@/app/lib/actions';
+import { carregarSelecaoPerfilAcesso, criarUsuario } from '@/app/lib/userActions';
 
 interface PerfilAcesso {
     id_perfil_acesso: number;
