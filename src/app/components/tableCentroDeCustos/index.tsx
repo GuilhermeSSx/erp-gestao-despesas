@@ -3,6 +3,10 @@ import React, { useState } from 'react';
 import { PencilSquareIcon } from '@heroicons/react/20/solid';
 import { XCircleIcon } from '@heroicons/react/20/solid';
 import PopupExcluirCentroCusto from '../popupExcluirCentroCusto';
+import { updateCentroCusto } from '@/app/lib/cadastrosActions';
+import { toast } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
+
 
 interface CentroCusto {
     id_centro_custo: number;
@@ -37,10 +41,39 @@ const TableCentroDeCustos: React.FC<TableCentroCustosProps> = ({ centroCustos })
         setEditedCentroCustoValue(event.target.value);
     };
 
-    const handleEditConfirm = () => {
-        // Lógica para confirmar a edição aqui
-        console.log('Edição confirmada:', editedCentroCustoValue);
-        setSelectedEditarItem(null);
+    const handleEditConfirm = async () => {
+        try {
+            if (selectedEditarItem?.nome_centro_custo === editedCentroCustoValue) {
+                setSelectedEditarItem(null);
+                return;
+            }
+            
+            await updateCentroCusto(selectedEditarItem?.id_centro_custo || 0, editedCentroCustoValue);
+    
+            toast.success(`Centro de custo: ${selectedEditarItem?.nome_centro_custo} atualizado com sucesso!`, {
+                position: "bottom-left",
+                autoClose: 2600,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: false,
+                progress: undefined,
+                theme: "light",
+            });
+        } catch (error) {
+            toast.error(`${error}`, {
+                position: "bottom-left",
+                autoClose: 3200,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: false,
+                progress: undefined,
+                theme: "light",
+            });
+        } finally {
+            setSelectedEditarItem(null);
+        }
     };
 
     return (

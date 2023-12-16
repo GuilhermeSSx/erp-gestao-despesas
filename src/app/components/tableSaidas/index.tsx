@@ -1,5 +1,9 @@
+"use client";
 import React, { useState } from 'react';
 import PopupExcluirSaida from '../popupExcluirSaida';
+import { updateClassSaida } from '@/app/lib/cadastrosActions';
+import { toast } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
 
 interface Saida {
     id_class_saida: number;
@@ -25,10 +29,39 @@ const TableSaida: React.FC<TableEntradaProps> = ({ saidas }) => {
         setEditedSaidaValue(event.target.value);
     };
 
-    const handleEditConfirm = () => {
-        // Lógica para confirmar a edição aqui (por exemplo, fazer uma chamada para atualizar no servidor)
-        console.log('Edição confirmada:', editedSaidaValue);
-        setSelectedEditarItem(null);
+    const handleEditConfirm = async () => {
+        try {
+            if (selectedEditarItem?.nome_class_saida === editedSaidaValue) {
+                setSelectedEditarItem(null);
+                return;
+            }
+            
+            await updateClassSaida(selectedEditarItem?.id_class_saida || 0, editedSaidaValue);
+    
+            toast.success(`Classificação de saída: ${selectedEditarItem?.nome_class_saida} atualizado com sucesso!`, {
+                position: "bottom-left",
+                autoClose: 2600,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: false,
+                progress: undefined,
+                theme: "light",
+            });
+        } catch (error) {
+            toast.error(`${error}`, {
+                position: "bottom-left",
+                autoClose: 3200,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: false,
+                progress: undefined,
+                theme: "light",
+            });
+        } finally {
+            setSelectedEditarItem(null);
+        }
     };
 
     const abrirPopupExcluirEntrada = (saida: Saida) => {
@@ -63,6 +96,8 @@ const TableSaida: React.FC<TableEntradaProps> = ({ saidas }) => {
                                         className="w-full p-1 border rounded"
                                         value={editedSaidaValue}
                                         onChange={handleInputChange}
+                                        autoComplete="off"
+
                                     />
                                 ) : (
                                     saida.nome_class_saida
@@ -106,8 +141,8 @@ const TableSaida: React.FC<TableEntradaProps> = ({ saidas }) => {
             <PopupExcluirSaida
                 open={popupAbertoExcluirSaida}
                 onClose={fecharPopupExcluirEntrada}
-                saidaId={selectedItem ? selectedItem.id_class_saida : null}
-                saidaNome={selectedItem ? selectedItem.nome_class_saida : ''}
+                id_class_saida={selectedItem ? selectedItem.id_class_saida : 0}
+                nome_class_saida={selectedItem ? selectedItem.nome_class_saida : ''}
             />
         </div>
     );

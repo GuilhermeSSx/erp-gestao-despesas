@@ -29,7 +29,7 @@ const CadastrarCentroCusto: React.FC<Props> = ({ children }) => {
         try {
             await criarCentroCusto(nome_centro_custo);
 
-            toast.success('Perfil de acesso: ' + nome_centro_custo + ' criado com sucesso!', {
+            toast.success('Centro de custo: ' + nome_centro_custo + ' criado com sucesso!', {
                 position: "bottom-left",
                 autoClose: 2600,
                 hideProgressBar: false,
@@ -83,7 +83,7 @@ const CadastrarCentroCusto: React.FC<Props> = ({ children }) => {
                 <div className='flex flex-col w-full rounded-lg'>
                     <form className='flex justify-center' onSubmit={handleSubmit}>
                         <input
-                            id='cadastrar'
+                            id='cadastrar_centro_custo'
                             name='nome_centro_custo'
                             value={formData.nome_centro_custo}
                             onChange={handleChange} 
@@ -97,7 +97,7 @@ const CadastrarCentroCusto: React.FC<Props> = ({ children }) => {
                             autoComplete="off"
                         />
                         <button
-                            title="Adicionar Categoria"
+                            title="Adicionar centro de custo"
                             className={`ml-1 group relative w-22 flex justify-center items-center py-2 px-4 border border-transparent
                             text-base rounded-md ${loading ? 'bg-gray-400' : 'bg-emerald-400 hover:bg-lime-500'}`}
                             disabled={loading}

@@ -73,7 +73,6 @@ const PopupExcluirCentroCusto: React.FC<PopupProps> = ({ open, onClose, id_centr
                             className='mt-2 group relative w-[50%] flex justify-center items-center py-1 px-4 border border-transparent
                                     text-base rounded-md bg-red-400 hover:bg-red-600'
                             onClick={() => {
-                                // Lógica para excluir o USER com o ID: userId
                                 try {
                                     handleDelete(id_centro_custo);
                                 } catch (error) {
