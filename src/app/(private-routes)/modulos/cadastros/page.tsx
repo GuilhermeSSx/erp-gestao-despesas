@@ -32,25 +32,25 @@ export default function Cadastros() {
       </div>
 
       <div className='md:mt-8 flex flex-wrap w-full h-full justify-center items-center md:items-stretch overflow-auto'>
-        <Link
+        <button
           draggable={false}
           className='flex justify-center items-center w-60 h-32 mx-4 my-2 text-white bg-gradient-to-br from-green-400 to-blue-600 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 bg-emerald-500 hover:scale-105 duration-300'
-          href={'/modulos/cadastros/saidas'}>
+          onClick={() => (window.location.href = "/modulos/cadastros/saidas")}>
           Classificação de Despesa
           <Image className='ml-2' src={saidaIcon} width={26} alt="Saida" />
-        </Link>
-        <Link
+        </button>
+        <button
           draggable={false}
           className='flex justify-center items-center w-60 h-32 mx-4 my-2 text-white bg-gradient-to-br from-green-400 to-blue-600 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 bg-emerald-500 hover:scale-105 duration-300'
-          href={'/modulos/cadastros/centroDeCusto'}>
+          onClick={() => (window.location.href = "/modulos/cadastros/centroDeCusto")}>
           Centro De Custo
-        </Link>
-        <Link
+        </button>
+        <button
           draggable={false}
           className='flex justify-center items-center w-60 h-32 mx-4 my-2 text-white bg-gradient-to-br from-green-400 to-blue-600 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 bg-emerald-500 hover:scale-105 duration-300'
-          href={'/modulos/cadastros/favorecidos'}>
+          onClick={() => (window.location.href = "/modulos/cadastros/favorecidos")}>
           Favorecidos
-        </Link>
+        </button>
       </div>
 
     </motion.div>

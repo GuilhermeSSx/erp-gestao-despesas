@@ -83,6 +83,7 @@ const InputEmail: React.FC<InputEmailProps> = ({ value = '', onChange }) => {
                 maxLength={60}
                 placeholder="Digite o e-mail..."
                 className="border rounded p-2 h-8 w-full px-4"
+                autoComplete='off'
             />
             {showOptions && (
                 <ul className="mt-[2px] border rounded py-1 px-2 w-full absolute bg-white shadow overflow-auto h-[140px]" ref={optionsRef}>

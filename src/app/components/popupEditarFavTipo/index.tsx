@@ -22,7 +22,7 @@ const PopupEditarFavTipo: React.FC<PopupProps> = ({ open, onClose, tipoNome, tip
     return (
         <Dialog open={open} onClose={onClose} className="absolute inset-0 z-10 top-[60px] overflow-y-auto ">
             <div className="flex flex-col items-center justify-center h-full p-4">
-                <Dialog.Overlay className="fixed inset-0 bg-black opacity-30 " />
+                <Dialog.Overlay className="fixed inset-0 bg-black opacity-50 " />
 
                 <div className='sm:w-[80%] md:w-[60%] w-full h-fit items-center bg-white z-20 p-3 rounded-xl  '>
                     <div className='rounded-lg w-full p-1 '>
@@ -35,6 +35,8 @@ const PopupEditarFavTipo: React.FC<PopupProps> = ({ open, onClose, tipoNome, tip
                             type='text'
                             value={inputValue}
                             onChange={(e) => setInputValue(e.target.value)}
+                            required
+                            autoComplete='off'
                         />
                         <h2 className="mt-3 text-base font-bold text-center">{tipoNome}, {tipoId}</h2>
                     </div>

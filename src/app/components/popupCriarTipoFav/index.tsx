@@ -17,7 +17,7 @@ const PopupCriarTipoFav: React.FC<PopupProps> = ({ open, onClose }) => {
             className="absolute inset-0 z-10 top-[60px] overflow-y-auto"
         >
             <div className="flex flex-col items-center justify-center h-full p-4">
-                <Dialog.Overlay className="fixed inset-0 bg-black opacity-30 " />
+                <Dialog.Overlay className="fixed inset-0 bg-black opacity-50 " />
 
 
                 <div className='sm:w-[80%] md:w-[60%] w-full h-fit items-center bg-white z-20 p-3 rounded-xl'>
@@ -35,14 +35,18 @@ const PopupCriarTipoFav: React.FC<PopupProps> = ({ open, onClose }) => {
                         />
 
                         <div className='mt-6 text-center'>
-                            Selecione os campos que terão no seu tipo de favorecido.
+                            Selecione os campos que terão no seu favorecido.
                             <ListaCamposFavTipo />
                         </div>
                         
 
                         <div className='flex justify-between mt-3'>
-                            <button title="Criar Favorecido" className='mt-2 group relative w-[50%] flex justify-center items-center py-1 px-4 border border-transparent
-                                        text-base rounded-md text-white bg-jpnrVerde hover:bg-lime-500 '>
+                            <button 
+                                title="Criar Favorecido"
+                                className='mt-2 group relative w-[50%] flex justify-center items-center py-1 px-4 border border-transparent
+                                        text-base rounded-md text-white bg-jpnrVerde hover:bg-lime-500'
+                                onClick={() => console.log('Criar Favorecido')}
+                            >
                                 Salvar
                                 <SquaresPlusIcon
                                     className="ml-2 h-7 w-5 text-center"

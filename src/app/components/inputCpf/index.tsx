@@ -42,6 +42,7 @@ const InputCpf: React.FC<InputCpfProps> = ({ value, onChange }) => {
             placeholder="CPF (XXX.XXX.XXX-XX)"
             maxLength={14}
             className="mt-2 border rounded p-2 h-8 w-full px-4"
+            autoComplete='off'
         />
     );
 };

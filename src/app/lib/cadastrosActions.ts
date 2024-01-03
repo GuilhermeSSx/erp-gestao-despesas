@@ -177,9 +177,6 @@ export const updateClassSaida = async (id_class_saida: number, nome_class_saida:
 
 };
 
-
-
-
 export const excluirClassSaida = async (id_class_saida: number) => {
     try {
         const response = await fetch(`${process.env.API_ENDPOINT}/cadastros/excluir-class-saida/${id_class_saida}`, {

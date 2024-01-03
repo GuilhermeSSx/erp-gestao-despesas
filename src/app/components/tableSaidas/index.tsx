@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import PopupExcluirSaida from '../popupExcluirSaida';
 import { updateClassSaida } from '@/app/lib/cadastrosActions';
+import { PencilSquareIcon, XCircleIcon } from '@heroicons/react/20/solid';
 import { toast } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 
@@ -35,9 +36,9 @@ const TableSaida: React.FC<TableEntradaProps> = ({ saidas }) => {
                 setSelectedEditarItem(null);
                 return;
             }
-            
+
             await updateClassSaida(selectedEditarItem?.id_class_saida || 0, editedSaidaValue);
-    
+
             toast.success(`Classificação de saída: ${selectedEditarItem?.nome_class_saida} atualizado com sucesso!`, {
                 position: "bottom-left",
                 autoClose: 2600,
@@ -86,19 +87,29 @@ const TableSaida: React.FC<TableEntradaProps> = ({ saidas }) => {
                     {saidas.map((saida) => (
                         <tr
                             key={saida.id_class_saida}
-                            className='hover:bg-slate-200 cursor-pointer divide-w' 
+                            className='hover:bg-slate-200 cursor-pointer divide-w'
                         >
                             <td className='p-3 text-sm text-gray-700 whitespace-nowrap'>
                                 {selectedEditarItem === saida ? (
-                                    <input
-                                        id='editarSaida'
-                                        type="text"
-                                        className="w-full p-1 border rounded"
-                                        value={editedSaidaValue}
-                                        onChange={handleInputChange}
-                                        autoComplete="off"
-
-                                    />
+                                    <form onSubmit={ (e) => e.preventDefault()}>
+                                        <input
+                                            id='editarSaida'
+                                            type="text"
+                                            className="w-full p-1 border rounded"
+                                            value={editedSaidaValue}
+                                            onChange={handleInputChange}
+                                            autoComplete="off"
+                                            required
+                                            minLength={3}
+                                            maxLength={30}
+                                            // onKeyDown={(event) => {
+                                            //     if (event.key === 'Enter') {
+                                            //         event.preventDefault();
+                                            //         handleEditConfirm();
+                                            //     }
+                                            // }}
+                                        />
+                                    </form>
                                 ) : (
                                     saida.nome_class_saida
                                 )}
@@ -117,9 +128,13 @@ const TableSaida: React.FC<TableEntradaProps> = ({ saidas }) => {
                                         <button
                                             className='w-[50%] h-[38px] flex items-center justify-center border border-transparent
                                                 text-sm rounded-md bg-orange-300 hover:bg-orange-400'
-                                            onClick={(e) => {e.stopPropagation(); handleRowClick(saida)}}
+                                            onClick={(e) => { e.stopPropagation(); handleRowClick(saida) }}
                                         >
-                                            Editar
+                                            <span className='hidden md:block mx-3 text-white'>Editar</span>
+                                            <PencilSquareIcon
+                                                className="h-7 w-5 text-center text-white"
+                                                aria-hidden="true"
+                                            />
                                         </button>
                                     )}
                                     <button
@@ -130,7 +145,11 @@ const TableSaida: React.FC<TableEntradaProps> = ({ saidas }) => {
                                             abrirPopupExcluirEntrada(saida);
                                         }}
                                     >
-                                        Excluir
+                                        <span className='hidden md:block mx-3 text-white'>Excluir</span>
+                                        <XCircleIcon
+                                            className="h-7 w-5 text-center text-white"
+                                            aria-hidden="true"
+                                        />
                                     </button>
                                 </div>
                             </td>

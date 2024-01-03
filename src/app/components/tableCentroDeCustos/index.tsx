@@ -1,12 +1,10 @@
 "use client"
 import React, { useState } from 'react';
-import { PencilSquareIcon } from '@heroicons/react/20/solid';
-import { XCircleIcon } from '@heroicons/react/20/solid';
+import { PencilSquareIcon, XCircleIcon } from '@heroicons/react/20/solid';
 import PopupExcluirCentroCusto from '../popupExcluirCentroCusto';
 import { updateCentroCusto } from '@/app/lib/cadastrosActions';
 import { toast } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
-
 
 interface CentroCusto {
     id_centro_custo: number;
@@ -28,7 +26,7 @@ const TableCentroDeCustos: React.FC<TableCentroCustosProps> = ({ centroCustos })
         setEditedCentroCustoValue(centroCusto.nome_centro_custo);
     };
 
-    const abrirPopupExcluirCentroCusto = (centroCusto: CentroCusto ) => {
+    const abrirPopupExcluirCentroCusto = (centroCusto: CentroCusto) => {
         setSelectedItem(centroCusto);
         setPopupAbertoExcluirCentroCusto(true);
     };
@@ -39,6 +37,7 @@ const TableCentroDeCustos: React.FC<TableCentroCustosProps> = ({ centroCustos })
 
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setEditedCentroCustoValue(event.target.value);
+        event.preventDefault();
     };
 
     const handleEditConfirm = async () => {
@@ -47,9 +46,9 @@ const TableCentroDeCustos: React.FC<TableCentroCustosProps> = ({ centroCustos })
                 setSelectedEditarItem(null);
                 return;
             }
-            
+
             await updateCentroCusto(selectedEditarItem?.id_centro_custo || 0, editedCentroCustoValue);
-    
+
             toast.success(`Centro de custo: ${selectedEditarItem?.nome_centro_custo} atualizado com sucesso!`, {
                 position: "bottom-left",
                 autoClose: 2600,
@@ -94,12 +93,19 @@ const TableCentroDeCustos: React.FC<TableCentroCustosProps> = ({ centroCustos })
                             </td>
                             <td className="p-3 text-sm text-gray-700 whitespace-nowrap">
                                 {selectedEditarItem === centroCusto ? (
-                                    <input
-                                        type="text"
-                                        className="w-full p-1 border rounded"
-                                        value={editedCentroCustoValue}
-                                        onChange={handleInputChange}
-                                    />
+                                    <form onSubmit={(e) => e.preventDefault()}>
+                                        <input
+                                            type="text"
+                                            className="w-full p-1 border rounded"
+                                            value={editedCentroCustoValue}
+                                            onChange={handleInputChange}
+                                            minLength={3}
+                                            maxLength={40}
+                                            required
+                                        />
+                                        
+                                    </form>
+
                                 ) : (
                                     centroCusto.nome_centro_custo
                                 )}
@@ -110,19 +116,22 @@ const TableCentroDeCustos: React.FC<TableCentroCustosProps> = ({ centroCustos })
                                         <button
                                             className='w-[50%] h-[38px] flex items-center justify-center border border-transparent
                                                 text-sm rounded-md bg-green-300 hover:bg-green-400'
-                                            onClick={handleEditConfirm}
+                                            onClick={() => {
+                                                handleEditConfirm();
+                                            }}
                                         >
                                             Confirmar
                                         </button>
                                     ) : (
                                         <button
-                                            onClick={(e) => {e.stopPropagation(); handleRowClick(centroCusto)}}
+                                            onClick={(e) => { e.stopPropagation(); handleRowClick(centroCusto) }}
                                             title='Editar'
                                             className='w-[50%] h-[38px] flex items-center justify-center border border-transparent
                                                 text-sm rounded-md bg-orange-400 hover:bg-orange-600'
                                         >
+                                            <span className='hidden md:block mx-3 text-white'>Editar</span>
                                             <PencilSquareIcon
-                                                className="h-7 w-5 text-center"
+                                                className="h-7 w-5 text-center text-white"
                                                 aria-hidden="true"
                                             />
                                         </button>
@@ -136,6 +145,7 @@ const TableCentroDeCustos: React.FC<TableCentroCustosProps> = ({ centroCustos })
                                             abrirPopupExcluirCentroCusto(centroCusto);
                                         }}
                                     >
+                                        <span className='hidden md:block mx-3 text-white'>Excluir</span>
                                         <XCircleIcon
                                             className="h-7 w-5 text-center text-white"
                                             aria-hidden="true"

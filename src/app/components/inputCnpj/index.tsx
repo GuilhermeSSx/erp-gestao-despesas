@@ -44,6 +44,7 @@ const InputCnpj: React.FC<InputCnpjProps> = ({ value, onChange }) => {
             placeholder="CNPJ (XX.XXX.XXX/0001-XX)"
             maxLength={18}
             className="mt-2 border rounded p-2 h-8 w-full px-4"
+            autoComplete='off'
         />
     );
 };

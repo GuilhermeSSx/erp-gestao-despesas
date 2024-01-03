@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { XMarkIcon } from '@heroicons/react/20/solid';
+import { CheckIcon } from '@heroicons/react/20/solid';
 
 interface CampoFavTipo {
     id: number;
@@ -15,8 +15,6 @@ const camposFavTipo: CampoFavTipo[] = [
     { id: 5, nome_campo: 'CNPJ', selecionado: false },
     { id: 6, nome_campo: 'Endereço', selecionado: false },
 ];
-
-// ... (importações e declarações de interface)
 
 const ListaCamposFavTipo: React.FC = () => {
     const [camposFav, setCamposFav] = useState<CampoFavTipo[]>(camposFavTipo);
@@ -100,7 +98,7 @@ const ListaCamposFavTipo: React.FC = () => {
                                         (campo.nome_campo === 'CNPJ' && listaCamposFav.some(c => c.nome_campo === 'CPF'))
                                     }
                                 >
-                                    <XMarkIcon className="flex h-4 w-4 text-center" aria-hidden="true" />
+                                    <CheckIcon className="flex h-4 w-4 text-center" aria-hidden="true" />
                                 </button>
                             )}
                         </span>

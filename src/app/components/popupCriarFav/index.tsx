@@ -44,7 +44,7 @@ const PopupCriarFav: React.FC<PopupProps> = ({ open, onClose, tipoFavId, tipoFav
     return (
         <Dialog open={open} onClose={onClose} className="absolute inset-0 z-10 top-[60px] overflow-y-auto ">
             <div className="flex flex-col items-center justify-center h-full p-4">
-                <Dialog.Overlay className="fixed inset-0 bg-black opacity-30 " />
+                <Dialog.Overlay className="fixed inset-0 bg-black opacity-50 " />
 
                 <div className='sm:w-[60%] md:w-[50%] w-full h-76 items-center bg-white z-20 p-3 rounded-xl'>
                     <div className=' rounded-lg w-full'>
@@ -59,6 +59,8 @@ const PopupCriarFav: React.FC<PopupProps> = ({ open, onClose, tipoFavId, tipoFav
                                 className='appearance-none rounded-none relative block border-2  w-full px-4 py-1 rounded-t-md'
                                 type='text'
                                 placeholder='Nome...'
+                                required
+                                autoComplete='off'
                             />
                         )}
                         {camposExibidos.includes("email") && (
@@ -79,6 +81,7 @@ const PopupCriarFav: React.FC<PopupProps> = ({ open, onClose, tipoFavId, tipoFav
                                 className='h-16 max-h-16 mt-2 resize-none appearance-none rounded-none relative block border-2 w-full px-4 py-1 rounded-t-md'
                                 maxLength={98}
                                 placeholder='endereco...'
+                                autoComplete='off'
                             />
                         )}
 

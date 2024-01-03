@@ -3,6 +3,7 @@ import { criarCentroCusto } from "@/app/lib/cadastrosActions";
 import { ArrowLeftIcon, PlusIcon } from "@heroicons/react/20/solid";
 import Link from "next/link";
 import { ReactNode, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { toast } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 
@@ -79,17 +80,21 @@ const CadastrarCentroCusto: React.FC<Props> = ({ children }) => {
                     <span className='hidden md:block'>Voltar</span>
                 </div>
             </Link>
-            <div className='flex flex-col w-full md:w-[40%] md:min-w-[500px] h-[85%] md:h-[83%] items-center bg-slate-100 rounded-md p-3 mt-12 md:mt-0'>
+            <motion.div
+                initial={{ opacity: 0, y: -60 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                className='flex flex-col w-full md:w-[40%] md:min-w-[500px] h-[85%] md:h-[83%] items-center bg-slate-100 rounded-md p-3 mt-12 md:mt-0 shadow-[50px_50px_50px_-1px_rgba(0,0,0,0.2)]'>
                 <div className='flex flex-col w-full rounded-lg'>
                     <form className='flex justify-center' onSubmit={handleSubmit}>
                         <input
                             id='cadastrar_centro_custo'
                             name='nome_centro_custo'
                             value={formData.nome_centro_custo}
-                            onChange={handleChange} 
+                            onChange={handleChange}
                             className='appearance-none rounded-none relative
-                            block border w-full px-4 py-2 rounded-t-md'
-                            type='text' 
+                            block border w-full px-4 py-2 rounded-t-md outline-green-300'
+                            type='text'
                             placeholder='Cadastrar Centro De Custo'
                             required
                             maxLength={40}
@@ -110,12 +115,12 @@ const CadastrarCentroCusto: React.FC<Props> = ({ children }) => {
                         </button>
                     </form>
 
-                    
+
                 </div>
 
-                { children }
+                {children}
 
-            </div>
+            </motion.div>
         </>
 
     )

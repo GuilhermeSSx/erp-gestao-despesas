@@ -47,7 +47,7 @@ import InputCnpj from '../inputCnpj';
         return (
             <Dialog open={open} onClose={onClose} className="absolute inset-0 z-10 top-[60px] overflow-y-auto ">
                 <div className="flex flex-col items-center justify-center h-full p-4">
-                    <Dialog.Overlay className="fixed inset-0 bg-black opacity-30 " />
+                    <Dialog.Overlay className="fixed inset-0 bg-black opacity-50 " />
 
                     <div className='sm:w-[60%] md:w-[45%] w-full h-76 items-center bg-white z-20 p-3 rounded-xl'>
                         <div className='rounded-lg w-full p-1 '>
@@ -63,6 +63,8 @@ import InputCnpj from '../inputCnpj';
                                     maxLength={55}
                                     value={inputFavNome}
                                     onChange={(e) => setInputFavNome(e.target.value)}
+                                    required
+                                    autoComplete='off'
                                 />
                             )}
                             {camposExibidos.includes("email") && (

@@ -56,6 +56,7 @@ const InputTelefone: React.FC<PhoneInputProps> = ({ value, onChange }) => {
             onChange={handleChange}
             placeholder="(XX) X XXXX-XXXX"
             maxLength={15}
+            autoComplete='off'
         />
     );
 };
