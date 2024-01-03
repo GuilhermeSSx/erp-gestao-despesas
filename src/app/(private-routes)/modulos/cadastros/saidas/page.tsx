@@ -1,6 +1,11 @@
 import TableSaida from '@/app/components/tableSaidas';
 import CadastrarClassSaida from './cadastrarClassSaida';
 import { getClassSaida } from '@/app/lib/cadastrosActions';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+    title: 'Classificação de Saidas',
+};
 
 export default async function Saidas() {
 

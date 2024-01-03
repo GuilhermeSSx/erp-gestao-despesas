@@ -20,9 +20,9 @@ export default async function Usuarios( {searchParams}: {searchParams: {search: 
 
     return (
         <main className='flex md-web:min-h-[calc(100dvh-60px)] h-[calc(100dvh-60px)] flex-col justify-center items-center md:p-4 p-1'>
+            
             <VoltarUsuarios />
 
-            {/* Selecionar Usuario, remover, Permissoes */}
             <div className='flex flex-col w-full h-full md:w-[32%] bg-slate-200 md:min-w-[500px] p-2 md:p-3 rounded-lg md:mt-2'>
                 <h1 className='font-bold  text-center mt-2 select-none'>Usuarios e Permissões</h1>
 

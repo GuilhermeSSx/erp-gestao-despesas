@@ -1,42 +1,45 @@
+"use client";
+import { useFavTipo } from '@/app/contexts/FavTipoContext';
 import React, { useState } from 'react';
 
-interface Tipo {
+interface TipoFav {
     id: number;
     nome_tipo: string;
 }
 
-interface TableTiposProps {
-    tipos: Tipo[];
-    onTipoSelected: (tipo: Tipo) => void;
+interface TableFavTiposProps {
+    tiposFavs: TipoFav[];
 }
 
-const TableTipos: React.FC<TableTiposProps> = ({ tipos, onTipoSelected }) => {
+const TableTiposFav: React.FC<TableFavTiposProps> = ({ tiposFavs }) => {
 
-    const [selectedItem, setSelectedItem] = useState<Tipo | null>(null);
+    const { setSelectedFavTipo } = useFavTipo();
 
-    const handleRowClick = (tipo: Tipo) => {
-        setSelectedItem(tipo);
-        onTipoSelected(tipo);
+    const [selectedItem, setSelectedItem] = useState<TipoFav | null>(null);
+
+    const handleRowClick = (tipoFav: TipoFav) => {
+        setSelectedItem(tipoFav);
+        setSelectedFavTipo(tipoFav);
     };
 
     return (
-        <div className='rounded-lg h-full w-[100%] overflow-y-scroll mt-2'>
+        <div className='rounded-lg h-full w-[100%] overflow-y-scroll'>
             <table className="w-full h-fit select-none">
                 <thead className="bg-gray-50 border-b-2 border-gray-200 sticky top-0">
-                    <tr>
-                        <th className="p-3 text-sm font-bold tracking-wide text-left">Tipo De Favorecido</th>
+                    <tr className='divide-x divide-gray-300 bg-[#cccccc36]'>
+                        <th className="p-3 text-sm font-bold tracking-wide text-left">Tipo Favorecido</th>
                     </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-100">
-                    {tipos.map((tipo) => (
+                    {tiposFavs.map((tipoFav) => (
                         <tr 
-                            key={tipo.id}
+                            key={tipoFav.id}
                             className={`hover:bg-slate-300 cursor-pointer ${
-                            selectedItem === tipo ? 'bg-selecaoLinha' : 'bg-white' }`}
-                            onClick={() => handleRowClick(tipo)}
+                            selectedItem === tipoFav ? 'bg-selecaoLinha' : 'bg-white' }`}
+                            onClick={() => handleRowClick(tipoFav)}
                         >
                             <td className="p-3 text-xs font-semibold text-gray-700 whitespace-nowrap">
-                                {tipo.nome_tipo}
+                                {tipoFav.nome_tipo}
                             </td>
                         </tr>
                     ))}
@@ -46,4 +49,4 @@ const TableTipos: React.FC<TableTiposProps> = ({ tipos, onTipoSelected }) => {
     );
 };
 
-export default TableTipos;
+export default TableTiposFav;

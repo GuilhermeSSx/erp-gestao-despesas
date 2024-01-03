@@ -1,18 +1,18 @@
-"use client"
-import TableFavorecidos from '@/app/components/TableFavorecidos';
-import React, { useState, useRef, useEffect } from 'react';
-import { PlusIcon } from '@heroicons/react/20/solid';
 import { PencilSquareIcon } from '@heroicons/react/20/solid';
 import { XCircleIcon } from '@heroicons/react/20/solid';
-import TableTipos from '@/app/components/tableTipos';
-import PopupExcluirFavTipo from '@/app/components/popupExcluirFavTipo';
-import PopupEditarFavTipo from '@/app/components/popupEditarFavTipo';
-import PopupExcluirFav from '@/app/components/popupExcluirFav';
-import PopupEditarFav from '@/app/components/popupEditarFav';
-import PopupCriarTipoFav from '@/app/components/popupCriarTipoFav';
-import PopupCriarFav from '@/app/components/popupCriarFav';
 import Link from 'next/link';
 import { ArrowLeftIcon } from '@heroicons/react/20/solid';
+import TableTiposFav from '@/app/components/tableTipos';
+import { FavTipoProvider } from '@/app/contexts/FavTipoContext';
+import TableFavorecidos from '@/app/components/TableFavorecidos';
+import { Metadata } from 'next';
+import CrudFavTipo from './crudFavTipo';
+import CrudFav from './crudFav';
+import { FavorecidoProvider } from '@/app/contexts/FavorecidoContext';
+
+export const metadata: Metadata = {
+    title: 'Gestão - Favorecidos',
+};
 
 interface Tipo {
     id: number;
@@ -43,323 +43,37 @@ const favorecidos: Favorecido[] = [
     { id: 1, nome_favorecido: 'JPNR NEGOCIOS CORPORATIVOS LTDA', email: 'guilhermedosantos45@gmail.com', telefone: '19999533689', cnpj: '34653835000162', endereco: 'Rua Mauro Zamboni - Jardim Silvana, 256 - 13612-250' }
 ];
 
-export default function Favorecidos() {
-    const [camposExibidos, setCamposExibidos] = useState<string[]>([]);
 
-    useEffect(() => {
-        // Percorra os itens da tabela para identificar os campos presentes
-        const camposPresentes: Set<string> = new Set();
-        favorecidos.forEach(favorecido => {
-            Object.keys(favorecido).forEach(campo => {
-                camposPresentes.add(campo);
-            });
-        });
-        // Converta o conjunto de campos para um array
-        const camposExibidosArray = Array.from(camposPresentes);
-        // Defina o array de campos exibidos
-        setCamposExibidos(camposExibidosArray);
-    }, []);
-
-    const [searchTerm, setSearchTerm] = useState('');
-    const searchInputRef = useRef<HTMLInputElement | null>(null);
-
-    // estado para abrir popup
-    const [popupAbertoEditarFavTipo, setPopupEditarFavTipoAberto] = useState(false);
-    const [popupAbertoEditarFav, setPopupEditarFavAberto] = useState(false);
-    const [popupAbertoDelTipo, setPopupDelTipoAberto] = useState(false);
-    const [popupAbertoExcluirFav, setPopupExcluirFavAberto] = useState(false);
-    const [popupAbertoCadastroFav, setPopupCadastroFavAberto] = useState(false);
-    const [popupAbertoCriarTipoFav, setPopupCriarTipoFavAberto] = useState(false);
-
-    const [selectedFavId, setSelectedFavId] = useState<number | null>(null);
-    const [selectedFav, setSelectedFav] = useState<Favorecido | null>(null);
-
-    const [selectedTipoId, setSelectedTipoId] = useState<number | null>(null);
-    const [selectedTipo, setSelectedTipo] = useState<Tipo | null>(null);
-
-    useEffect(() => {
-        if (searchInputRef.current) {
-            searchInputRef.current.focus();
-        }
-    }, []);
-
-    // Atualize a seleção do tipo
-    const handleTipoSelected = (tipo: Tipo) => {
-        setSelectedTipo(tipo);
-    };
-
-    // Atualize a seleção do favorecido
-    const handleFavorecidoSelected = (favorecido: Favorecido) => {
-        setSelectedFav(favorecido);
-    };
-
-    const abrirPopupExcluirFav = (favId: number) => {
-        setSelectedFavId(favId);
-        setPopupExcluirFavAberto(true);
-    };
-
-    const fecharPopupExcluirFav = () => {
-        setPopupExcluirFavAberto(false);
-    };
-
-    const abrirPopupEditarFav = (favId: number) => {
-        setSelectedFavId(favId);
-        setPopupEditarFavAberto(true);
-    };
-
-    const fecharPopupEditarFav = () => {
-        setPopupEditarFavAberto(false);
-    };
-
-    const abrirPopupEditarFavTipo = (tipoId: number) => {
-        setSelectedTipoId(tipoId);
-        setPopupEditarFavTipoAberto(true);
-    };
-
-    const fecharPopupEditarFavTipo = () => {
-        setPopupEditarFavTipoAberto(false);
-    };
-
-    const abrirPopupDelTipo = (tipoId: number) => {
-        setSelectedTipoId(tipoId);
-        setPopupDelTipoAberto(true);
-    };
-
-    const fecharPopupDelTipo = () => {
-        setPopupDelTipoAberto(false);
-    };
-
-    const abrirPopupCriarTipoFav = () => {
-        setPopupCriarTipoFavAberto(true);
-    };
-
-    const fecharPopupCriarTipoFav = () => {
-        setPopupCriarTipoFavAberto(false);
-    };
-
-    const abrirPopupCadastroFav = (tipoFavId: any) => {
-        setSelectedTipoId(tipoFavId);
-        setPopupCadastroFavAberto(true);
-    };
-
-    const fecharPopupCadastroFav = () => {
-        setPopupCadastroFavAberto(false);
-    };
-
-    const filteredFavorecidos = favorecidos.filter(favorecido =>
-        favorecido.nome_favorecido.toLowerCase().includes(searchTerm.toLowerCase())
-    );
+export default async function Favorecidos() {
 
     return (
         <div className="w-screen md-web:min-h-[calc(100dvh-60px)] h-[calc(100dvh-60px)] flex md:flex-row flex-col bg-slate-50 ">
-
-            <div className='md:ml-1 mt-4 md:w-[12%] md:min-w-[210px] w-full h-[96%] flex flex-col bg-gradient-to-bl from-[#86868600] via-[#eb090900] to-[#8ed15acb] rounded-xl'>
-
-                <Link href={'/modulos/cadastros'} title="voltar">
-                    <div className='group flex justify-evenly items-center py-2 md:px-4 mx-2 border border-transparent text-base rounded-md hover:bg-slate-200 text-slate-400'>
-                        <ArrowLeftIcon className=" h-7 w-5 text-center" aria-hidden="true" />
-                        <span className='hidden md:block'>Voltar</span>
-                    </div>
-                </Link>
-
-                {/* Cadastro Tipo */}
-                <div className='pb-1 mt-2 w-full h-full flex flex-col px-2 rounded-lg'>
-
-                    <div className='h-fit'>
-                        <button
-                            onClick={abrirPopupCriarTipoFav}
-                            title="Criar Favorecido" className='mt-2 group relative w-full flex justify-center py-2 px-4 border border-transparent
-                                    text-base rounded-md bg-emerald-500 hover:bg-emerald-600 text-lime-100 items-center '>
-                            Novo tipo de Favorecido
-                            <PlusIcon
-                                className="h-8 w-6 text-center"
-                                aria-hidden="true"
-                            />
-                        </button>
-                        <PopupCriarTipoFav open={popupAbertoCriarTipoFav} onClose={fecharPopupCriarTipoFav} />
-                    </div>
-
-                    <TableTipos tipos={tipoData} onTipoSelected={handleTipoSelected} />
-
-                    <div className='h-fit flex flex-col py-1 items-center mt-1'>
-                        <div className='flex justify-between w-full select-none'>
-                            <button
-                                onClick={() => {
-                                    if (selectedTipo) {
-                                        abrirPopupEditarFavTipo(selectedTipo.id);
-                                    } else {
-                                        alert("Selecione um TIPO de favorecido na tabela!")
-                                    }
-                                }
-                                }
-                                title="Editar Tipo Favorecido" className=' group relative w-[49%] flex justify-center items-center py-1 px-4 border border-transparent
-                                    text-sm rounded-md bg-orange-400 hover:bg-orange-500 text-orange-100'>
-                                Editar
-                                <PencilSquareIcon
-                                    className="ml-2 h-8 w-5 text-center"
-                                    aria-hidden="true"
-                                />
-                            </button>
-                            {selectedTipo && (
-                                <PopupEditarFavTipo
-                                    open={popupAbertoEditarFavTipo}
-                                    onClose={fecharPopupEditarFavTipo}
-                                    tipoNome={selectedTipo.nome_tipo}
-                                    tipoId={selectedTipo.id}
-                                />
-                            )}
-                            <button
-                                onClick={() => {
-                                    if (selectedTipo) {
-                                        abrirPopupDelTipo(selectedTipo.id);
-                                    } else {
-                                        alert("Selecione um TIPO de Categoria de favorecido na tabela!")
-                                    }
-                                }
-                                }
-                                title="Excluir Tipo Favorecido" className=' group relative w-[49%] flex justify-center items-center py-1 px-4 border border-transparent
-                                        text-sm rounded-md bg-red-500 hover:bg-red-800 text-red-200'>
-                                Excluir
-                                <XCircleIcon
-                                    className="ml-2 h-8 w-5 text-center "
-                                    aria-hidden="true"
-                                />
-                            </button>
-                            {selectedTipo && (
-                                <PopupExcluirFavTipo
-                                    open={popupAbertoDelTipo}
-                                    onClose={fecharPopupDelTipo}
-                                    tipoNome={selectedTipo.nome_tipo}
-                                    tipoId={selectedTipo.id}
-                                />
-                            )}
+            <FavTipoProvider>
+                <div className='md:ml-1 mt-5 md:w-[12%] md:min-w-[210px] w-full h-[96%] flex flex-col bg-gradient-to-bl from-[#86868600] via-[#eb090900] to-[#afafaf31] rounded-xl'>
+                    <Link href={'/modulos/cadastros'} title="voltar">
+                        <div className='group flex justify-evenly items-center py-2 md:px-4 mx-2 border border-transparent text-base rounded-md hover:bg-slate-200 text-slate-400'>
+                            <ArrowLeftIcon className=" h-7 w-5 text-center" aria-hidden="true" />
+                            <span className='hidden md:block'>Voltar</span>
                         </div>
-                    </div>
+                    </Link>
 
-                </div>
-            </div>
+                    {/* Cadastro Tipo */}
+                    <div className='pb-1 mt-2 w-full h-full flex flex-col px-2 rounded-lg'>
 
-            {/* Cadastro Favorecido */}
-            <div className='mt-4 w-full h-[96%] flex flex-col px-[10px] bg-gradient-to-bl from-[#86868600] via-[#eb090900] to-[#8ed15acb] rounded-xl'>
+                        <TableTiposFav tiposFavs={tipoData} />
+                        <CrudFavTipo />
 
-                <div className='h-fit'>
-                    <form className='flex justify-center'>
-                        <input
-                            ref={searchInputRef}
-                            id="searchInput"
-                            className='appearance-none rounded-none relative block border w-full px-4 py-2 rounded-t-md'
-                            type='text'
-                            placeholder='Pesquisar Favorecidos'
-                            value={searchTerm}
-                            onChange={(e) => setSearchTerm(e.target.value)}
-                        />
-                    </form>
-                </div>
-
-                {selectedTipo ? ( // Verifica se há um tipo selecionado
-                    <TableFavorecidos favorecidos={filteredFavorecidos} onFavorecidoSelected={handleFavorecidoSelected} />
-                ) : (
-                    <div className="h-full flex items-center justify-center">
-                        Selecione um tipo de favorecido ao lado.
-                    </div>
-                )}
-
-                <div className='h-fit flex flex-col py-1 items-center mt-1 mb-[6px]'>
-                    <div className='w-full flex flex-col'>
-                        <div className='flex justify-between w-full'>
-                            <button
-                                onClick={() => {
-                                    if (selectedTipo) {
-                                        abrirPopupCadastroFav(selectedTipo?.id);
-                                    } else {
-                                        alert("Selecione um TIPO de favorecido na tabela lateral!")
-                                    }
-                                }}
-                                title="Criar Favorecido"
-                                className={`group relative w-[30%] flex justify-center items-center py-[2px] border border-transparent
-                                text-base rounded-md bg-emerald-500 hover:bg-emerald-600 ${selectedTipo ? 'text-lime-200' : 'text-gray-400 opacity-50 cursor-not-allowed'
-                                    } select-none`}
-                                disabled={!selectedTipo}
-                            >
-                                Cadastrar
-                                <PlusIcon
-                                    className="ml-2 h-7 w-5 text-center"
-                                    aria-hidden="true"
-                                />
-                            </button>
-
-                            <PopupCriarFav
-                                open={popupAbertoCadastroFav}
-                                onClose={fecharPopupCadastroFav}
-                                tipoFavId={selectedTipoId}
-                                tipoFavNome={selectedTipo ? selectedTipo.nome_tipo : ''}
-                                camposExibidos={camposExibidos}
-                            />
-
-                            <button
-                                onClick={() => {
-                                    if (selectedFav) {
-                                        abrirPopupEditarFav(selectedFav.id);
-                                    } else {
-                                        alert("Selecione um favorecido na tabela!")
-                                    }
-                                }
-                                }
-                                title="Editar Favorecido" className=' group relative w-[30%] flex justify-center items-center py-[2px] border border-transparent
-                                text-base rounded-md bg-orange-400 hover:bg-orange-500 text-orange-100 select-none'>
-                                Editar
-                                <PencilSquareIcon
-                                    className="ml-2 h-7 w-5 text-center"
-                                    aria-hidden="true"
-                                />
-                            </button>
-                            <button
-                                onClick={() => {
-                                    if (selectedFav) {
-                                        abrirPopupExcluirFav(selectedFav.id);
-                                    } else {
-                                        alert("Selecione um favorecido na tabela!")
-                                    }
-                                }
-                                }
-                                title="Excluir Favorecido" className=' group relative w-[30%] flex justify-center items-center py-[2px] px-4 border border-transparent
-                                    text-base rounded-md bg-red-600 hover:bg-red-800 text-red-200 select-none'>
-                                Remover
-                                <XCircleIcon
-                                    className="ml-2 h-7 w-5 text-center "
-                                    aria-hidden="true"
-                                />
-
-                            </button>
-
-                        </div>
                     </div>
                 </div>
 
-            </div>
-            {selectedFav && (
-                <PopupEditarFav
-                    open={popupAbertoEditarFav}
-                    onClose={fecharPopupEditarFav}
-                    favId={selectedFav.id}
-                    favNome={selectedFav.nome_favorecido}
-                    favEmail={selectedFav.email}
-                    favTelefone={selectedFav.telefone}
-                    favCpf={selectedFav.cpf}
-                    favCnpj={selectedFav.cnpj}
-                    favEndereco={selectedFav.endereco}
-                    camposExibidos={camposExibidos}
-                />
-            )}
-            {selectedFav && (
-                <PopupExcluirFav
-                    open={popupAbertoExcluirFav}
-                    onClose={fecharPopupExcluirFav}
-                    favId={selectedFav.id}
-                    favNome={selectedFav.nome_favorecido}
-
-                />
-            )}
-        </div>
+                {/* Cadastro Favorecido */}
+                <div className='mt-3 w-full h-[96%] flex flex-col px-[10px] bg-gradient-to-bl from-[#86868600] via-[#eb090900] to-[#0a8ffc10] rounded-xl'>
+                    <FavorecidoProvider>
+                        <CrudFav />
+                        <TableFavorecidos favorecidos={favorecidos} />
+                    </FavorecidoProvider>
+                </div>
+            </FavTipoProvider>
+        </div >
     )
 }

@@ -1,6 +1,11 @@
 import TableCentroDeCustos from '@/app/components/tableCentroDeCustos';
 import CadastrarCentroCusto from './cadastrarCentroCusto';
 import { getCentroCustos } from '@/app/lib/cadastrosActions';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+    title: 'Gestão - Centro De Custo',
+};
 
 export default async function CentroDeCusto() {
     const dataCentroCusto = await getCentroCustos();
