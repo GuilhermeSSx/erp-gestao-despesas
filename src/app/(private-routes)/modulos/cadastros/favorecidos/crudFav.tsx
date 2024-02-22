@@ -22,7 +22,7 @@ interface Favorecido {
 }
 
 const favorecidos: Favorecido[] = [
-    { id: 1, nome_favorecido: 'JPNR NEGOCIOS CORPORATIVOS LTDA', email: 'guilhermedosantos45@gmail.com', telefone: '19999533689', cnpj: '34653835000162', endereco: 'Rua Mauro Zamboni - Jardim Silvana, 256 - 13612-250' }
+    { id: 1, nome_favorecido: 'EMPRESA TAL', email: 'guilhermedosantos45@gmail.com', telefone: '167733689', cnpj: '389978900162', endereco: 'AVENIDA DO COMERCIO - 232' }
 ];
 
 interface Props {

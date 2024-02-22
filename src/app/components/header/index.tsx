@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import Image from "next/image";
-import Logo from "#/public/Energia-JPNR-BRANCO.png";
+import Logo from "#/public/header-logo.png";
 import { Menu } from "@headlessui/react";
 import { ChevronDownIcon, Bars3Icon } from "@heroicons/react/20/solid";
 import { signOut } from "next-auth/react";
