@@ -8,8 +8,8 @@ import { ToastContainer } from 'react-toastify';
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'Gestão - JPNR',
-  description: 'Gestão JPNR Energia',
+  title: 'ERP - Gestao',
+  description: 'ERP GESTAO DESPESAS',
 }
 
 export default function RootLayout({
