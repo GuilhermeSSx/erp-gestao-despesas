@@ -1,6 +1,8 @@
 "use client"
 import Image from 'next/image';
-import saidaIcon from "../../../../../public/saida.svg";
+import saidaIcon from "#/public/saida.svg";
+import centroCustoIcon from "#/public/pizza.png";
+import favorecidosIcon from "#/public/favorecidos.png";
 import { motion } from "framer-motion";
 import Link from 'next/link';
 import { ArrowLeftIcon } from '@heroicons/react/20/solid';
@@ -27,7 +29,9 @@ export default function Cadastros() {
           </Link>
 
           <h2 className='text-3xl font-bold bg-gradient-to-br from-green-400 to-blue-600 bg-clip-text text-transparent'>Cadastros</h2>
+          
         </div>
+        <article className='mt-5 text-center'>Nesta seção você realiza cadastros que serão selecionados em lançamentos.</article>
 
       </div>
 
@@ -44,12 +48,14 @@ export default function Cadastros() {
           className='flex justify-center items-center w-60 h-32 mx-4 my-2 text-white bg-gradient-to-br from-green-400 to-blue-600 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 bg-emerald-500 hover:scale-105 duration-300'
           onClick={() => (window.location.href = "/modulos/cadastros/centroDeCusto")}>
           Centro De Custo
+          <Image className='ml-2' src={centroCustoIcon} width={26} alt="Centro de Custo" />
         </button>
         <button
           draggable={false}
           className='flex justify-center items-center w-60 h-32 mx-4 my-2 text-white bg-gradient-to-br from-green-400 to-blue-600 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 bg-emerald-500 hover:scale-105 duration-300'
           onClick={() => (window.location.href = "/modulos/cadastros/favorecidos")}>
           Favorecidos
+          <Image className='ml-2' src={favorecidosIcon} width={26} alt="Favorecidos" />
         </button>
       </div>
 
