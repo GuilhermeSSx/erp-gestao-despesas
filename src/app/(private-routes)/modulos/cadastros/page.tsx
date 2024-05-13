@@ -12,9 +12,9 @@ export default function Cadastros() {
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 120 }}
-      animate={{ opacity: 1, y: 0, transition: { delay: 0.2 } }}
-      exit={{ opacity: 0, y: 120 }}
+      initial={{ opacity: 0, x: 50 }}
+      animate={{ opacity: 1, x: 0, transition: { delay: 0.1 } }}
+      exit={{ opacity: 0, x: 0 }}
 
       className="w-full md-web:min-h-[calc(100dvh-60px)] h-[calc(100dvh-60px)] flex flex-col bg-slate-100 items-center select-none fixed">
       <div className='relative w-full '>

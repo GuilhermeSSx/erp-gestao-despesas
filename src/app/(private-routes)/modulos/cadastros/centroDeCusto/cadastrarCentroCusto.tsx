@@ -81,7 +81,7 @@ const CadastrarCentroCusto: React.FC<Props> = ({ children }) => {
                 </div>
             </Link>
             <motion.div
-                initial={{ opacity: 0, y: -60 }}
+                initial={{ opacity: 0, y: -30 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -20 }}
                 className='flex flex-col w-full md:w-[40%] md:min-w-[500px] h-[85%] md:h-[83%] items-center bg-slate-100 rounded-md p-3 mt-12 md:mt-0 shadow-[50px_50px_50px_-1px_rgba(0,0,0,0.2)]'>

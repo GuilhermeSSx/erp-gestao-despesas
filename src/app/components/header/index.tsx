@@ -44,7 +44,7 @@ export default function Header() {
 
                     <div className="flex items-center mx-4">
                         <button draggable={false} onClick={() => window.location.href = "/modulos"}>
-                            <Image draggable={false} priority={true} alt="" src={Logo} width={60} />
+                            <Image draggable={false} priority={true} alt="" src={Logo} width={50} />
                         </button>
                     </div>
                     <div className="flex w-fit justify-end mx-4 absolute right-0">

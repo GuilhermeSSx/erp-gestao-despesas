@@ -84,9 +84,9 @@ const CadastrarClassSaida: React.FC<Props> = ({ children }) => {
                 <AnimatePresence>
                     <motion.div
                         className='flex flex-col w-[96%] md:w-[29%] md:min-w-[470px] rounded-lg'
-                        initial={{ opacity: 0, y: -200 }}
-                        animate={{ opacity: 1, y: 0, }}
-                        exit={{ opacity: 0, y: -50 }}
+                        initial={{ opacity: 0, x: -10 }}
+                        animate={{ opacity: 1, x: 0, }}
+                        exit={{ opacity: 0, x: -50 }}
                     >
                         <form className='flex justify-center' onSubmit={handleSubmit}>
                             <input
@@ -106,7 +106,7 @@ const CadastrarClassSaida: React.FC<Props> = ({ children }) => {
                             <button
                                 title="Adicionar Classificação de Saida"
                                 className={`ml-1 group relative w-fit flex justify-center items-center py-2 px-4 border border-transparent
-                            text-base rounded-md ${loading ? 'bg-gray-400' : 'bg-emerald-400 hover:bg-lime-500'}`}
+                            text-sm rounded-md ${loading ? 'bg-gray-400' : 'bg-emerald-400 hover:bg-lime-500'}`}
                                 disabled={loading}
                             >
                                 {loading ? 'Processando...' : 'Cadastrar'}

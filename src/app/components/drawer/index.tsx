@@ -68,7 +68,7 @@ function DrawerOpenClose() {
                             transition={{ type: "tween", duration: 0.3 }}
                             animate={{ opacity: 1, x: 0 }}
                             exit={{ opacity: 0, x: -300 }}
-                            className='fixed bg-white shadow-2xl h-full w-full max-w-[250px] min-w-[200px] flex top-0 left-0'
+                            className='fixed bg-white shadow-2xl h-full w-full max-w-[300px] min-w-[250px] flex top-0 left-0'
                             ref={drawerRef}
                         >
                             <div className='flex flex-col w-full divide-y-4'>
