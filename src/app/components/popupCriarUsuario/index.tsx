@@ -167,6 +167,8 @@ const PopupCriarUsuario: React.FC<PopupProps> = ({ open, onClose }) => {
                                 />
                             </div>
 
+                            <h2 className='appearance-none rounded-none relative block w-full px-3 py-1 mt-4'>Selecione abaixo um perfil de acesso.</h2>
+
                             <select
                                 name='role_id'
                                 onChange={handleSelectChange}

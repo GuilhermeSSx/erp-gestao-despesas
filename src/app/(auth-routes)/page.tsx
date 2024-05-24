@@ -17,7 +17,10 @@ export default function Login() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [isAuthorized, setIsAuthorized] = useState<boolean>(false);
+  const [emailError, setEmailError] = useState<boolean>(false);
+  const [passwordError, setPasswordError] = useState<boolean>(false);
 
+  const emailInputRef = useRef<HTMLInputElement | null>(null);
   const passwordInputRef = useRef<HTMLInputElement | null>(null);
 
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
@@ -41,19 +44,11 @@ export default function Login() {
   useEffect(() => {
     const rememberMe = localStorage.getItem('rememberMe');
     if (rememberMe === 'true') {
-      // Se "Lembrar-me" estiver marcado, carregue o email e senha criptografados do armazenamento local
       const storedEmail = localStorage.getItem('email');
-      // const storedPassword = localStorage.getItem('password');
-      // && storedPassword
       if (storedEmail) {
         setEmail(storedEmail);
-
-        // Descriptografa a senha ao recuperá-la do armazenamento local
-        // const decryptedPassword = AES.decrypt(storedPassword, 'sua-chave-secreta').toString(enc.Utf8);
-        // setPassword(storedPassword);
       }
 
-      // Verifica se a caixa de seleção "Lembrar-me" está marcada
       if (rememberMeCheckboxRef.current) {
         rememberMeCheckboxRef.current.checked = true;
       }
@@ -66,84 +61,119 @@ export default function Login() {
     event.preventDefault();
 
     setIsLoading(true);
+    setErrorMessage(null);
 
-    const result = await signIn('credentials', {
+    const timeout = new Promise<null>((_, reject) =>
+      setTimeout(() => reject(new Error('timeout')), 7000)
+    );
+
+    const loginRequest = signIn('credentials', {
       email,
       password,
       redirect: false,
     });
 
-    setIsLoading(false);
+    try {
+      const result = await Promise.race([loginRequest, timeout]);
 
-    if (result?.error) {
-      console.error(result.error);
-      toast.error('Erro ao fazer login. Email ou senha incorretos!', {
-        position: "bottom-left",
-        autoClose: 4000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-      });
-    } else {
-      setIsAuthorized(true);
-      // Se a caixa "Lembrar-me" estiver marcada, criptografa a senha e armazena no armazenamento local
-      if (rememberMeCheckboxRef.current && rememberMeCheckboxRef.current.checked) {
-        localStorage.setItem('rememberMe', 'true');
-        localStorage.setItem('email', email);
+      setIsLoading(false);
 
-        // Criptografa a senha antes de armazená-la
-        // const encryptedPassword = AES.encrypt(password, 'sua-chave-secreta').toString();
-        // localStorage.setItem('password', password);
+      if (result?.error) {
+        console.error(result.error);
+        setEmailError(true);
+        setPasswordError(true);
+        toast.error('Erro ao fazer login. Email ou senha incorretos!', {
+          position: "bottom-left",
+          autoClose: 4000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+        setTimeout(() => {
+          setEmailError(false);
+          setPasswordError(false);
+        }, 1500);
       } else {
-        localStorage.removeItem('rememberMe');
-        localStorage.removeItem('email');
-        // localStorage.removeItem('password');
-      }
+        setIsAuthorized(true);
+        if (rememberMeCheckboxRef.current && rememberMeCheckboxRef.current.checked) {
+          localStorage.setItem('rememberMe', 'true');
+          localStorage.setItem('email', email);
+        } else {
+          localStorage.removeItem('rememberMe');
+          localStorage.removeItem('email');
+        }
 
-      router.replace('/modulos');
-      toast.success('Login efetuado com sucesso!', {
-        position: "top-center",
-        transition: Slide,
-        autoClose: 1500,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: false,
-        progress: undefined,
-        theme: "dark",
-        className: "mt-[52px]"
-      });
-      setErrorMessage(null);
+        router.replace('/modulos');
+        toast.success('Login efetuado com sucesso!', {
+          position: "top-center",
+          transition: Slide,
+          autoClose: 1500,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: false,
+          progress: undefined,
+          theme: "dark",
+          className: "mt-[52px]"
+        });
+        setErrorMessage(null);
+      }
+    } catch (error: unknown) {
+      setIsLoading(false);
+      if (error instanceof Error && error.message === 'timeout') {
+        toast.error('Sem resposta do servidor, tente novamente ou mais tarde.', {
+          position: "bottom-left",
+          autoClose: 4000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      } else {
+        console.error('Erro desconhecido:', error);
+        toast.error('Ocorreu um erro inesperado. Tente novamente.', {
+          position: "bottom-left",
+          autoClose: 4000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      }
     }
   }
 
   return (
     <main className='h-[100dvh] w-full bg-slate-400 flex justify-center items-center overflow-auto sm:p-10 sm-mobile:p-2 p-2'>
-      <div className='w-full max-w-[460px] lg-1920:w-[24%] md-1190:w-[40%] md:w-[60%] md-web:w-[90%] h-fit bg-[#ffffff] rounded-xl flex flex-col items-center justify-center sm-mobile:p-2 p-2'>
+      <div className='w-full max-w-[460px] lg-1920:w-[24%] md-1190:w-[40%] md:w-[60%] md-web:w-[90%] h-fit bg-[#ffffff] rounded-xl flex flex-col items-center justifycenter sm-mobile:p-2 p-2'>
         <Image
           className='flex relative justify-center items-center my-2'
           priority={true}
           alt=""
           src={LoginLogo}
-          width={240}
+          width={260}
           draggable={false}
         />
         <h1 className='font-extrabold my-2 text-center text-black'>Entrar na sua conta</h1>
-        <form className='w-[100%] flex flex-col justify-center sm:px-14 sm-mobile:px-4 px-1' onSubmit={handleSubmit}>
+        <form className='w-[100%] flex flex-col justifycenter sm:px-14 sm-mobile:px-4 px-1' onSubmit={handleSubmit}>
           <div>
             <input
               id='email'
               type='email'
               autoComplete='email'
               required
-              className='appearance-none rounded-none relative
-              block border w-full px-2 py-2 mt-6 rounded-t-md'
+              className={`appearance-none rounded-none relative block border w-full px-2 py-2 mt-6 rounded-t-md ${emailError ? 'border-red-500 animate-pulse' : 'border-gray-300'}`}
               placeholder='Email'
               value={email}
               onChange={(event) => setEmail(event.target.value)}
+              ref={emailInputRef}
             />
           </div>
           <div className="relative select-none">
@@ -152,7 +182,7 @@ export default function Login() {
               type={isPasswordVisible ? 'text' : 'password'}
               autoComplete='current-password'
               required
-              className='appearance-none rounded-none relative block border w-full px-2 py-2 mt-4 rounded-t-md'
+              className={`appearance-none rounded-none relative block border w-full px-2 py-2 mt-4 rounded-t-md ${passwordError ? 'border-red-500 animate-pulse' : 'border-gray-300'}`}
               placeholder='Senha'
               value={password}
               onChange={(event) => setPassword(event.target.value)}
@@ -165,7 +195,6 @@ export default function Login() {
                 onClick={togglePasswordVisibility}
                 className="select-none absolute inset-y-0 top-4 right-2 flex items-center text-slate-400 px-2"
                 style={{ WebkitTapHighlightColor: 'transparent' }}
-
               >
                 {isPasswordVisible ? <FaEyeSlash size={20} /> : <FaEye size={20} />}
               </button>
@@ -188,7 +217,7 @@ export default function Login() {
           <div className='my-8'>
             <button
               type='submit'
-              className='group relative w-full flex justify-center items-center py-2 px-4 border border-transparent
+              className='group relative w-full flex items-center justify-center py-4 px-6 border border-transparent
               text-sm font-medium rounded-md bg-lime-400 hover:bg-lime-500 hover:scale-[1.02] transition duration-300'
               disabled={isLoading || isAuthorized}
             >
@@ -200,7 +229,7 @@ export default function Login() {
                 </div>
               ) : isAuthorized ? (
                 <motion.div 
-                  className="flex items-center"
+                  className="flex items-center "
                   initial={{ opacity: 0, x: -60 }}
                   animate={{ opacity: 1, x: 0 }}
                   exit={{ opacity: 0, x: -20 }}
@@ -208,8 +237,6 @@ export default function Login() {
                   <span className="text-sm text-slate-500 px-2">Autenticado</span>
                   <div className="w-full text-center">
                     <FcOk size={22}/>
-                    
-                    
                   </div>
                 </motion.div>
               ) : (
