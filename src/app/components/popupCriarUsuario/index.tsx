@@ -126,7 +126,7 @@ const PopupCriarUsuario: React.FC<PopupProps> = ({ open, onClose }) => {
                     <div className='bg-slate-100 w-full h-full rounded-lg md:p-12 p-2'>
                         
 
-                        <h1 className='font-extrabold mt-4 select-none text-center text-xl'>Cadastrar novo Usuario</h1>
+                        <h1 className='font-extrabold mt-4 select-none text-center text-xl'>Cadastrar Novo Usuário</h1>
                         <form className='w-full h-full flex flex-col md:justify-center' onSubmit={handleSubmit}>
                             <div className=''>
                                 <input
@@ -167,7 +167,7 @@ const PopupCriarUsuario: React.FC<PopupProps> = ({ open, onClose }) => {
                                 />
                             </div>
 
-                            <h2 className='appearance-none rounded-none relative block w-full px-3 py-1 mt-4'>Selecione abaixo um perfil de acesso.</h2>
+                            <h2 className='appearance-none rounded-none relative block w-full px-3 py-1 mt-4 select-none'>Selecione abaixo um perfil de acesso.</h2>
 
                             <select
                                 name='role_id'

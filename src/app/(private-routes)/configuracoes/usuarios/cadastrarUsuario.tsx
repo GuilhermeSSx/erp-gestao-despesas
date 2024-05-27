@@ -81,7 +81,7 @@ const CadastrarUsuario = () => {
                     <div className='absolute -inset-1 rounded-lg bg-gradient-to-r from-lime-500 via-gray-200 to-gray-400 opacity-30 blur transition duration-500 group-hover:opacity-100'></div>
                     <button
                         onClick={abrirPopupCriarUsuario}
-                        className='shadow-lg w-full relative bg-lime-300 rounded-lg  px-7 py-2 text-black select-none outline-none'
+                        className='shadow-lg w-full relative bg-lime-300 rounded-lg px-7 py-2 text-black select-none outline-none text-sm font-medium'
                     >
                         Cadastrar
                     </button>

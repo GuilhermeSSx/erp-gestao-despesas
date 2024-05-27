@@ -75,19 +75,19 @@ const TableSaida: React.FC<TableEntradaProps> = ({ saidas }) => {
     };
 
     return (
-        <div className='rounded-lg shadow-[0_10px_10px_-1px_rgba(0,0,0,0.5)] h-full w-full overflow-y-scroll'>
+        <div className='rounded-lg h-full w-full overflow-y-scroll my-1'>
             <table className='w-full h-fit'>
                 <thead className='bg-gray-50 border-b-2 border-gray-200 sticky top-0'>
                     <tr>
-                        <th className="w-[60%] p-3 text-sm font-semibold tracking-wide text-left bg-emerald-500">Classificações de Saida</th>
-                        <th className="w-[40%] p-3 text-sm font-semibold tracking-wide text-center bg-orange-300 select-none">Ação</th>
+                        <th className="w-[60%] p-3 text-sm font-bold tracking-wide text-left select-none">Classificações de Saida</th>
+                        <th className="w-[40%] p-3 text-sm font-semibold tracking-wide text-left select-none">Ação</th>
                     </tr>
                 </thead>
                 <tbody className='divide-y divide-gray-100'>
                     {saidas.map((saida) => (
                         <tr
                             key={saida.id_class_saida}
-                            className='hover:bg-slate-200 cursor-pointer divide-w'
+                            className='bg-white hover:bg-slate-50 divide-w'
                         >
                             <td className='p-3 text-sm text-gray-700 whitespace-nowrap'>
                                 {selectedEditarItem === saida ? (

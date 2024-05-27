@@ -44,7 +44,7 @@ const TablePerfisAcesso: React.FC<TablePerfisAcessosProps> = ({ perfisAcessos })
                         <th className="p-3 text-sm font-bold tracking-wide text-left">Ações</th>
                     </tr>
                 </thead>
-                <tbody className="divide-y-2 divide-blue-100">
+                <tbody className="divide-y-2 divide-slate-100">
                     {perfisAcessos.map((perfilAcesso, index) => (
                         <tr key={perfilAcesso.id_perfil_acesso}>
                             <td className='w-[50%] p-3 px-4 text-xs font-semibold text-gray-700 whitespace-nowrap'>

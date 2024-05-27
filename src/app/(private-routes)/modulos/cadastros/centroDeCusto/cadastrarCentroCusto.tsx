@@ -80,12 +80,15 @@ const CadastrarCentroCusto: React.FC<Props> = ({ children }) => {
                     <span className='hidden md:block'>Voltar</span>
                 </div>
             </Link>
-            <motion.div
-                initial={{ opacity: 0, y: -30 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
+            
+            <div
                 className='flex flex-col w-full md:w-[40%] md:min-w-[500px] h-[85%] md:h-[83%] items-center bg-slate-100 rounded-md p-3 mt-12 md:mt-0 shadow-[50px_50px_50px_-1px_rgba(0,0,0,0.2)]'>
-                <div className='flex flex-col w-full rounded-lg'>
+                <motion.div
+                    className='flex flex-col w-full rounded-lg'
+                    initial={{ opacity: 0, x: -10 }}
+                    animate={{ opacity: 1, x: 0, }}
+                    exit={{ opacity: 0, x: -50 }}
+                >
                     <form className='flex justify-center' onSubmit={handleSubmit}>
                         <input
                             id='cadastrar_centro_custo'
@@ -104,7 +107,7 @@ const CadastrarCentroCusto: React.FC<Props> = ({ children }) => {
                         <button
                             title="Adicionar centro de custo"
                             className={`ml-1 group relative w-22 flex justify-center items-center py-2 px-4 border border-transparent
-                            text-base rounded-md ${loading ? 'bg-gray-400' : 'bg-emerald-400 hover:bg-lime-500'}`}
+                            rounded-md text-sm font-medium ${loading ? 'bg-gray-400' : 'bg-emerald-400 hover:bg-lime-500'}`}
                             disabled={loading}
                         >
                             {loading ? 'Processando...' : 'Cadastrar'}
@@ -116,11 +119,11 @@ const CadastrarCentroCusto: React.FC<Props> = ({ children }) => {
                     </form>
 
 
-                </div>
+                </motion.div>
 
                 {children}
 
-            </motion.div>
+            </div>
         </>
 
     )

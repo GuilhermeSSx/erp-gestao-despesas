@@ -52,14 +52,14 @@ const TableUsuarios: React.FC<TableUsuariosProps> = React.memo(({ usuarios, perf
 
     return (
         <div className='rounded-lg h-full w-[100%] overflow-y-scroll mt-2 bg-white'>
-            <table className="w-full h-fit select-none">
+            <table className="w-full h-fit">
                 <thead className="bg-gray-50 border-b-2 border-gray-200 sticky top-0">
                     <tr className='divide-x divide-gray-300'>
                         <th className="p-3 text-xs font-bold tracking-wide text-left">Usuário</th>
                         <th className="p-3 text-xs font-bold tracking-wide text-left">Perfil de Acesso</th>
                     </tr>
                 </thead>
-                <tbody className="divide-y-2 divide-blue-100">
+                <tbody className="divide-y-2 divide-slate-100">
                     {usuarios.map((usuario, index) => (
                         <tr
                             key={usuario.id}
@@ -68,7 +68,7 @@ const TableUsuarios: React.FC<TableUsuariosProps> = React.memo(({ usuarios, perf
                         >
                             <td className="w-full p-2 px-4 text-gray-700 whitespace-nowrap">
                                 <div>
-                                    <h1 className='font-bold text-sm'>{usuario.name}</h1>
+                                    <h1 className='font-bold text-sm select-none'>{usuario.name}</h1>
                                 </div>
                                 <div>
                                     <h2 className='font-semibold text-gray-500 text-xs'>{usuario.email}</h2>
@@ -76,7 +76,7 @@ const TableUsuarios: React.FC<TableUsuariosProps> = React.memo(({ usuarios, perf
 
                             </td>
                             <td className='flex items-center justify-center text-gray-700 md-web:w-48 w-[132px]'>
-                                <div className="flex justify-center items-center w-full p-2 border-l border-blue-500">
+                                <div className="flex justify-center items-center w-full p-2 border-l border-slate-200">
                                     <select
                                         name='select-perfil'
                                         className='w-full p-2 text-xs md:text-sm flex items-center'

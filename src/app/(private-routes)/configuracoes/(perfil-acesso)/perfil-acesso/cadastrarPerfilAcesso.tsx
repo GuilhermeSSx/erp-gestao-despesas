@@ -6,9 +6,8 @@ import { toast } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 
 const CadastrarPerfilAcesso = () => {
-
     const [formData, setFormData] = useState({ nome_perfil_acesso: '' });
-    const [loading, setLoading] = useState(false); // Adicionado para controlar o estado de carregamento
+    const [loading, setLoading] = useState(false);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
@@ -17,13 +16,11 @@ const CadastrarPerfilAcesso = () => {
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-
         const nome_perfil_acesso = formData.nome_perfil_acesso;
-        setLoading(true); // Iniciar carregamento
+        setLoading(true);
 
         try {
             await criarPerfilAcesso(nome_perfil_acesso);
-
             toast.success('Perfil de acesso: ' + nome_perfil_acesso + ' criado com sucesso!', {
                 position: "bottom-left",
                 autoClose: 2600,
@@ -34,7 +31,6 @@ const CadastrarPerfilAcesso = () => {
                 progress: undefined,
                 theme: "light",
             });
-
         } catch (error) {
             if (error instanceof Error) {
                 toast.error('' + error.message, {
@@ -59,45 +55,42 @@ const CadastrarPerfilAcesso = () => {
                     theme: "light",
                 });
             }
-
         } finally {
-            setLoading(false); // Finalizar carregamento
+            setLoading(false);
         }
     };
 
     return (
         <form className='w-full h-fit flex flex-col items-center rounded-xl' onSubmit={handleSubmit}>
-            <div className='rounded-lg w-full'>
+            <div className='relative mt-3 w-full'>
                 <input
                     id='nome-perfil-acesso'
                     name='nome_perfil_acesso'
-                    className='mt-3 relative block border-2 w-full px-4 py-2 rounded-t-md'
-                    placeholder='Nome do novo perfil de acesso...'
+                    className='appearance-none block border-1 w-full px-4 py-2 pr-24 rounded-md outline-slate-300'
+                    placeholder='nome perfil de acesso...'
                     type='text'
                     required
                     onChange={handleChange}
                     maxLength={15}
                     minLength={2}
                 />
-            </div>
-
-            <div className='flex justify-between w-full'>
                 <button
+                    type="submit"
+                    className={`absolute right-[2px] top-[2px] h-[90%] bg-emerald-400 text-black m-0 px-5 py-2 rounded-md hover:bg-lime-500 transition duration-300 
+                        text-sm font-medium ${loading ? 'bg-gray-400' : ''}`}
+                    disabled={loading}
                     title="Cadastrar Perfil de Acesso"
-                    className={`mt-2 group relative w-full flex justify-center items-center py-1 px-4 border border-transparent
-                        text-base rounded-md ${loading ? 'bg-gray-400' : 'bg-emerald-400 hover:bg-lime-500'}`}
-                    disabled={loading} // Desabilitar enquanto carrega
                 >
-                    {loading ? 'Processando...' : 'Cadastrar'}
-                    <UserPlusIcon
-                        className="ml-2 h-7 w-5 text-center"
-                        aria-hidden="true"
-                    />
+                    {loading ? 'Processando...' : (
+                        <>
+                            Cadastrar
+                            <UserPlusIcon className="ml-2 h-5 w-5 inline" aria-hidden="true" />
+                        </>
+                    )}
                 </button>
             </div>
-
         </form>
-    )
-}
+    );
+};
 
 export default CadastrarPerfilAcesso;

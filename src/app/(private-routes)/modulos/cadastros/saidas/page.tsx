@@ -16,7 +16,7 @@ export default async function Saidas() {
         <div className="w-screen md-web:min-h-[calc(100dvh-60px)] h-[calc(100dvh-60px)] flex flex-col justify-center items-center">
 
             <CadastrarClassSaida>
-                <div className='md:w-[30%] md:min-w-[500px] w-full h-full flex p-2'>
+                <div className='w-full h-full flex p-1'>
                     <TableSaida saidas={class_saida} />
                 </div>
             </CadastrarClassSaida>

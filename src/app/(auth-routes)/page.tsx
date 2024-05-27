@@ -126,14 +126,19 @@ export default function Login() {
       if (error instanceof Error && error.message === 'timeout') {
         toast.error('Sem resposta do servidor, tente novamente ou mais tarde.', {
           position: "bottom-left",
-          autoClose: 4000,
+          autoClose: 3500,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,
           draggable: true,
           progress: undefined,
-          theme: "light",
+          theme: "light",  
         });
+
+        setTimeout(() => {
+          window.location.reload();
+        }, 3600); // (3.6 segundos) para coincidir com a duração do autoClose
+
       } else {
         console.error('Erro desconhecido:', error);
         toast.error('Ocorreu um erro inesperado. Tente novamente.', {
