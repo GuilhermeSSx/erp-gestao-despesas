@@ -17,7 +17,11 @@ module.exports = {
         'lg-1920': '1920px',
         'md-1190': '1190px',
         'md-web': '470px',
-        'sm-mobile': '360px'
+        'sm-mobile': '360px',
+        '720p': {'max': '1280px'}, // Breakpoint para telas até 1280px
+      },
+      scale: {
+        '80': '0.8', // Adiciona a escala de 80%
       },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
