@@ -19,7 +19,7 @@ function SideMenu() {
     )
 
   return (
-    <div className='md:flex flex-col w-[250px] min-w-[250px] bg-white shadow-lg h-full p-4'>
+    <div className='hidden md:flex flex-col w-[250px] min-w-[250px] bg-white shadow-lg h-full p-4'>
       <h1 className='my-8 font-extrabold text-center text-black'>Menu lateral</h1>
       <div className='flex flex-col divide-y-4'>
         <Menu as='div' className='relative p-3 bg-[#6964643d]'>
