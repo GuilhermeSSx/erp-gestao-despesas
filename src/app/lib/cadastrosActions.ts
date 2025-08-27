@@ -27,7 +27,7 @@ export const criarCentroCusto = async (nome_centro_custo: string) => {
         
 
         if (response.status === 200) {
-            revalidatePath('/modulos/cadastros/centroDeCusto');
+            revalidatePath('/dashboard/cadastros/centroDeCusto');
         } else if(response.status === 400) {
             throw new Error('Ja existe um centro de custo com este nome.');
         } else {
@@ -69,7 +69,7 @@ export const updateCentroCusto = async (id_centro_custo: number, nome_centro_cus
 
 
         if (response.status === 200) {
-            revalidatePath('/modulos/cadastros/centroDeCusto');
+            revalidatePath('/dashboard/cadastros/centroDeCusto');
         } else if(response.status === 400) {
             throw new Error('Ja existe um centro de custo com este nome.');
         } else {
@@ -121,7 +121,7 @@ export const criarClassSaida = async (nome_class_saida: string) => {
         });
 
         if (response.status === 200) {
-            revalidatePath('/modulos/cadastros/saidas');
+            revalidatePath('/dashboard/cadastros/saidas');
         } else if(response.status === 400) {
             throw new Error('Ja existe uma classificacao de saida com este nome.');
         } else {
@@ -163,7 +163,7 @@ export const updateClassSaida = async (id_class_saida: number, nome_class_saida:
 
 
         if (response.status === 200) {
-            revalidatePath('/modulos/cadastros/saidas');
+            revalidatePath('/dashboard/cadastros/saidas');
         } else if(response.status === 400) {
             throw new Error('Ja existe uma classificacao de saida com este nome.');
         } else {

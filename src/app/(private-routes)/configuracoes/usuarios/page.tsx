@@ -1,9 +1,9 @@
-import TableUsuarios from '@/app/components/tableUsuarios';
+import TableUsuarios from '@/app/components/ui/table/Usuarios';
 import { carregarSelecaoPerfilAcesso, getPerfilAcessos, getUsuariosFiltrados, updateUsuarioRoleId } from '@/app/lib/userActions';
 import CadastrarUsuario from './cadastrarUsuario';
 import { UsuarioProvider } from '@/app/contexts/UsuarioContext';
 import SearchUsuarios from './searchUsuarios';
-import { VoltarUsuarios } from '@/app/components/voltarUsuarios';
+import { VoltarUsuarios } from '@/app/components/ui/button/VoltarUsuarios';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {

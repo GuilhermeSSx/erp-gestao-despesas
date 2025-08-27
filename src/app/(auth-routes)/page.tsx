@@ -106,7 +106,7 @@ export default function Login() {
           localStorage.removeItem('email');
         }
 
-        router.replace('/modulos');
+        router.replace('/dashboard');
         toast.success('Login efetuado com sucesso!', {
           position: "top-center",
           transition: Slide,

@@ -1,5 +1,5 @@
-import BasicTabs from "@/app/components/basicTabs";
-import { VoltarPerfilAcesso } from "@/app/components/voltarPerfilAcesso";
+import BasicTabs from "@/app/components/ui/basicTabs";
+import { VoltarPerfilAcesso } from "@/app/components/ui/button/VoltarPerfilAcesso";
 import { ArrowLeftIcon } from "@heroicons/react/20/solid";
 import Link from "next/link";
 

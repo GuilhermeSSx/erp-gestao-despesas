@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
 import { getModulosAcesso, updateModulosAcesso } from '@/app/lib/userActions';
-import TableModulos from '@/app/components/tableModulos';
+import TableModulos from '@/app/components/ui/table/Modulos';
 
 export const metadata: Metadata = {
     title: 'Modulos Acesso',

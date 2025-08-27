@@ -1,4 +1,4 @@
-import TableFuncionalidades from '@/app/components/tableFuncionalidades';
+import TableFuncionalidades from '@/app/components/ui/table/Funcionalidades';
 import { getFuncionalidadesAcesso, updateFuncionalidadesAcesso } from '@/app/lib/userActions';
 
 import { Metadata } from 'next';

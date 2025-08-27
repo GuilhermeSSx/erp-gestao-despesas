@@ -1,6 +1,6 @@
 "use client";
-import PopupCriarUsuario from "@/app/components/popupCriarUsuario";
-import PopupExcluirUsuario from "@/app/components/popupExcluirUsuario";
+import PopupCriarUsuario from "@/app/components/ui/modal/CriarUsuario";
+import PopupExcluirUsuario from "@/app/components/ui/modal/ExcluirUsuario";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
 import { useUsuario } from '@/app/contexts/UsuarioContext';
