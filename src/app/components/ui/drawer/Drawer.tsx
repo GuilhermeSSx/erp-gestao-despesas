@@ -1,161 +1,134 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronDownIcon, Bars3Icon } from "@heroicons/react/20/solid";
 import { Menu } from "@headlessui/react";
 import Link from "next/link";
 import { usePathname } from 'next/navigation';
 import clsx from 'clsx';
-import { useSession } from "next-auth/react"
+import { useSession } from "next-auth/react";
 
+// Variants para a animação do backdrop (fundo escuro)
+const backdropVariants = {
+  visible: { opacity: 1 },
+  hidden: { opacity: 0 },
+};
 
-function DrawerOpenClose() {
-    const { data: session } = useSession()
+// Variants para a animação do painel do drawer
+const drawerVariants = {
+  visible: { x: 0, transition: { type: "spring", damping: 25, stiffness: 150 } },
+  hidden: { x: '-100%', transition: { type: "spring", damping: 20, stiffness: 120 } },
+} as const;
 
-    const role_id = session?.user?.role_id;
+// Estrutura de dados para os links do menu, facilitando a manutenção
+const modulosLinks = [
+  { href: '/dashboard/cadastros', label: 'Cadastros' },
+  { href: '/dashboard/lancamentos', label: 'Lançamentos' },
+];
 
-    const [isOpen, setIsOpen] = useState(false);
-    const drawerRef = useRef<HTMLDivElement | null>(null);
-    const pathname = usePathname();
+const configuracoesLinks = [
+  { href: '/configuracoes/usuarios', label: 'Usuários' },
+  { href: '/configuracoes/perfil-acesso', label: 'Perfil de Acesso' },
+];
 
-    useEffect(() => {
-        const handleClick = (event: MouseEvent) => {
-            if (drawerRef.current && !drawerRef.current.contains(event.target as Node)) {
-                setIsOpen(false);
-            }
-        };
+function Drawer() {
+  const { data: session } = useSession();
+  const [isOpen, setIsOpen] = useState(false);
+  const pathname = usePathname();
 
-        if (isOpen) {
-            window.addEventListener('click', handleClick);
-        }
+  const closeDrawer = () => setIsOpen(false);
+  const openDrawer = () => setIsOpen(true);
 
-        return () => {
-            window.removeEventListener('click', handleClick);
-        };
-    }, [isOpen]);
-
-    const toggleDrawer = (event: React.MouseEvent) => {
-        event.stopPropagation();
-        setIsOpen(!isOpen);
-    };
-
-    const linkClassName = (href: string) =>
-        clsx(
-            'font-semibold flex w-full items-center rounded-md p-4 text-sm hover:bg-slate-200',
-            { 'bg-selecaoLinha': pathname.startsWith(href) }
-        );
-
-    return (
-        <>
-            <button onClick={toggleDrawer} className="flex w-fit h-fit justify-center items-center p-2 ml-2 mr-4 rounded-md hover:bg-white hover:bg-opacity-20">
-                <Bars3Icon
-                    className="h-7 w-7 text-violet-200 hover:text-[#CE466F]"
-                    aria-hidden="true"
-                />
-            </button>
-            <AnimatePresence>
-                {isOpen && (
-                    <>
-                        <motion.div
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            exit={{ opacity: 0 }}
-                            className="fixed inset-0 bg-black bg-opacity-30"
-                            onClick={() => setIsOpen(false)}
-                        />
-
-                        <motion.div
-                            initial={{ opacity: 0, x: -300 }}
-                            transition={{ type: "tween", duration: 0.3 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            exit={{ opacity: 0, x: -300 }}
-                            className='fixed bg-white shadow-2xl h-full w-full max-w-[300px] min-w-[250px] flex top-0 left-0'
-                            ref={drawerRef}
-                        >
-                            <div className='flex flex-col w-full divide-y-4'>
-                                <div className='flex justify-between px-4  items-center'>
-                                    <h1 className='my-8 font-extrabold text-center text-black '>Menu lateral</h1>
-                                    <button onClick={toggleDrawer} className="z-50 h-fit flex items-center justify-between">
-                                        <Bars3Icon
-                                            className="h-8 w-8 text-black hover:text-[#CE466F]"
-                                            aria-hidden="true"
-                                        />
-                                    </button>
-                                </div>
-
-                                <Menu as="div" className="relative p-3 bg-[#6964643d]">
-                                    <Menu.Button className="relative z-24 inline-flex w-full justify-between rounded-md bg-white bg-opacity-30 px-4 py-[10px] text-sm font-medium text-white hover:bg-opacity-80 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-90">
-                                        <span className="md-web:flex text-black font-bold text-base">Módulos</span>
-                                        <ChevronDownIcon className="ml-2 -mr-1 h-5 w-5 text-black hover:text-[#CE466F]" aria-hidden="true" />
-                                    </Menu.Button>
-
-                                    <Menu.Items className="right-0 mt-2 w-full origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                                        <Menu.Item as="div">
-                                            <Link
-                                                draggable={false}
-                                                onClick={toggleDrawer}
-                                                className={linkClassName("/dashboard/cadastros")}
-                                                href="/dashboard/cadastros"
-                                            >
-                                                Cadastros
-                                            </Link>
-                                        </Menu.Item>
-                                        <Menu.Item as="div" >
-                                            <Link
-                                                draggable={false}
-                                                onClick={toggleDrawer}
-                                                className={linkClassName("/dashboard/lancamentos")}
-                                                href="/dashboard/lancamentos"
-                                            >
-                                                Lançamentos
-                                            </Link>
-                                        </Menu.Item>
-                                    </Menu.Items>
-                                </Menu>
-
-                                {role_id === 1 ?
-                                    <Menu as="div" className="relative p-3 bg-[#6964643d]">
-                                        <Menu.Button className="relative z-24 inline-flex w-full justify-between rounded-md bg-white bg-opacity-30 px-4 py-[10px] text-sm font-medium text-white hover:bg-opacity-80 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-90">
-                                            <span className="md-web:flex text-black font-bold text-base">Configurações</span>
-                                            <ChevronDownIcon className="ml-2 -mr-1 h-5 w-5 text-black hover:text-[#CE466F]" aria-hidden="true" />
-                                        </Menu.Button>
-
-                                        <Menu.Items className="right-0 mt-2 w-full origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                                            <Menu.Item as="div">
-                                                <Link
-                                                    draggable={false}
-                                                    onClick={toggleDrawer}
-                                                    className={linkClassName("/configuracoes/usuarios")}
-                                                    href="/configuracoes/usuarios"
-                                                >
-                                                    Usuários
-                                                </Link>
-                                            </Menu.Item>
-                                            <Menu.Item as="div" >
-                                                <Link
-                                                    draggable={false}
-                                                    onClick={toggleDrawer}
-                                                    className={linkClassName("/configuracoes/perfil-acesso")}
-                                                    href="/configuracoes/perfil-acesso"
-                                                >
-                                                    Perfil de Acesso
-                                                </Link>
-                                            </Menu.Item>
-                                        </Menu.Items>
-                                    </Menu>
-
-
-                                    : null
-                                }
-
-
-
-                            </div>
-                        </motion.div>
-                    </>
-                )}
-            </AnimatePresence>
-        </>
+  const linkClassName = (href: string) =>
+    clsx(
+      'font-semibold flex w-full items-center rounded-md p-4 text-sm hover:bg-slate-200',
+      { 'bg-selecaoLinha': pathname.startsWith(href) }
     );
+
+  const renderMenuItems = (links: typeof modulosLinks) => (
+    links.map((link) => (
+      <Menu.Item key={link.href} as="div">
+        <Link
+          href={link.href}
+          className={linkClassName(link.href)}
+          onClick={closeDrawer} // Fecha o drawer ao navegar
+          draggable={false}
+        >
+          {link.label}
+        </Link>
+      </Menu.Item>
+    ))
+  );
+
+  return (
+    <>
+      {/* Botão para abrir o Drawer */}
+      <button
+        onClick={openDrawer}
+        className="flex w-fit h-fit justify-center items-center p-2 ml-2 mr-4 rounded-md hover:bg-white hover:bg-opacity-20"
+        aria-label="Abrir menu"
+      >
+        <Bars3Icon className="h-7 w-7 text-violet-200 hover:text-[#CE466F]" aria-hidden="true" />
+      </button>
+
+      <AnimatePresence>
+        {isOpen && (
+          <>
+            {/* Backdrop (Fundo escurecido) */}
+            <motion.div
+              variants={backdropVariants}
+              initial="hidden"
+              animate="visible"
+              exit="hidden"
+              onClick={closeDrawer}
+              className="fixed inset-0 bg-black bg-opacity-30 z-40"
+            />
+
+            {/* Painel do Drawer */}
+            <motion.div
+              variants={drawerVariants}
+              initial="hidden"
+              animate="visible"
+              exit="hidden"
+              className="fixed top-0 left-0 bg-white shadow-2xl h-full w-full max-w-[210px] min-w-[200px] z-50"
+            >
+              <div className='flex flex-col w-full divide-y-4'>
+                <div className='flex justify-between px-4 items-center'>
+                  <h1 className='my-8 font-extrabold text-black'>Menu lateral</h1>
+                  <button onClick={closeDrawer} aria-label="Fechar menu">
+                    <Bars3Icon className="h-8 w-8 text-black hover:text-[#CE466F]" aria-hidden="true" />
+                  </button>
+                </div>
+
+                {/* Seção Módulos */}
+                <Menu as="div" className="relative p-3 bg-[#6964643d]">
+                  <Menu.Button className="relative inline-flex w-full justify-between rounded-md bg-white bg-opacity-30 px-4 py-[10px] text-sm font-medium text-black hover:bg-opacity-80 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-90">
+                    <span className="font-bold text-responsive">Módulos</span>
+                    <ChevronDownIcon className="ml-2 -mr-1 h-5 w-5" aria-hidden="true" />
+                  </Menu.Button>
+                  <Menu.Items className="right-0 mt-2 w-full origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                    {renderMenuItems(modulosLinks)}
+                  </Menu.Items>
+                </Menu>
+
+                {/* Seção Configurações (Condicional) */}
+                {session?.user?.role_id === 1 && (
+                  <Menu as="div" className="relative p-3 bg-[#6964643d]">
+                    <Menu.Button className="relative inline-flex w-full justify-between rounded-md bg-white bg-opacity-30 px-4 py-[10px] text-sm font-medium text-black hover:bg-opacity-80 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-90">
+                      <span className="font-bold text-responsive">Configurações</span>
+                      <ChevronDownIcon className="ml-2 -mr-1 h-5 w-5" aria-hidden="true" />
+                    </Menu.Button>
+                    <Menu.Items className="text-responsive right-0 mt-2 w-full origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                      {renderMenuItems(configuracoesLinks)}
+                    </Menu.Items>
+                  </Menu>
+                )}
+              </div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
+    </>
+  );
 }
 
-export default DrawerOpenClose;
+export default Drawer;

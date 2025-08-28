@@ -103,7 +103,7 @@ const CrudFav: React.FC<Props> = () => {
                 <div className='h-fit flex flex-col py-1 items-center mt-1 mb-[6px]'>
                     <div className='w-full flex flex-col'>
                         <div className='flex justify-between w-full'>
-                            <Link href={'/dashboard/cadastros'} title="voltar" className="absolute left-[250px] top-[72px]">
+                            <Link href={'/dashboard/cadastros'} title="voltar" className="absolute left-[208px] top-[72px]">
                                 <div className='group items-center flex md:py-2 py-1 md:px-4 px-4 mx-4 border border-transparent text-base font-medium rounded-md hover:bg-slate-200 text-slate-400'>
                                     <ArrowLeftIcon className=" h-7 w-5 text-center mx-3" aria-hidden="true" />
                                     <span className='hidden md:block'>Voltar</span>

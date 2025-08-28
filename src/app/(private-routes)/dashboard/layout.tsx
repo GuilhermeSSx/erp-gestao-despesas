@@ -1,17 +1,25 @@
-import SideMenu from "@/app/components/dashboard/SideMenu";
+'use client';
 
+import SideNav from '@/app/components/dashboard/sidenav';
+import { useState } from 'react';
 
-function DashboardLayout({ children }: { children: React.ReactNode }) {
+export default function Layout({ children }: { children: React.ReactNode }) {
+    const [isCollapsed, setIsCollapsed] = useState(false);
+
     return (
-        <div className='flex h-full bg-gray-100 overflow-y-auto'>
-            <SideMenu />
-            <div className='flex-1 flex flex-col'>
-                <main>
-                    {children}
-                </main>
+        <div className="flex h-full flex-col md:flex-row">
+            {/* Menu lateral */}
+            <div
+                className={`transition-all duration-300 ${isCollapsed ? 'w-full md:w-20' : 'w-full md:w-[13rem]'
+                    }`}
+            >
+                <SideNav isCollapsed={isCollapsed} setIsCollapsed={setIsCollapsed} />
+            </div>
+
+            {/* Conteúdo principal */}
+            <div className="flex-grow md:overflow-y-auto">
+                {children}
             </div>
         </div>
-    )
+    );
 }
-
-export default DashboardLayout;

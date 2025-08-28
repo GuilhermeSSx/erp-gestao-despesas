@@ -12,7 +12,7 @@ export default async function CentroDeCusto() {
     const centro_custo = dataCentroCusto.centro_custo;
 
     return (
-        <div className="w-screen md-web:min-h-[calc(100dvh-60px)] h-[calc(100dvh-60px)] flex flex-col justify-center items-center ">
+        <div className="w-full md-web:min-h-[calc(100dvh-60px)] h-[calc(100dvh-60px)] flex flex-col justify-center items-center ">
             <CadastrarCentroCusto>
                 <TableCentroDeCustos centroCustos={centro_custo} />
             </CadastrarCentroCusto>

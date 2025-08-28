@@ -3,16 +3,13 @@ import React, { useState } from 'react';
 
 interface Lancamento {
     lancId: number;
-    lancVencimento: string;
     lancData: string;
-    lancClassificacao: string;
-    lancDescricao: string;
-    lancAutorizacao: string;
-    lancStatus: string;
     lancFavorecidos: string;
-    lancCentroCusto: string;
+    lancCategoria: string;
+    lancFormaPagamento: string;
     lancValor: number;
-    
+    lancStatus: string;
+    lancDetalhes?: () => void; // função para abrir detalhes
 }
 
 interface TableLancamentosProps {
@@ -29,53 +26,55 @@ const TableLancamentos: React.FC<TableLancamentosProps> = ({ lancamentos, onLanc
     };
 
     return (
-        <div className=" bg-[#00000083] rounded-lg h-full w-full overflow-auto">
+        <div className="bg-[#00000083] rounded-lg h-full w-full overflow-auto">
             <table className='w-full h-fit'>
                 <thead className='bg-gray-50 border-b-2 border-jpnrVerde sticky top-0'>
-                    <tr className='divide-x divide-gray-300'>
-                        <th className='w-[2%] p-[6px] text-sm font-semibold tracking-wide text-left bg-jpnrVerde'>Data Lançamento</th>
-                        <th className='w-[2%] p-[6px] text-sm font-semibold tracking-wide text-left'>Vencimento</th>
-                        <th className='w-[15%] p-[6px] text-sm font-semibold tracking-wide text-left'>Classificação</th>
-                        <th className='w-[25%] p-[6px] text-sm font-semibold tracking-wide text-left'>Descrição</th>
-                        <th className='w-[5%] p-[6px] text-sm font-semibold tracking-wide text-left'>Autorização</th>
-                        <th className='w-[5%] p-[6px] text-sm font-semibold tracking-wide text-left'>Status</th>
-                        <th className='w-[10%] p-[6px] text-sm font-semibold tracking-wide text-left'>Favorecido</th>
-                        <th className='w-[10%] p-[6px] text-sm font-semibold tracking-wide text-left'>Centro de Custo</th>
-                        <th className='w-[6%] p-[6px] text-sm font-semibold tracking-wide text-left'>Valor</th>
+                    <tr className='divide-x-2 divide-gray-500 '>
+                        <th className='w-[1%] p-[6px] text-responsive font-semibold tracking-wide text-left bg-slate-200'>Data</th>
+                        <th className='w-[34%] p-[6px] text-responsive font-semibold tracking-wide text-left bg-slate-200'>Favorecido</th>
+                        <th className='w-[34%] p-[6px] text-responsive font-semibold tracking-wide text-left bg-slate-200'>Categoria</th>
+                        <th className='w-[10%] p-[6px] text-responsive font-semibold tracking-wide text-left bg-slate-200'>Forma Pgto</th>
+                        <th className='w-[10%] p-[6px] text-responsive font-semibold tracking-wide text-left bg-slate-200'>Valor</th>
+                        <th className='w-[10%] p-[6px] text-responsive font-semibold tracking-wide text-left bg-slate-200'>Status</th>
+                        <th className='w-[1%] p-[6px] text-responsive font-semibold tracking-wide text-left bg-slate-200 select-none' />
                     </tr>
                 </thead>
-                <tbody className='divide-y divide-gray-500'>
-                    {lancamentos.map((lancamento, index) => {
-                        return (
-                            <tr
-                                key={lancamento.lancId}
-                                className={`hover:bg-slate-300 cursor-pointer h-8 divide-x-2 
-                                    ${selectedItem === lancamento ? 'bg-cyan-500'
-                                        :
-                                        (index % 2 === 0 ? 'bg-white' : 'bg-slate-200')
-                                    }`}
-                                onClick={(e) => {
-                                    e.stopPropagation(); // Impede a propagação do evento de clique para elementos pai
-                                    handleRowClick(lancamento)
-                                }}
-                            >
-                                <td className='p-2 text-sm text-gray-700 whitespace-nowrap font-semibold'>{lancamento.lancData}</td>
-                                <td className='p-2 text-sm text-gray-700 whitespace-nowrap'>{lancamento.lancVencimento}</td>
-                                <td className='p-2 text-sm text-gray-700 whitespace-nowrap'>{lancamento.lancClassificacao}</td>
-                                <td className='p-2 text-sm text-gray-700 whitespace-normal'>{lancamento.lancDescricao}</td>
-                                <td className='p-2 text-sm text-gray-700 whitespace-nowrap'>{lancamento.lancAutorizacao}</td>
-                                <td className='p-2 text-sm text-gray-700 whitespace-nowrap'>{lancamento.lancStatus}</td>
-                                <td className='p-2 text-sm text-gray-700 whitespace-nowrap'>{lancamento.lancFavorecidos}</td>
-                                <td className='p-2 text-sm text-gray-700 whitespace-nowrap'>{lancamento.lancCentroCusto}</td>
-                                <td className='p-2 text-sm text-gray-700 whitespace-nowrap'>{lancamento.lancValor}</td>
-
-                            </tr>
-                        );
-                    })}
+                <tbody className='divide-y divide-white'>
+                    {lancamentos.map((lancamento, index) => (
+                        <tr
+                            key={lancamento.lancId}
+                            className={`hover:bg-slate-300 cursor-pointer h-8 divide-x-2 
+                ${selectedItem?.lancId === lancamento.lancId ? 'bg-cyan-500' : (index % 2 === 0 ? 'bg-white' : 'bg-slate-200')}`}
+                            onClick={() => handleRowClick(lancamento)}
+                        >
+                            <td className='p-[5px] text-responsive text-gray-700 whitespace-nowrap font-semibold'>{lancamento.lancData}</td>
+                            <td className='p-[5px] text-responsive text-gray-700 whitespace-nowrap'>{lancamento.lancFavorecidos}</td>
+                            <td className='p-[5px] text-responsive text-gray-700 whitespace-nowrap'>{lancamento.lancCategoria}</td>
+                            <td className='p-[5px] text-responsive text-gray-700 whitespace-nowrap'>{lancamento.lancFormaPagamento}</td>
+                            <td className='p-[5px] text-responsive text-gray-700 whitespace-nowrap'>
+                                R$ {Number(lancamento.lancValor).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
+                            </td>
+                            <td className='p-[5px] text-responsive text-gray-700 whitespace-nowrap'>{lancamento.lancStatus}</td>
+                            <td className='p-[5px] text-base text-gray-700 whitespace-nowrap'>
+                                {lancamento.lancDetalhes && (
+                                    <button
+                                        onClick={(e) => {
+                                            e.stopPropagation(); // não dispara clique da linha
+                                            lancamento.lancDetalhes?.(); // abre detalhes
+                                            handleRowClick(lancamento); // garante que a linha fique selecionada
+                                        }}
+                                        className="hover:scale-110 duration-150"
+                                    >
+                                        🔍
+                                    </button>
+                                )}
+                            </td>
+                        </tr>
+                    ))}
                 </tbody>
             </table>
         </div>
-    )
-}
+    );
+};
 
 export default TableLancamentos;

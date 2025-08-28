@@ -16,10 +16,10 @@ export default function Cadastros() {
       animate={{ opacity: 1, x: 0, transition: { delay: 0.1 } }}
       exit={{ opacity: 0, x: 0 }}
 
-      className="w-full md-web:min-h-[calc(100dvh-60px)] h-[calc(100dvh-60px)] flex flex-col bg-slate-100 items-center select-none">
+      className="w-full md-web:min-h-[calc(100dvh-60px)] h-[calc(100dvh-60px)] flex flex-col items-center select-none">
       <div className='relative w-full '>
 
-        <div className="border-b border-gray-300 flex w-full justify-center items-center md-web:text-sm text-[10px] font-extrabold bg-white md:h-[120px] h-[60px]">
+        <div className="border-b border-gray-300 flex w-full justify-center items-center md-web:text-sm text-[10px] font-extrabold md:h-[120px] h-[60px]">
 
           <Link href={'/dashboard'} title="voltar">
             <div className='absolute left-0 top-3 group flex items-center md:py-8 py-1 md:px-4 px-4 mx-4 border border-transparent text-base font-medium rounded-md hover:bg-slate-200 text-slate-400'>

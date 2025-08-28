@@ -18,7 +18,7 @@ module.exports = {
         'md-1190': '1190px',
         'md-web': '470px',
         'sm-mobile': '360px',
-        '720p': {'max': '1280px'}, // Breakpoint para telas até 1280px
+        '720p': { 'max': '1280px' }, // Breakpoint para telas até 1280px
       },
       scale: {
         '80': '0.8', // Adiciona a escala de 80%
@@ -30,7 +30,10 @@ module.exports = {
       },
       height: {
         screen: ['100vh /* fallback for Opera, IE and etc. */', '100dvh'],
-      }
+      },
+      fontSize: {
+        responsive: 'clamp(0.650rem, 0.8vw, 0.875rem)',
+      },
     },
   },
   plugins: [

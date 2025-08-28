@@ -132,7 +132,7 @@ export default function Login() {
           pauseOnHover: true,
           draggable: true,
           progress: undefined,
-          theme: "light",  
+          theme: "light",
         });
 
       } else {
@@ -229,15 +229,16 @@ export default function Login() {
                   </div>
                 </div>
               ) : isAuthorized ? (
-                <motion.div 
-                  className="flex items-center "
+                <motion.div
                   initial={{ opacity: 0, x: -60 }}
                   animate={{ opacity: 1, x: 0 }}
                   exit={{ opacity: 0, x: -20 }}
                 >
-                  <span className="text-sm text-slate-500 px-2">Autenticado</span>
-                  <div className="w-full text-center">
-                    <FcOk size={22}/>
+                  <div className="flex items-center">
+                    <span className="text-sm text-slate-500 px-2">Autenticado</span>
+                    <div className="w-full text-center">
+                      <FcOk size={22} />
+                    </div>
                   </div>
                 </motion.div>
               ) : (
